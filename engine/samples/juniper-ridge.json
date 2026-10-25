@@ -1,0 +1,34 @@
+{
+  "slug": "sample-juniper-ridge-cedar-hollow",
+  "business_name": "Juniper Ridge Heating & Air",
+  "city": "Cedar Hollow",
+  "niche_palette": "home",
+  "phone": "(555) 014-2290",
+  "email": "office@example.com",
+  "address": "1200 Orchard Lane, Cedar Hollow",
+  "hero_title": "Heating and AC repair in Cedar Hollow, from a family that's done it since 1994.",
+  "hero_sub": "Furnaces, air conditioners and heat pumps fixed by the same local crew, with the price agreed before any work starts.",
+  "facts": ["Family-owned since 1994", "Licensed and insured", "Price agreed before work starts"],
+  "services_title": "Heating and cooling, start to finish",
+  "services_intro": "Repairs, tune-ups and new systems for homes across Cedar Hollow and nearby towns.",
+  "services": [
+    {"name": "Furnace repair", "text": "Gas and electric furnaces, all major brands."},
+    {"name": "AC repair", "text": "Warm air, odd noises or no cooling at all."},
+    {"name": "Heat pumps", "text": "Installs, repairs and seasonal checkups."},
+    {"name": "Tune-ups", "text": "Spring and fall maintenance that heads off breakdowns."},
+    {"name": "New systems", "text": "Sized for your home, with options at every budget."},
+    {"name": "Indoor air", "text": "Filters, humidifiers and duct cleaning."}
+  ],
+  "about_title": "A local crew, not a call center",
+  "about": [
+    "Juniper Ridge started in 1994 with one van and a promise to answer the phone. Thirty years later, the same family still runs it.",
+    "Every visit starts with a clear diagnosis and a price you agree to before any work begins."
+  ],
+  "hours": [
+    {"days": "Monday to Friday", "time": "7am to 6pm"},
+    {"days": "Saturday", "time": "8am to 2pm"},
+    {"days": "Sunday", "time": "Emergencies only"}
+  ],
+  "service_area": ["Cedar Hollow", "Maple Falls", "Brookside", "Pine Bluff"],
+  "sources": ["Fictional sample business for Tangerines Studio's own site"]
+}
