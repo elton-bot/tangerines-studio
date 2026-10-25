@@ -46,7 +46,7 @@ h1{font-stretch:82%;font-weight:800;font-size:clamp(2.5rem,5.4vw,4.6rem);line-he
 .btn.ghost{border:1.5px solid rgba(255,255,255,.55);color:#fff}
 .btn.ghost:hover{border-color:#fff}
 .hero .photo{position:relative;min-height:420px}
-.hero .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 50%}
+.hero .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 50%}
 .promise{background:var(--pine2);color:#fff}
 .promise ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr)}
 .promise li{padding:26px 28px 26px 0;display:flex;gap:14px;align-items:flex-start;font-weight:600;line-height:1.35}
@@ -65,10 +65,9 @@ h2{font-stretch:84%;font-weight:800;font-size:clamp(2rem,3.8vw,3.25rem);line-hei
 .svc-col dd{margin:0 0 28px;color:var(--ink2)}
 .about{background:var(--frost)}
 .about-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(32px,6vw,88px);align-items:center}
-.about-photos{display:grid;grid-template-columns:3fr 2fr;gap:16px;align-items:end}
+.about-photos{display:block}
 .about-photos img{border-radius:4px;width:100%;object-fit:cover}
-.about-photos img:first-child{aspect-ratio:4/5}
-.about-photos img:last-child{aspect-ratio:3/4;margin-bottom:48px}
+.about-photos img{aspect-ratio:4/3}
 .about h2{margin-bottom:24px}
 .about p{margin:0 0 18px;max-width:50ch}
 .checks{list-style:none;padding:0;margin:28px 0 0;border-top:1px solid #B9CDD3}
@@ -133,7 +132,7 @@ footer a{color:#fff}
 <a class="skip" href="#main">Skip to content</a>
 <header class="top">
   <div class="wrap bar">
-    <a class="brand" href="#main" aria-label="Juniper Ridge Heating and Air, home">
+    <a class="brand" href="#main">
       <svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true"><rect width="44" height="44" rx="8" fill="#18352B"/><path d="M5 31l11-14 7 9 5-6 11 11z" fill="#DCEBF0"/><path d="M5 31l11-14 4 5" fill="none" stroke="#8CC3D6" stroke-width="2"/></svg>
       <span><b>Juniper Ridge</b><small>Heating &amp; Air</small></span>
     </a>
@@ -153,7 +152,7 @@ footer a{color:#fff}
       </div>
     </div>
     <div class="photo">
-      <img src="img/heat-pump-1000.webp" srcset="img/heat-pump-640.webp 640w, img/heat-pump-1000.webp 1000w, img/heat-pump-1600.webp 1600w" sizes="(max-width:980px) 100vw, 50vw" width="1600" height="1067" alt="A heat pump unit installed beside a modern house" fetchpriority="high">
+      <img src="img/condenser-1000.webp" srcset="img/condenser-640.webp 640w, img/condenser-1000.webp 1000w, img/condenser-1600.webp 1600w" sizes="(max-width:980px) 100vw, 50vw" width="1600" height="1254" alt="An outdoor air conditioning unit beside a green hedge" fetchpriority="high">
     </div>
   </div>
   <div class="promise">
@@ -201,8 +200,7 @@ footer a{color:#fff}
   <section id="about" class="about" aria-labelledby="about-title">
     <div class="wrap about-grid">
       <div class="about-photos">
-        <img src="img/living-room-640.webp" srcset="img/living-room-640.webp 640w, img/living-room-1000.webp 1000w" sizes="(max-width:980px) 60vw, 30vw" width="1000" height="732" alt="A bright, comfortable living room" loading="lazy">
-        <img src="img/condenser-640.webp" width="640" height="502" alt="An outdoor air conditioning unit in the rain" loading="lazy">
+        <img src="img/living-room-640.webp" srcset="img/living-room-640.webp 640w, img/living-room-1000.webp 1000w" sizes="(max-width:980px) 90vw, 50vw" width="1000" height="666" alt="A warm family room with a fireplace and a gray sofa" loading="lazy">
       </div>
       <div>
         <p class="small-label">About us</p>

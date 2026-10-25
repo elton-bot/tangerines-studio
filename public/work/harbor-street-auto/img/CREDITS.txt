@@ -1,5 +1,8 @@
-Photos in this folder: Unsplash, free Unsplash License (not Unsplash+), downloaded 25 Oct 2026 for Tangerines Studio's sample sites.
-The individual photo page URLs were not recorded at download time. Keep or replace these photos; if you add or replace any, list each file with its Unsplash page URL below.
+Photos in this folder: Unsplash, free Unsplash License (not Unsplash+). Sample site for a fictional business.
 
-25 Oct 2026, B-0001: the *-640/-1000/-1600.webp files are resized WebP copies of the JPGs above, made by Tangerines Studio for faster pages.
-engine.jpg was retouched to remove a carmaker emblem from the engine cover and the oil bottle (allowed by the Unsplash License). shop.jpg was removed because it showed a carmaker's name.
+engine.jpg (and engine-*.webp): https://unsplash.com/photos/erWc6mrOq_I
+mechanic.jpg (and mechanic-*.webp): https://unsplash.com/photos/2K_-PG95qlI
+tire.jpg (and tire-*.webp): https://unsplash.com/photos/9uHal2Dd9aE
+
+Downloaded 25 Oct 2026 (B-0001). Page URLs matched and recorded 25 Oct 2026.
+The *-640/-1000/-1600.webp files are resized WebP copies made by Tangerines Studio for faster pages.
