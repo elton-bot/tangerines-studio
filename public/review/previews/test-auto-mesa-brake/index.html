@@ -3,8 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow, noarchive">
-<title>Mesa Brake &amp; Transmission | Dry Creek (concept by Tangerines Studio)</title>
+<meta name="robots" content="noindex, nofollow, noarchive"><title>Mesa Brake &amp; Transmission | Dry Creek (concept by Tangerines Studio)</title>
 <meta name="description" content="Brake jobs, transmission service and rebuilds, and general repair for cars and light trucks. We show you the problem before we fix it.">
 <meta name="theme-color" content="#121417">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2032%2032%27%3E%3Crect%20width%3D%2732%27%20height%3D%2732%27%20rx%3D%277%27%20fill%3D%27%23121417%27/%3E%3Ctext%20x%3D%2716%27%20y%3D%2721.5%27%20text-anchor%3D%27middle%27%20font-family%3D%27Arial%2Csans-serif%27%20font-weight%3D%27700%27%20font-size%3D%2714%27%20fill%3D%27%23fff%27%3EM%3C/text%3E%3C/svg%3E">
@@ -124,7 +123,18 @@ label{display:block;font-weight:600;font-size:.9375rem}
 .full{grid-column:1/-1}
 input,select,textarea{display:block;width:100%;margin-top:6px;font:inherit;font-size:1rem;padding:12px 14px;border:1.5px solid #8E939A;border-radius:0;background:#ECEDEB;color:var(--ink)}
 textarea{min-height:110px}
-button[disabled]{margin-top:20px;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:1.25rem;text-transform:uppercase;letter-spacing:.04em;background:#5C6168;color:#fff;border:0;padding:14px 24px;cursor:not-allowed}
+form button{margin-top:20px;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:1.25rem;text-transform:uppercase;letter-spacing:.04em;background:var(--yellow);color:var(--ink);border:0;padding:14px 24px;cursor:pointer}
+form button:hover{filter:brightness(1.08)}
+form button[disabled]{background:#5C6168;color:#fff;cursor:not-allowed;filter:none}
+.form-done{background:var(--paper);color:var(--ink);padding:clamp(24px,3.5vw,40px);border-left:6px solid var(--yellow)}
+.form-done p{margin:0 0 8px}
+.page-hero .inner{grid-template-columns:minmax(0,1fr)!important;padding-top:clamp(56px,7vw,104px);padding-bottom:clamp(64px,7vw,104px)}
+.page-hero h1{max-width:18ch}
+.checks.wide{grid-column:1/-1}
+.checks small{display:block;font-family:"Barlow",sans-serif;font-weight:400;font-size:1rem;text-transform:none;color:var(--muted);margin-top:4px;letter-spacing:0}
+.prose-sec+.prose-sec{padding-top:0}
+.gallery{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.gallery img{width:100%;aspect-ratio:4/3;object-fit:cover}
 footer{background:var(--deep);color:#B4B9C0;padding:44px 0 56px;font-size:.9375rem}
 .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px}
 .foot p{margin:0}
@@ -136,6 +146,7 @@ footer a{color:#fff}
   .strip li:nth-child(odd){padding-left:0;border-left:0}
   .strip li:nth-child(n+3){border-top:2px solid rgba(18,20,23,.2)}
   .board{grid-template-columns:1fr 1fr}
+  .gallery{grid-template-columns:1fr 1fr}
   .hero.type .inner,.about-grid,.about-grid.solo,.visit-grid,.contact-grid{grid-template-columns:1fr}
   .quotes{grid-template-columns:1fr}
 }
@@ -161,18 +172,20 @@ footer a{color:#fff}
 .concept-note a{color:#fff;text-underline-offset:3px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .skip{position:absolute;left:-9999px}.skip:focus{left:16px;top:44px;background:#fff;color:#000;padding:8px 12px;z-index:30}
+.hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+.form-status{margin:16px 0 0;font-weight:600}
+.form-status:empty{display:none}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
 </head>
 <body>
-<p class="concept-note" style="margin:0">Concept for Mesa Brake &amp; Transmission by <a href="https://tangerinesstudio.com/">Tangerines Studio</a>. Not the official website. A fictional business, used to test our designs.</p>
-<a class="skip" href="#main">Skip to content</a>
+<p class="concept-note" style="margin:0">Concept for Mesa Brake &amp; Transmission by <a href="https://tangerinesstudio.com/">Tangerines Studio</a>. Not the official website. A fictional business, used to test our designs.</p><a class="skip" href="#main">Skip to content</a>
 <header class="top">
   <div class="wrap bar">
     <a class="brand" href="#main">
       <span class="tag" aria-hidden="true">M</span><span class="wm">Mesa<small>Brake &amp; Transmission</small></span>
     </a>
-    <nav class="main" aria-label="Main"><ul><li><a href="#services">Services</a></li><li><a href="#about">About</a></li><li><a href="#visit">Hours and location</a></li><li><a href="#contact">Contact</a></li></ul></nav>
+    <nav class="main" aria-label="Main"><ul><li><a href="#services">Services</a></li><li><a href="#about">About</a></li><li><a href="#visit">Hours</a></li><li><a href="#contact">Contact</a></li></ul></nav>
 <a class="btn y" href="tel:+15550127745">(555) 012-7745</a>  </div>
 </header>
 <main id="main">
@@ -192,7 +205,7 @@ footer a{color:#fff}
     </div>
   </div>
   <div class="strip"><div class="wrap"><ul><li>Free brake checks</li><li>We show you the problem first</li><li>Cars and light trucks</li></ul></div></div>
-  <section id="services" class="dark" aria-labelledby="svc-title">
+    <section id="services" class="dark" aria-labelledby="svc-title">
     <div class="wrap">
       <div class="head">
         <h2 id="svc-title">What we work on</h2>
@@ -201,14 +214,14 @@ footer a{color:#fff}
 <li><span class="no">01</span><h3>Brake repair</h3><p>Pads, rotors, calipers and brake lines.</p></li><li><span class="no">02</span><h3>Transmission service</h3><p>Fluid service and repairs for automatics and manuals.</p></li><li><span class="no">03</span><h3>Transmission rebuilds</h3><p>Rebuilt in our shop when a repair will not do.</p></li><li><span class="no">04</span><h3>Clutch replacement</h3><p>Slipping, grabbing or a pedal that feels wrong.</p></li><li><span class="no">05</span><h3>Check engine lights</h3><p>We read the codes and explain what they mean.</p></li><li><span class="no">06</span><h3>General repair</h3><p>Suspension, cooling systems, belts and hoses.</p></li>      </ul>
     </div>
   </section>
-  <section id="about" class="light" aria-labelledby="about-title">
+    <section id="about" class="light" aria-labelledby="about-title">
     <div class="wrap about-grid solo">
       <div>
         <h2 id="about-title">Two bays, one family</h2>
 <ul class="checks"><li><span>01</span>Free brake checks</li><li><span>02</span>We show you the problem first</li><li><span>03</span>Cars and light trucks</li></ul>      </div>
 <div><p class="first">Mesa is a two-bay shop run by a father and son. They do the work themselves.</p><p>Before any repair, they show you the worn part or the problem, and tell you the price.</p></div>    </div>
   </section>
-  <section id="visit" class="visit light" aria-labelledby="visit-title">
+    <section id="visit" class="visit light" aria-labelledby="visit-title">
     <div class="wrap">
       <div class="head"><h2 id="visit-title">Hours and location</h2></div>
       <div class="visit-grid">
@@ -223,24 +236,24 @@ footer a{color:#fff}
       </div>
     </div>
   </section>
-  <section id="contact" class="contact" aria-labelledby="est-title">
+    <section id="contact" class="contact" aria-labelledby="est-title">
     <div class="wrap contact-grid">
       <div>
         <h2 id="est-title">Get in touch</h2>
         <p class="intro">Call the shop or send a request.</p>
 <a class="bigtel" href="tel:+15550127745">(555) 012-7745</a><p class="mail"><a href="mailto:shop@example.com">shop@example.com</a></p>      </div>
-      <form aria-labelledby="form-title" onsubmit="return false">
-        <h3 id="form-title" class="sr">Service request</h3>
-        <p class="note">This preview's form is turned off. On the finished site, requests go straight to Mesa Brake &amp; Transmission's email.</p>
-        <fieldset disabled>
-          <label>Name<input name="name" autocomplete="name"></label>
-          <label>Phone<input name="phone" type="tel" autocomplete="tel"></label>
-          <label class="full">Year, make and model<input name="vehicle"></label>
-          <label class="full">What is the car doing?<textarea name="message"></textarea></label>
-        </fieldset>
-        <button type="submit" disabled>Send request</button>
-      </form>
-    </div>
+<div class="form-wrap"><form aria-labelledby="form-title" onsubmit="return false">
+  <h3 id="form-title" class="sr">Service request</h3>
+<p class="note">This preview's form is turned off. On the finished site, requests go straight to Mesa Brake &amp; Transmission's email.</p>  <fieldset disabled>
+    <label>Name<input name="name" autocomplete="name" required maxlength="100"></label>
+    <label>Phone<input name="phone" type="tel" autocomplete="tel" maxlength="40"></label>
+    <label class="full">Email<input name="email" type="email" autocomplete="email" maxlength="200"></label>
+    <label class="full">Year, make and model<input name="vehicle" maxlength="120"></label>
+    <label class="full">What is the car doing?<textarea name="message" maxlength="3000"></textarea></label>
+  </fieldset>
+  <button type="submit" disabled>Send request</button>
+</form>
+</div>    </div>
   </section>
 </main>
 <footer>

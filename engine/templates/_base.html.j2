@@ -3,9 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow, noarchive">
+{% set live = (mode == "client" and b.launched and b.live_domain) %}
+{% if not live %}<meta name="robots" content="noindex, nofollow, noarchive">{% endif %}
+{% if mode == "preview" %}
 <title>{{ b.business_name }}{% if b.city %} | {{ b.city }}{% endif %} (concept by Tangerines Studio)</title>
-<meta name="description" content="{{ b.hero_sub }}">
+{% elif page %}
+<title>{{ page.title }} | {{ b.business_name }}</title>
+{% else %}
+<title>{{ b.seo_title or (b.business_name ~ ((" | " ~ b.city) if b.city else "")) }}</title>
+{% endif %}
+<meta name="description" content="{{ (page.description or page.intro) if page and (page.description or page.intro) else (b.seo_description or b.hero_sub) }}">
+{% if live %}<link rel="canonical" href="https://{{ b.live_domain }}/{% if page %}{{ page.slug }}/{% endif %}">{% endif %}
 <meta name="theme-color" content="{{ p.main }}">
 <link rel="icon" href="data:image/svg+xml,{{ ('<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 32 32\'><rect width=\'32\' height=\'32\' rx=\'7\' fill=\'' ~ p.main ~ '\'/><text x=\'16\' y=\'21.5\' text-anchor=\'middle\' font-family=\'Arial,sans-serif\' font-weight=\'700\' font-size=\'14\' fill=\'#fff\'>' ~ b.initials ~ '</text></svg>') | urlencode }}">
 {% block fontpreload %}{% endblock %}
@@ -15,13 +23,39 @@
 .concept-note a{color:#fff;text-underline-offset:3px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .skip{position:absolute;left:-9999px}.skip:focus{left:16px;top:44px;background:#fff;color:#000;padding:8px 12px;z-index:30}
+.hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+.form-status{margin:16px 0 0;font-weight:600}
+.form-status:empty{display:none}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 {{ refine_css | safe }}
 </style>
 </head>
 <body>
-<p class="concept-note" style="margin:0">Concept for {{ b.business_name }} by <a href="https://tangerinesstudio.com/">Tangerines Studio</a>. Not the official website.{% if b.fictional %} A fictional business, used to test our designs.{% endif %}</p>
+{% if mode == "client" and b.demo %}<p class="concept-note" style="margin:0">Demo of a client site by <a href="https://tangerinesstudio.com/">Tangerines Studio</a>, for a fictional business.</p>{% endif %}
+{% if mode == "preview" %}<p class="concept-note" style="margin:0">Concept for {{ b.business_name }} by <a href="https://tangerinesstudio.com/">Tangerines Studio</a>. Not the official website.{% if b.fictional %} A fictional business, used to test our designs.{% endif %}</p>{% endif %}
 <a class="skip" href="#main">Skip to content</a>
 {% block body %}{% endblock %}
+{% if mode == "client" and b.form != false %}
+<script>
+(function(){
+  var forms=document.querySelectorAll('form[data-live]');if(!forms.length||!window.fetch)return;
+  forms.forEach(function(f){
+    var st=f.querySelector('.form-status'),done=f.parentNode.querySelector('.form-done');
+    if(/form=sent/.test(location.search)&&done){f.hidden=true;done.hidden=false;}
+    f.addEventListener('submit',function(ev){
+      ev.preventDefault();
+      var data={};for(var i=0;i<f.elements.length;i++){var el=f.elements[i];if(el.name)data[el.name]=el.value;}
+      data.page=location.pathname;
+      if(!data.name||!(data.phone||data.email)){st.textContent='Please add your name and a phone number or email.';return;}
+      var btn=f.querySelector('button[type=submit]');btn.disabled=true;st.textContent='Sending...';
+      fetch(f.action,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(data)})
+        .then(function(r){return r.json().catch(function(){return {ok:false}})})
+        .then(function(d){btn.disabled=false;if(d.ok){f.hidden=true;if(done){done.hidden=false;done.focus();}return;}st.textContent=d.error||'Sorry, that did not go through. Please call or email instead.';})
+        .catch(function(){btn.disabled=false;st.textContent='Sorry, that did not go through. Please call or email instead.';});
+    });
+  });
+})();
+</script>
+{% endif %}
 </body>
 </html>

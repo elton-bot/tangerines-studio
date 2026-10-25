@@ -1,13 +1,13 @@
 {% extends "_base.html.j2" %}
 {% import "_macros.html.j2" as m %}
 {# Auto repair theme. Direct, shop-floor, high contrast. Matches /work/harbor-street-auto/ #}
-{% block fontpreload %}<link rel="preload" href="fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>{% endblock %}
+{% block fontpreload %}<link rel="preload" href="{{ root }}fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ root }}fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>{% endblock %}
 {% block css %}
-@font-face{font-family:"Barlow Condensed";src:url(fonts/barlow-condensed-700.woff2) format("woff2");font-weight:700;font-display:swap}
-@font-face{font-family:"Barlow Condensed";src:url(fonts/barlow-condensed-600.woff2) format("woff2");font-weight:600;font-display:swap}
-@font-face{font-family:"Barlow";src:url(fonts/barlow-400.woff2) format("woff2");font-weight:400;font-display:swap}
-@font-face{font-family:"Barlow";src:url(fonts/barlow-600.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Barlow Condensed";src:url({{ root }}fonts/barlow-condensed-700.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Barlow Condensed";src:url({{ root }}fonts/barlow-condensed-600.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Barlow";src:url({{ root }}fonts/barlow-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Barlow";src:url({{ root }}fonts/barlow-600.woff2) format("woff2");font-weight:600;font-display:swap}
 :root{--asphalt:{{ p.main }};--steel:{{ p.main2 }};--concrete:{{ p.tint }};--paper:{{ p.bg }};--yellow:{{ p.accent }};--ink:{{ p.ink }};--muted:{{ p.ink2 }};--dmuted:{{ p.on_main_muted or "#B4B9C0" }};--line:{{ p.line }};--deep:{{ p.deep }}}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
@@ -118,7 +118,18 @@ label{display:block;font-weight:600;font-size:.9375rem}
 .full{grid-column:1/-1}
 input,select,textarea{display:block;width:100%;margin-top:6px;font:inherit;font-size:1rem;padding:12px 14px;border:1.5px solid #8E939A;border-radius:0;background:#ECEDEB;color:var(--ink)}
 textarea{min-height:110px}
-button[disabled]{margin-top:20px;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:1.25rem;text-transform:uppercase;letter-spacing:.04em;background:#5C6168;color:#fff;border:0;padding:14px 24px;cursor:not-allowed}
+form button{margin-top:20px;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:1.25rem;text-transform:uppercase;letter-spacing:.04em;background:var(--yellow);color:var(--ink);border:0;padding:14px 24px;cursor:pointer}
+form button:hover{filter:brightness(1.08)}
+form button[disabled]{background:#5C6168;color:#fff;cursor:not-allowed;filter:none}
+.form-done{background:var(--paper);color:var(--ink);padding:clamp(24px,3.5vw,40px);border-left:6px solid var(--yellow)}
+.form-done p{margin:0 0 8px}
+.page-hero .inner{grid-template-columns:minmax(0,1fr)!important;padding-top:clamp(56px,7vw,104px);padding-bottom:clamp(64px,7vw,104px)}
+.page-hero h1{max-width:18ch}
+.checks.wide{grid-column:1/-1}
+.checks small{display:block;font-family:"Barlow",sans-serif;font-weight:400;font-size:1rem;text-transform:none;color:var(--muted);margin-top:4px;letter-spacing:0}
+.prose-sec+.prose-sec{padding-top:0}
+.gallery{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.gallery img{width:100%;aspect-ratio:4/3;object-fit:cover}
 footer{background:var(--deep);color:#B4B9C0;padding:44px 0 56px;font-size:.9375rem}
 .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px}
 .foot p{margin:0}
@@ -130,6 +141,7 @@ footer a{color:#fff}
   .strip li:nth-child(odd){padding-left:0;border-left:0}
   .strip li:nth-child(n+3){border-top:2px solid rgba(18,20,23,.2)}
   .board{grid-template-columns:1fr 1fr}
+  .gallery{grid-template-columns:1fr 1fr}
   .hero.type .inner,.about-grid,.about-grid.solo,.visit-grid,.contact-grid{grid-template-columns:1fr}
   .quotes{grid-template-columns:1fr}
 }
@@ -153,58 +165,8 @@ footer a{color:#fff}
 }
 {% endblock %}
 {% block body %}
-<header class="top">
-  <div class="wrap bar">
-    <a class="brand" href="#main">
-      {% if b.logo_url %}
-      <span class="plate"><img class="logo" src="{{ b.logo_url.src }}" width="{{ b.logo_url.width }}" height="{{ b.logo_url.height }}" alt="{{ b.business_name }}"></span>
-      {% else %}
-      <span class="tag" aria-hidden="true">{{ b.initials }}</span><span class="wm">{{ b.wm_main }}{% if b.wm_sub or b.city %}<small>{{ b.wm_sub or b.city }}</small>{% endif %}</span>
-      {% endif %}
-    </a>
-    <nav class="main" aria-label="Main"><ul><li><a href="#services">Services</a></li><li><a href="#about">About</a></li>{% if b.hours or b.address %}<li><a href="#visit">{% if b.hours and b.address %}Hours and location{% elif b.hours %}Hours{% else %}Location{% endif %}</a></li>{% endif %}<li><a href="#contact">Contact</a></li></ul></nav>
-    {% if b.phone %}<a class="btn y" href="tel:{{ b.phone_digits }}">{{ b.phone }}</a>{% else %}<a class="btn y" href="#contact">Contact</a>{% endif %}
-  </div>
-</header>
-<main id="main">
-  {% if b.hero_image_url %}
-  <div class="hero photo">
-    {{ m.img(b.hero_image_url, b.hero_image_alt or ("Photo from " ~ b.business_name), "100vw", eager=True) }}
-    <div class="wrap inner">
-      {% if b.kicker or b.city %}<p class="loc">{{ b.kicker or b.city }}</p>{% endif %}
-      <h1 class="{{ b.title_size }}">{{ b.hero_title }}</h1>
-      <p class="lede">{{ b.hero_sub }}</p>
-      <div class="actions">
-        {% if b.phone %}<a class="btn y" href="tel:{{ b.phone_digits }}">Call {{ b.phone }}</a>{% endif %}
-        <a class="btn {{ 'o' if b.phone else 'y' }}" href="#contact">{{ b.cta_label or "Send a request" }}</a>
-      </div>
-    </div>
-  </div>
-  {% else %}
-  <div class="hero type">
-    <span class="big-init" aria-hidden="true">{{ b.initials }}</span>
-    <div class="wrap inner">
-      <div>
-        {% if b.kicker or b.city %}<p class="loc">{{ b.kicker or b.city }}</p>{% endif %}
-        <h1 class="{{ b.title_size }}">{{ b.hero_title }}</h1>
-        <p class="lede">{{ b.hero_sub }}</p>
-        <div class="actions">
-          {% if b.phone %}<a class="btn y" href="tel:{{ b.phone_digits }}">Call {{ b.phone }}</a>{% endif %}
-          <a class="btn {{ 'o' if b.phone else 'y' }}" href="#contact">{{ b.cta_label or "Send a request" }}</a>
-        </div>
-      </div>
-      <div class="ticket">
-        {% if b.phone %}<p class="k">Call the shop</p><a class="tel" href="tel:{{ b.phone_digits }}">{{ b.phone }}</a>
-        {% else %}<p class="k">Email the shop</p><a class="tel" style="font-size:1.5rem" href="mailto:{{ b.email }}">{{ b.email }}</a>{% endif %}
-        {% if b.hours %}<table><caption class="sr">Hours</caption><tbody>{% for h in b.hours[:4] %}<tr><th scope="row">{{ h.days }}</th><td>{{ h.time }}</td></tr>{% endfor %}</tbody></table>{% endif %}
-      </div>
-    </div>
-  </div>
-  {% endif %}
-  {% if b.facts %}
-  <div class="strip"><div class="wrap"><ul>{% for f in b.facts %}<li>{{ f }}</li>{% endfor %}</ul></div></div>
-  {% endif %}
-
+{% set contact_href = contact_href or "#contact" %}
+{% macro sec_services() %}
   <section id="services" class="dark" aria-labelledby="svc-title">
     <div class="wrap">
       <div class="head">
@@ -217,6 +179,8 @@ footer a{color:#fff}
     </div>
   </section>
 
+{% endmacro %}
+{% macro sec_about() %}
   <section id="about" class="light" aria-labelledby="about-title">
     <div class="wrap about-grid{% if not b.about_image_url %} solo{% endif %}">
       <div>
@@ -224,11 +188,13 @@ footer a{color:#fff}
         {% if b.about_image_url %}{% for para in b.about %}<p{% if loop.first %} class="first"{% endif %}>{{ para }}</p>{% endfor %}
         {% elif b.facts %}<ul class="checks">{% for f in b.facts %}<li><span>{{ "%02d" % loop.index }}</span>{{ f }}</li>{% endfor %}</ul>{% endif %}
       </div>
-      {% if b.about_image_url %}<figure style="margin:0">{{ m.img(b.about_image_url, b.about_image_alt or ("Photo from " ~ b.business_name), "(max-width:1000px) 90vw, 45vw") }}</figure>
+      {% if b.about_image_url %}<figure style="margin:0">{{ m.img(b.about_image_url, b.about_image_alt or ("Photo from " ~ b.business_name), "(max-width:1000px) 90vw, 45vw", root=root) }}</figure>
       {% else %}<div>{% for para in b.about %}<p{% if loop.first %} class="first"{% endif %}>{{ para }}</p>{% endfor %}</div>{% endif %}
     </div>
   </section>
 
+{% endmacro %}
+{% macro sec_reviews() %}
   {% if b.reviews %}
   <section class="reviews light" aria-labelledby="rev-title">
     <div class="wrap">
@@ -241,6 +207,8 @@ footer a{color:#fff}
   </section>
   {% endif %}
 
+{% endmacro %}
+{% macro sec_visit() %}
   {% if b.hours or b.address or b.service_area %}
   <section id="visit" class="visit light" aria-labelledby="visit-title">
     <div class="wrap">
@@ -267,6 +235,8 @@ footer a{color:#fff}
   </section>
   {% endif %}
 
+{% endmacro %}
+{% macro sec_contact() %}
   <section id="contact" class="contact" aria-labelledby="est-title">
     <div class="wrap contact-grid">
       <div>
@@ -275,29 +245,113 @@ footer a{color:#fff}
         {% if b.phone %}<a class="bigtel" href="tel:{{ b.phone_digits }}">{{ b.phone }}</a>{% endif %}
         {% if b.email %}<p class="mail"><a href="mailto:{{ b.email }}">{{ b.email }}</a></p>{% endif %}
       </div>
-      <form aria-labelledby="form-title" onsubmit="return false">
-        <h3 id="form-title" class="sr">Service request</h3>
-        <p class="note">{{ m.form_note(b) }}</p>
-        <fieldset disabled>
-          <label>Name<input name="name" autocomplete="name"></label>
-          <label>Phone<input name="phone" type="tel" autocomplete="tel"></label>
-          <label class="full">Year, make and model<input name="vehicle"></label>
-          <label class="full">What is the car doing?<textarea name="message"></textarea></label>
-        </fieldset>
-        <button type="submit" disabled>Send request</button>
-      </form>
+      {% if mode == "preview" or b.form != false %}<div class="form-wrap">{{ m.form(b, mode, "note", "Service request", kind=b.form_kind or "vehicle", message_label="What is the car doing?") }}</div>{% endif %}
     </div>
   </section>
+{% endmacro %}
+{% macro sec_text(s) %}
+  <section class="prose-sec light" aria-labelledby="t-{{ s.id }}">
+    <div class="wrap about-grid{% if not s.image %} solo{% endif %}">
+      <div>
+        <h2 id="t-{{ s.id }}">{{ s.heading }}</h2>
+        {% if s.image %}{% for para in s.paragraphs or [] %}<p{% if loop.first %} class="first"{% endif %}>{{ para }}</p>{% endfor %}{% endif %}
+      </div>
+      {% if s.image %}<figure style="margin:0">{{ m.img(s.image, s.image_alt or ("Photo from " ~ b.business_name), "(max-width:1000px) 90vw, 45vw", root=root) }}</figure>
+      {% else %}<div>{% for para in s.paragraphs or [] %}<p{% if loop.first %} class="first"{% endif %}>{{ para }}</p>{% endfor %}</div>{% endif %}
+      {% if s.get("items") %}<ul class="checks wide">{% for it in s.get("items") %}<li><span>{{ "%02d" % loop.index }}</span><div>{{ it.name }}{% if it.text %}<small>{{ it.text }}</small>{% endif %}</div></li>{% endfor %}</ul>{% endif %}
+    </div>
+  </section>
+{% endmacro %}
+{% macro sec_gallery(s) %}
+  <section class="gallery-sec dark" aria-labelledby="g-{{ s.id }}">
+    <div class="wrap">
+      <div class="head"><h2 id="g-{{ s.id }}">{{ s.heading or "From the shop" }}</h2>{% if s.intro %}<p>{{ s.intro }}</p>{% endif %}</div>
+      <ul class="gallery">{% for g in s.images %}<li>{{ m.img(g, g.alt or ("Photo from " ~ b.business_name), "(max-width:760px) 90vw, 33vw", root=root) }}</li>{% endfor %}</ul>
+    </div>
+  </section>
+{% endmacro %}
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="{{ home_href or '#main' }}">
+      {% if b.logo_url %}
+      <span class="plate"><img class="logo" src="{{ root }}{{ b.logo_url.src }}" width="{{ b.logo_url.width }}" height="{{ b.logo_url.height }}" alt="{{ b.business_name }}{% if page %}, home{% endif %}"></span>
+      {% else %}
+      <span class="tag" aria-hidden="true">{{ b.initials }}</span><span class="wm">{{ b.wm_main }}{% if b.wm_sub or b.city %}<small>{{ b.wm_sub or b.city }}</small>{% endif %}</span>
+      {% endif %}
+    </a>
+    <nav class="main" aria-label="Main"><ul>{% for n in nav %}<li><a href="{{ n.href }}"{% if n.current %} aria-current="page"{% endif %}>{{ n.label }}</a></li>{% endfor %}</ul></nav>
+    {% if b.phone %}<a class="btn y" href="tel:{{ b.phone_digits }}">{{ b.phone }}</a>{% else %}<a class="btn y" href="{{ contact_href }}">Contact</a>{% endif %}
+  </div>
+</header>
+<main id="main">
+  {% if page %}
+  <div class="hero type page-hero">
+    <div class="wrap inner">
+      <div>
+        {% if page.label %}<p class="loc">{{ page.label }}</p>{% endif %}
+        <h1>{{ page.heading or page.title }}</h1>
+        {% if page.intro %}<p class="lede">{{ page.intro }}</p>{% endif %}
+      </div>
+    </div>
+  </div>
+  {% for s in page.sections %}
+  {% if s.type == "services" %}{{ sec_services() }}{% elif s.type == "about" %}{{ sec_about() }}{% elif s.type == "reviews" %}{{ sec_reviews() }}{% elif s.type == "visit" %}{{ sec_visit() }}{% elif s.type == "contact" %}{{ sec_contact() }}{% elif s.type == "gallery" %}{{ sec_gallery(s) }}{% else %}{{ sec_text(s) }}{% endif %}
+  {% endfor %}
+  {% else %}
+  {% if b.hero_image_url %}
+  <div class="hero photo">
+    {{ m.img(b.hero_image_url, b.hero_image_alt or ("Photo from " ~ b.business_name), "100vw", eager=True, root=root) }}
+    <div class="wrap inner">
+      {% if b.kicker or b.city %}<p class="loc">{{ b.kicker or b.city }}</p>{% endif %}
+      <h1 class="{{ b.title_size }}">{{ b.hero_title }}</h1>
+      <p class="lede">{{ b.hero_sub }}</p>
+      <div class="actions">
+        {% if b.phone %}<a class="btn y" href="tel:{{ b.phone_digits }}">Call {{ b.phone }}</a>{% endif %}
+        <a class="btn {{ 'o' if b.phone else 'y' }}" href="{{ contact_href }}">{{ b.cta_label or "Send a request" }}</a>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="hero type">
+    <span class="big-init" aria-hidden="true">{{ b.initials }}</span>
+    <div class="wrap inner">
+      <div>
+        {% if b.kicker or b.city %}<p class="loc">{{ b.kicker or b.city }}</p>{% endif %}
+        <h1 class="{{ b.title_size }}">{{ b.hero_title }}</h1>
+        <p class="lede">{{ b.hero_sub }}</p>
+        <div class="actions">
+          {% if b.phone %}<a class="btn y" href="tel:{{ b.phone_digits }}">Call {{ b.phone }}</a>{% endif %}
+          <a class="btn {{ 'o' if b.phone else 'y' }}" href="{{ contact_href }}">{{ b.cta_label or "Send a request" }}</a>
+        </div>
+      </div>
+      <div class="ticket">
+        {% if b.phone %}<p class="k">Call the shop</p><a class="tel" href="tel:{{ b.phone_digits }}">{{ b.phone }}</a>
+        {% else %}<p class="k">Email the shop</p><a class="tel" style="font-size:1.5rem" href="mailto:{{ b.email }}">{{ b.email }}</a>{% endif %}
+        {% if b.hours %}<table><caption class="sr">Hours</caption><tbody>{% for h in b.hours[:4] %}<tr><th scope="row">{{ h.days }}</th><td>{{ h.time }}</td></tr>{% endfor %}</tbody></table>{% endif %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% if b.facts %}
+  <div class="strip"><div class="wrap"><ul>{% for f in b.facts %}<li>{{ f }}</li>{% endfor %}</ul></div></div>
+  {% endif %}
+
+  {{ sec_services() }}
+  {{ sec_about() }}
+  {{ sec_reviews() }}
+  {{ sec_visit() }}
+  {{ sec_contact() }}
+  {% endif %}
 </main>
 <footer>
   <div class="wrap foot">
     <p>{{ b.business_name }}{% if b.address %}<br>{{ b.address }}{% endif %}</p>
     <p>{% if b.phone %}<a href="tel:{{ b.phone_digits }}">{{ b.phone }}</a><br>{% endif %}{% if b.email %}<a href="mailto:{{ b.email }}">{{ b.email }}</a>{% endif %}</p>
-    <p>A concept by <a href="https://tangerinesstudio.com/">Tangerines Studio</a>.<br>{% if b.domain %}Content from {{ b.domain }}.{% else %}Not the official website.{% endif %}</p>
+    <p>{{ m.footer_credit(b, mode) }}</p>
   </div>
 </footer>
 <div class="callbar">
   {% if b.phone %}<a class="btn y" href="tel:{{ b.phone_digits }}">Call the shop</a>{% endif %}
-  <a class="btn {{ 'o' if b.phone else 'y' }}" href="#contact">Request</a>
+  <a class="btn {{ 'o' if b.phone else 'y' }}" href="{{ contact_href }}">{{ "Request" if b.phone else "Contact" }}</a>
 </div>
 {% endblock %}

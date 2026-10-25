@@ -310,9 +310,8 @@ def validate(b: dict) -> list:
 
 # ---------- render ----------
 
-def render(spec_path: str, out_dir: str) -> Path:
-    spec_file = Path(spec_path)
-    b = json.loads(spec_file.read_text())
+def prepare(b: dict) -> tuple:
+    """Validate a spec and fill in derived fields. Returns (theme, palette)."""
     problems = validate(b)
     if problems:
         raise SystemExit("Spec not valid: " + "; ".join(problems))
@@ -320,7 +319,6 @@ def render(spec_path: str, out_dir: str) -> Path:
     p = build_palette(b, theme)
     for w in palette_warnings(p, theme):
         print("warning: " + w, file=sys.stderr)
-
     b["phone_digits"] = phone_digits(b.get("phone", ""))
     wm = b.get("wordmark")
     if isinstance(wm, list) and wm:
@@ -340,22 +338,26 @@ def render(spec_path: str, out_dir: str) -> Path:
     if b.get("address"):
         from urllib.parse import quote_plus
         b["map_url"] = "https://www.google.com/maps/search/?api=1&query=" + quote_plus(f"{b['business_name']}, {b['address']}")
+    b["visit_label"] = "Hours" if b["hours"] else ("Location" if b.get("address") else "Area")
+    b["slug"] = b.get("slug") or slugify(f"{b['business_name']} {b.get('city', '')}")
+    return theme, p
 
-    out = Path(out_dir)
-    slug = b.get("slug") or slugify(f"{b['business_name']} {b.get('city', '')}")
-    page_dir = out / slug
+
+def one_page_nav(b: dict) -> list:
+    nav = [{"label": "Services", "href": "#services"}, {"label": "About", "href": "#about"}]
+    if b["hours"] or b.get("address") or b["service_area"]:
+        nav.append({"label": b["visit_label"], "href": "#visit"})
+    nav.append({"label": "Contact", "href": "#contact"})
+    return nav
+
+
+def prepare_dirs(page_dir: Path, theme: str) -> None:
     page_dir.mkdir(parents=True, exist_ok=True)
     img_dir = page_dir / "img"
     if img_dir.is_dir():  # stale images from an earlier render
         for f in img_dir.iterdir():
-            if f.name != "CREDITS.txt" and re.match(r"(hero|about|logo)[.-]", f.name):
+            if f.name != "CREDITS.txt" and re.match(r"(hero|about|logo|sec)[.-]", f.name):
                 f.unlink()
-    for note in localize_images(b, page_dir, spec_file.parent):
-        print(note, file=sys.stderr)
-    if b.get("image_credits"):
-        img_dir.mkdir(exist_ok=True)
-        (img_dir / "CREDITS.txt").write_text("\n".join(b["image_credits"]) + "\n")
-
     font_dir = page_dir / "fonts"
     if font_dir.is_dir():
         shutil.rmtree(font_dir)
@@ -363,13 +365,41 @@ def render(spec_path: str, out_dir: str) -> Path:
     for f in FONTS[theme]:
         shutil.copy2(HERE / "fonts" / f, font_dir / f)
 
-    refine = page_dir / "refine.css"
-    refine_css = refine.read_text() if refine.is_file() else ""
 
-    env = Environment(loader=FileSystemLoader(str(HERE / "templates")), autoescape=select_autoescape(["html", "j2"]),
-                      trim_blocks=True, lstrip_blocks=True)
-    html = env.get_template(f"{theme}.html.j2").render(b=b, p=p, theme=theme, icon_phone=ICON_PHONE, refine_css=refine_css)
-    html = re.sub(r"\n\s*\n+", "\n", html)
+def write_credits(b: dict, page_dir: Path) -> None:
+    if b.get("image_credits"):
+        (page_dir / "img").mkdir(exist_ok=True)
+        (page_dir / "img" / "CREDITS.txt").write_text("\n".join(b["image_credits"]) + "\n")
+
+
+def environment() -> Environment:
+    return Environment(loader=FileSystemLoader(str(HERE / "templates")), autoescape=select_autoescape(["html", "j2"]),
+                       trim_blocks=True, lstrip_blocks=True)
+
+
+def render_html(env: Environment, theme_name: str, **ctx) -> str:
+    ctx.setdefault("icon_phone", ICON_PHONE)
+    ctx.setdefault("page", None)
+    ctx.setdefault("mode", "preview")
+    ctx.setdefault("root", "")
+    ctx.setdefault("refine_css", "")
+    ctx.setdefault("theme", theme_name)
+    html = env.get_template(f"{theme_name}.html.j2").render(**ctx)
+    return re.sub(r"\n\s*\n+", "\n", html)
+
+
+def render(spec_path: str, out_dir: str) -> Path:
+    spec_file = Path(spec_path)
+    b = json.loads(spec_file.read_text())
+    theme, p = prepare(b)
+    page_dir = Path(out_dir) / b["slug"]
+    prepare_dirs(page_dir, theme)
+    for note in localize_images(b, page_dir, spec_file.parent):
+        print(note, file=sys.stderr)
+    write_credits(b, page_dir)
+    refine = page_dir / "refine.css"
+    html = render_html(environment(), theme, b=b, p=p, mode="preview", nav=one_page_nav(b),
+                       refine_css=refine.read_text() if refine.is_file() else "")
     (page_dir / "index.html").write_text(html)
     return page_dir / "index.html"
 

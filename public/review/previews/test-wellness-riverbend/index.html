@@ -3,8 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow, noarchive">
-<title>Riverbend Physical Therapy | Linden Falls (concept by Tangerines Studio)</title>
+<meta name="robots" content="noindex, nofollow, noarchive"><title>Riverbend Physical Therapy | Linden Falls (concept by Tangerines Studio)</title>
 <meta name="description" content="One-on-one physical therapy for back and neck pain, sports injuries and recovery after surgery. Every visit is with a licensed physical therapist.">
 <meta name="theme-color" content="#1D2B30">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2032%2032%27%3E%3Crect%20width%3D%2732%27%20height%3D%2732%27%20rx%3D%277%27%20fill%3D%27%231D2B30%27/%3E%3Ctext%20x%3D%2716%27%20y%3D%2721.5%27%20text-anchor%3D%27middle%27%20font-family%3D%27Arial%2Csans-serif%27%20font-weight%3D%27700%27%20font-size%3D%2714%27%20fill%3D%27%23fff%27%3ER%3C/text%3E%3C/svg%3E">
@@ -109,14 +108,29 @@ label{display:block;font-weight:600;font-size:.9375rem}
 .full{grid-column:1/-1}
 input,select,textarea{display:block;width:100%;margin-top:6px;font:inherit;font-size:1rem;padding:12px 14px;border:1px solid #98A5A1;border-radius:6px;background:#EEF0EE;color:var(--ink)}
 textarea{min-height:110px}
-button[disabled]{margin-top:22px;font:inherit;font-weight:600;background:#6B7679;color:#fff;border:0;border-radius:999px;padding:14px 26px;cursor:not-allowed}
+form button{margin-top:22px;font:inherit;font-weight:600;background:var(--main);color:var(--paper);border:0;border-radius:999px;padding:14px 26px;cursor:pointer}
+form button:hover{background:var(--main2)}
+form button[disabled]{background:#6B7679;color:#fff;cursor:not-allowed}
+.form-done{background:var(--bg);color:var(--ink);border-radius:10px;padding:clamp(24px,3.5vw,44px)}
+.form-done p{margin:0 0 8px}
+.page-hero{padding-bottom:clamp(40px,5vw,72px)}
+.page-hero h1{max-width:18ch}
+.prose{max-width:860px}
+.prose.with-img{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(32px,7vw,112px);max-width:none;align-items:center}
+.prose p{max-width:60ch;margin:0 0 18px}
+.prose .svc-list{margin-top:28px}
+.prose-img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:6px}
+.prose-sec+.prose-sec{padding-top:0}
+.gallery{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.gallery img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:6px}
 footer{padding:48px 0 56px;font-size:.9375rem;color:var(--ink2)}
 .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;border-top:1px solid var(--line);padding-top:32px}
 .foot p{margin:0}
 .callbar{display:none}
 @media (max-width:1000px){
   nav.main{display:none}
-  .hero-grid,.svc-grid,.doc-grid,.doc-grid.solo,.visit-grid,.req-grid{grid-template-columns:1fr}
+  .hero-grid,.svc-grid,.doc-grid,.doc-grid.solo,.visit-grid,.req-grid,.prose.with-img{grid-template-columns:1fr}
+  .gallery{grid-template-columns:1fr 1fr}
   .hero-photo,.arch{max-width:520px}
   .facts ul,.quotes{grid-template-columns:1fr}
 }
@@ -137,20 +151,22 @@ footer{padding:48px 0 56px;font-size:.9375rem;color:var(--ink2)}
 .concept-note a{color:#fff;text-underline-offset:3px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .skip{position:absolute;left:-9999px}.skip:focus{left:16px;top:44px;background:#fff;color:#000;padding:8px 12px;z-index:30}
+.hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+.form-status{margin:16px 0 0;font-weight:600}
+.form-status:empty{display:none}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
 </head>
 <body>
-<p class="concept-note" style="margin:0">Concept for Riverbend Physical Therapy by <a href="https://tangerinesstudio.com/">Tangerines Studio</a>. Not the official website. A fictional business, used to test our designs.</p>
-<a class="skip" href="#main">Skip to content</a>
+<p class="concept-note" style="margin:0">Concept for Riverbend Physical Therapy by <a href="https://tangerinesstudio.com/">Tangerines Studio</a>. Not the official website. A fictional business, used to test our designs.</p><a class="skip" href="#main">Skip to content</a>
 <header>
   <div class="wrap bar">
     <a class="brand" href="#main">
       <svg width="30" height="48" viewBox="0 0 30 48" aria-hidden="true"><path d="M15 2v44" stroke="#1D2B30" stroke-width="1.5"/><circle cx="15" cy="9" r="5" fill="none" stroke="#1D2B30" stroke-width="1.5"/><path d="M9 22h12M10 30h10M11 38h8" stroke="#466760" stroke-width="1.5"/></svg>
       <span class="name">Riverbend<i>Physical Therapy</i></span>
     </a>
-    <nav class="main" aria-label="Main"><ul><li><a href="#care">Services</a></li><li><a href="#about">About</a></li><li><a href="#visit">Hours</a></li><li><a href="#request">Contact</a></li></ul></nav>
-    <div class="top-cta"><a class="tel" href="tel:+15550163308">(555) 016-3308</a><a class="btn dark" href="#request">Request a visit</a></div>
+    <nav class="main" aria-label="Main"><ul><li><a href="#services">Services</a></li><li><a href="#about">About</a></li><li><a href="#visit">Hours</a></li><li><a href="#contact">Contact</a></li></ul></nav>
+    <div class="top-cta"><a class="tel" href="tel:+15550163308">(555) 016-3308</a><a class="btn dark" href="#contact">Request a visit</a></div>
   </div>
 </header>
 <main id="main">
@@ -160,7 +176,7 @@ footer{padding:48px 0 56px;font-size:.9375rem;color:var(--ink2)}
 <p class="eyebrow">Physical therapy in Linden Falls</p>        <h1 id="hero-title" class="short">Get back to moving the way you want to.</h1>
         <p class="lede">One-on-one physical therapy for back and neck pain, sports injuries and recovery after surgery. Every visit is with a licensed physical therapist.</p>
         <div class="actions">
-<a class="btn dark" href="tel:+15550163308">Call (555) 016-3308</a>          <a class="btn line" href="#request">Send a request</a>
+<a class="btn dark" href="tel:+15550163308">Call (555) 016-3308</a>          <a class="btn line" href="#contact">Send a request</a>
         </div>
       </div>
       <figure class="hero-photo"><img src="img/hero-1000.webp" srcset="img/hero-640.webp 640w, img/hero-1000.webp 1000w, img/hero-1600.webp 1600w" sizes="(max-width:1000px) 90vw, 40vw" width="1600" height="1067" alt="A physical therapist guiding a patient&#39;s arm through a standing stretch" fetchpriority="high"></figure>
@@ -171,7 +187,7 @@ footer{padding:48px 0 56px;font-size:.9375rem;color:var(--ink2)}
       <div class="wrap"><ul><li><span class="n">One</span><b>One-on-one visits</b></li><li><span class="n">Two</span><b>No referral needed to start</b></li><li><span class="n">Three</span><b>Evening appointments</b></li></ul></div>
     </section>
   </div>
-  <section id="care" aria-labelledby="care-title">
+    <section id="services" aria-labelledby="care-title">
     <div class="wrap svc-grid">
       <div>
         <h2 id="care-title">What we treat</h2>
@@ -180,7 +196,7 @@ footer{padding:48px 0 56px;font-size:.9375rem;color:var(--ink2)}
 <li><h3>Back and neck pain</h3><p>Hands-on care and exercise for pain that keeps coming back.</p></li><li><h3>Sports injuries</h3><p>Sprains, strains and overuse injuries, with a plan to return to play.</p></li><li><h3>After surgery</h3><p>Rehab after knee, hip and shoulder surgery.</p></li><li><h3>Balance and falls</h3><p>Strength and balance work to help you feel steady again.</p></li><li><h3>Work injuries</h3><p>Care and paperwork for injuries that happened on the job.</p></li>      </ul>
     </div>
   </section>
-  <section id="about" class="doc" aria-labelledby="about-title">
+    <section id="about" class="doc" aria-labelledby="about-title">
     <div class="wrap doc-grid">
 <img src="img/about-1000.webp" srcset="img/about-640.webp 640w, img/about-1000.webp 1000w, img/about-1600.webp 1600w" sizes="(max-width:1000px) 90vw, 50vw" width="1600" height="1067" alt="A therapist working on a patient&#39;s shoulder on a treatment table" loading="lazy" decoding="async">      <div>
         <p class="eyebrow">About us</p>
@@ -188,7 +204,7 @@ footer{padding:48px 0 56px;font-size:.9375rem;color:var(--ink2)}
 <p>Riverbend is a small clinic with two physical therapists. You see the same therapist at every visit.</p><p>Visits are one-on-one, so the whole hour is about you.</p>      </div>
     </div>
   </section>
-  <section id="visit" aria-labelledby="visit-title">
+    <section id="visit" aria-labelledby="visit-title">
     <div class="wrap visit-grid">
       <div>
         <h2 id="visit-title">Hours</h2>
@@ -200,26 +216,26 @@ footer{padding:48px 0 56px;font-size:.9375rem;color:var(--ink2)}
       </div>
     </div>
   </section>
-  <section id="request" class="req on-dark" aria-labelledby="req-title">
+    <section id="contact" class="req on-dark" aria-labelledby="req-title">
     <div class="wrap req-grid">
       <div>
         <h2 id="req-title">Get in touch</h2>
         <p class="intro">Call or send a request.</p>
 <a class="bigtel" href="tel:+15550163308">(555) 016-3308</a><a class="mail" href="mailto:frontdesk@example.com">frontdesk@example.com</a>      </div>
-      <form aria-labelledby="form-title" onsubmit="return false">
-        <h3 id="form-title" class="sr">Appointment request</h3>
-        <p class="note">This preview's form is turned off. On the finished site, requests go straight to Riverbend Physical Therapy's email.</p>
-        <fieldset disabled>
-  <label>Name<input name="name" autocomplete="name"></label>
-  <label>Phone<input name="phone" type="tel" autocomplete="tel"></label>
-  <label class="full">What would you like help with?
-    <select name="service"><option>Back and neck pain</option><option>Sports injuries</option><option>After surgery</option><option>Balance and falls</option><option>Work injuries</option><option>Something else</option></select>
-  </label>
-  <label class="full">Anything we should know?<textarea name="message"></textarea></label>
-</fieldset>
-<button type="submit" disabled>Send request</button>
-      </form>
-    </div>
+<div class="form-wrap"><form aria-labelledby="form-title" onsubmit="return false">
+  <h3 id="form-title" class="sr">Appointment request</h3>
+<p class="note">This preview's form is turned off. On the finished site, requests go straight to Riverbend Physical Therapy's email.</p>  <fieldset disabled>
+    <label>Name<input name="name" autocomplete="name" required maxlength="100"></label>
+    <label>Phone<input name="phone" type="tel" autocomplete="tel" maxlength="40"></label>
+    <label class="full">Email<input name="email" type="email" autocomplete="email" maxlength="200"></label>
+    <label class="full">What would you like help with?
+      <select name="service"><option>Back and neck pain</option><option>Sports injuries</option><option>After surgery</option><option>Balance and falls</option><option>Work injuries</option><option>Something else</option></select>
+    </label>
+    <label class="full">Anything we should know?<textarea name="message" maxlength="3000"></textarea></label>
+  </fieldset>
+  <button type="submit" disabled>Send request</button>
+</form>
+</div>    </div>
   </section>
 </main>
 <footer>
@@ -230,7 +246,7 @@ footer{padding:48px 0 56px;font-size:.9375rem;color:var(--ink2)}
   </div>
 </footer>
 <div class="callbar">
-<a class="btn dark" href="tel:+15550163308">Call (555) 016-3308</a>  <a class="btn line" href="#request">Request</a>
+<a class="btn dark" href="tel:+15550163308">Call (555) 016-3308</a>  <a class="btn line" href="#contact">Request</a>
 </div>
 </body>
 </html>

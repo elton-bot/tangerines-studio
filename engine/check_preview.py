@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Check a rendered preview (or any page folder) before it ships.
 
-Usage: python3 engine/check_preview.py <page_dir> [--out DIR] [--concept]
+Usage: python3 engine/check_preview.py <page_dir> [--out DIR] [--concept] [--root DIR] [--live]
 
 <page_dir> is a folder with index.html, for example public/preview/<slug>.
 Serves the folder (or the public/ folder it sits in) on a local port, opens it in Chromium at 390x844 and 1440x900,
@@ -12,7 +12,7 @@ mobile.png, desktop.png, mobile-top.png, desktop-top.png) and checks:
 - every image loads (naturalWidth > 0), has an alt attribute (text on previews) and width/height; no failed requests
 - no leftover placeholders ({{, {%, TODO, lorem ipsum, None, undefined, PLACEHOLDER)
 - no em or en dashes and no exclamation marks in the text, title, meta or alt text
-- a noindex robots meta tag; exactly one h1; headings never skip a level
+- a noindex robots meta tag (not with --live, for launched client pages); exactly one h1; headings never skip a level
 - for previews (path under preview/, or --concept): the note
   "Concept for {business} by Tangerines Studio. Not the official website." at the very top
   and no enabled form fields or submit buttons
@@ -68,6 +68,8 @@ def main():
     ap.add_argument("page_dir")
     ap.add_argument("--out")
     ap.add_argument("--concept", action="store_true", help="check the concept note even outside preview/")
+    ap.add_argument("--root", help="serve this folder (the page must be inside it); default public/ when the page is in it")
+    ap.add_argument("--live", action="store_true", help="a launched client page: no noindex expected")
     a = ap.parse_args()
 
     page = Path(a.page_dir).resolve()
@@ -87,7 +89,10 @@ def main():
 
     # serve from public/ when the page lives in it, so absolute links (/fonts/, /img/) resolve
     root, sub = page, ""
-    if "public" in page.parts:
+    if a.root:
+        root = Path(a.root).resolve()
+        sub = str(page.relative_to(root)).strip(".") + "/" if page != root else ""
+    elif "public" in page.parts:
         i = len(page.parts) - 1 - page.parts[::-1].index("public")
         root = Path(*page.parts[:i + 1])
         sub = "/".join(page.parts[i + 1:]) + "/"
@@ -131,7 +136,7 @@ def main():
                     problems.append(f"exclamation mark: {text[max(0, m.start() - 40):m.end() + 10]!r}")
                 for m in DASHES.finditer(text):
                     problems.append(f"em or en dash in text: {text[max(0, m.start() - 40):m.end() + 10]!r}")
-                if "noindex" not in d["robots"]:
+                if not a.live and "noindex" not in d["robots"]:
                     problems.append("no noindex robots meta tag")
                 if d["heads"].count(1) != 1:
                     problems.append(f"expected one h1, found {d['heads'].count(1)}")

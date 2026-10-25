@@ -1,9 +1,9 @@
 {% extends "_base.html.j2" %}
 {% import "_macros.html.j2" as m %}
 {# Home services theme. Sturdy, local, family. Matches /work/juniper-ridge-heating-air/ #}
-{% block fontpreload %}<link rel="preload" href="fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>{% endblock %}
+{% block fontpreload %}<link rel="preload" href="{{ root }}fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>{% endblock %}
 {% block css %}
-@font-face{font-family:"Archivo";src:url(fonts/archivo.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-display:swap}
+@font-face{font-family:"Archivo";src:url({{ root }}fonts/archivo.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-display:swap}
 :root{--main:{{ p.main }};--main2:{{ p.main2 }};--tint:{{ p.tint }};--accent:{{ p.accent }};--bg:{{ p.bg }};--ink:{{ p.ink }};--ink2:{{ p.ink2 }};--line:{{ p.line }};--deep:{{ p.deep }}}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
@@ -115,7 +115,22 @@ label{display:block;font-weight:600;font-size:.9375rem}
 label.full{grid-column:1/-1}
 input,select,textarea{display:block;width:100%;margin-top:6px;font:inherit;font-size:1rem;padding:12px 14px;border:1.5px solid #8E9C95;border-radius:4px;background:#EEF1EF;color:var(--ink)}
 textarea{min-height:110px;resize:vertical}
-button[disabled]{margin-top:20px;font:inherit;font-weight:700;background:#55625C;color:#fff;border:0;border-radius:6px;padding:14px 22px;cursor:not-allowed}
+form button{margin-top:20px;font:inherit;font-weight:700;background:var(--main);color:#fff;border:0;border-radius:6px;padding:14px 22px;cursor:pointer}
+form button:hover{background:var(--main2)}
+form button[disabled]{background:#55625C;cursor:not-allowed}
+.form-done{background:var(--bg);color:var(--ink);border-radius:6px;padding:clamp(24px,3.5vw,40px)}
+.form-done p{margin:0 0 8px;color:var(--ink)}
+.page-hero .wrap{padding-top:clamp(48px,7vw,104px);padding-bottom:clamp(48px,6vw,88px)}
+.page-hero h1{max-width:20ch}
+.prose{display:grid;grid-template-columns:minmax(0,1fr);max-width:880px}
+.prose.with-img{grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(32px,6vw,88px);max-width:none;align-items:center}
+.prose h2{margin-bottom:24px}
+.prose p{margin:0 0 18px;max-width:62ch}
+.prose-sec+.prose-sec{padding-top:0}
+.svc.one-col{grid-template-columns:1fr;margin-top:28px}
+.svc.one-col li{padding:20px 0!important;border-left:0!important}
+.gallery{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px}
 footer{background:var(--deep);color:#C9D3CE;padding:48px 0 56px;font-size:.9375rem}
 .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px}
 .foot p{margin:0}
@@ -131,7 +146,8 @@ footer a{color:#fff}
   .promise ul{grid-template-columns:1fr}
   .promise li,.promise li+li{padding:16px 0;border-left:0;border-top:1px solid rgba(255,255,255,.2)}
   .promise li:first-child{border-top:0}
-  .sec-head,.about-grid,.about-grid.solo,.visit,.contact-grid{grid-template-columns:1fr}
+  .sec-head,.about-grid,.about-grid.solo,.visit,.contact-grid,.prose.with-img{grid-template-columns:1fr}
+  .gallery{grid-template-columns:1fr 1fr}
   .sec-head{gap:16px}
   .svc{grid-template-columns:1fr 1fr}
   .svc li,.svc li:not(:nth-child({{ b.svc_cols }}n+1)){padding:24px 24px 26px 0;border-left:0}
@@ -144,6 +160,7 @@ footer a{color:#fff}
   .brand .logo{height:44px;max-width:200px}
   .svc{grid-template-columns:1fr}
   .svc li,.svc li:nth-child(2n){padding:22px 0;border-left:0}
+  .gallery{grid-template-columns:1fr}
   fieldset{grid-template-columns:1fr}
   .callbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:20;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--line)}
   .callbar a{flex:1.6;justify-content:center;white-space:nowrap;padding:14px 12px;font-size:1rem}
@@ -154,67 +171,8 @@ footer a{color:#fff}
 {% endblock %}
 {% block body %}
 {% set tick %}<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" d="M4 12l5 5L20 6"/></svg>{% endset %}
-<header class="top">
-  <div class="wrap bar">
-    <a class="brand" href="#main">
-      {% if b.logo_url %}
-      <img class="logo" src="{{ b.logo_url.src }}" width="{{ b.logo_url.width }}" height="{{ b.logo_url.height }}" alt="{{ b.business_name }}">
-      {% else %}
-      <span class="mono" aria-hidden="true">{{ b.initials }}</span>
-      <span><b>{{ b.wm_main }}</b>{% if b.wm_sub %}<small>{{ b.wm_sub }}</small>{% endif %}</span>
-      {% endif %}
-    </a>
-    <nav class="main" aria-label="Main"><ul><li><a href="#services">Services</a></li><li><a href="#about">About</a></li>{% if b.hours or b.service_area or b.address %}<li><a href="#hours">{% if b.hours %}Hours{% else %}Visit{% endif %}</a></li>{% endif %}<li><a href="#contact">Contact</a></li></ul></nav>
-    {% if b.phone %}<a class="phone-btn" href="tel:{{ b.phone_digits }}">{{ icon_phone | safe }}{{ b.phone }}</a>{% else %}<a class="phone-btn" href="#contact">Contact us</a>{% endif %}
-  </div>
-</header>
-<main id="main">
-  {% if b.hero_image_url %}
-  <div class="hero photo-hero on-dark">
-    <div class="copy">
-      {% if b.kicker or b.city %}<p class="kicker">{{ b.kicker or b.city }}</p>{% endif %}
-      <h1 class="{{ b.title_size }}">{{ b.hero_title }}</h1>
-      <p class="lede">{{ b.hero_sub }}</p>
-      <div class="actions">
-        {% if b.phone %}<a class="btn light" href="tel:{{ b.phone_digits }}">Call {{ b.phone }}</a>{% endif %}
-        <a class="btn {{ 'ghost' if b.phone else 'light' }}" href="#contact">{{ b.cta_label or "Request service" }}</a>
-      </div>
-    </div>
-    <div class="photo">{{ m.img(b.hero_image_url, b.hero_image_alt or ("Photo from " ~ b.business_name), "(max-width:980px) 100vw, 50vw", eager=True) }}</div>
-  </div>
-  {% else %}
-  <div class="hero type-hero on-dark">
-    <svg class="roofs" viewBox="0 0 860 220" aria-hidden="true" focusable="false"><path d="M0 220V170l70-52 70 52v50M120 220v-82l95-70 95 70v82M290 220v-60l60-44 60 44v60M390 220V120l120-88 120 88v100M610 220v-70l80-58 80 58v70M750 220v-48l55-40 55 40" fill="none" stroke="{{ p.accent }}" stroke-opacity=".16" stroke-width="2"/><path d="M470 220v-46h80v46M182 220v-36h46v36" fill="none" stroke="{{ p.accent }}" stroke-opacity=".16" stroke-width="2"/></svg>
-    <div class="wrap">
-      <div>
-        {% if b.kicker or b.city %}<p class="kicker">{{ b.kicker or b.city }}</p>{% endif %}
-        <h1 class="{{ b.title_size }}">{{ b.hero_title }}</h1>
-        <p class="lede">{{ b.hero_sub }}</p>
-        <div class="actions">
-          {% if b.phone %}<a class="btn light" href="tel:{{ b.phone_digits }}">Call {{ b.phone }}</a>{% endif %}
-          <a class="btn {{ 'ghost' if b.phone else 'light' }}" href="#contact">{{ b.cta_label or "Request service" }}</a>
-        </div>
-      </div>
-      <div class="panel">
-        {% if b.phone %}<p class="label">Call us</p><a class="tel" href="tel:{{ b.phone_digits }}">{{ b.phone }}</a>
-        {% else %}<p class="label">Email us</p><a class="tel" style="font-size:1.5rem" href="mailto:{{ b.email }}">{{ b.email }}</a>{% endif %}
-        {% if b.hours %}
-        <dl>{% for h in b.hours[:4] %}<div><dt>{{ h.days }}</dt><dd>{{ h.time }}</dd></div>{% endfor %}</dl>
-        {% elif b.service_area %}
-        <dl>{% for t in b.service_area[:5] %}<div><dt>Serving</dt><dd>{{ t }}</dd></div>{% endfor %}</dl>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-  {% endif %}
-  {% if b.facts %}
-  <div class="promise">
-    <div class="wrap">
-      <ul>{% for f in b.facts %}<li><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="{{ p.accent }}" stroke-width="2" d="M4 12l5 5L20 6"/></svg>{{ f }}</li>{% endfor %}</ul>
-    </div>
-  </div>
-  {% endif %}
-
+{% set contact_href = contact_href or "#contact" %}
+{% macro sec_services() %}
   <section id="services" aria-labelledby="svc-title">
     <div class="wrap">
       <div class="sec-head">
@@ -226,7 +184,8 @@ footer a{color:#fff}
       </ul>
     </div>
   </section>
-
+{% endmacro %}
+{% macro sec_reviews() %}
   {% if b.reviews %}
   <section class="reviews" aria-labelledby="rev-title">
     <div class="wrap">
@@ -238,10 +197,11 @@ footer a{color:#fff}
     </div>
   </section>
   {% endif %}
-
+{% endmacro %}
+{% macro sec_about() %}
   <section id="about" class="about" aria-labelledby="about-title">
     <div class="wrap about-grid{% if not b.about_image_url %} solo{% endif %}">
-      {% if b.about_image_url %}<div class="about-photo">{{ m.img(b.about_image_url, b.about_image_alt or ("Photo from " ~ b.business_name), "(max-width:980px) 90vw, 50vw") }}</div>{% endif %}
+      {% if b.about_image_url %}<div class="about-photo">{{ m.img(b.about_image_url, b.about_image_alt or ("Photo from " ~ b.business_name), "(max-width:980px) 90vw, 50vw", root=root) }}</div>{% endif %}
       <div>
         <p class="small-label">About us</p>
         <h2 id="about-title">{{ b.about_title or ("About " ~ b.business_name) }}</h2>
@@ -251,12 +211,13 @@ footer a{color:#fff}
       {% if not b.about_image_url and b.facts %}<ul class="checks">{% for f in b.facts %}<li>{{ tick | safe }}{{ f }}</li>{% endfor %}</ul>{% endif %}
     </div>
   </section>
-
+{% endmacro %}
+{% macro sec_visit() %}
   {% if b.hours or b.service_area or b.address %}
-  <section id="hours" aria-labelledby="hours-title">
+  <section id="visit" aria-labelledby="visit-title">
     <div class="wrap">
       <div class="sec-head">
-        <h2 id="hours-title">{% if b.hours and b.service_area %}Hours and service area{% elif b.hours %}Hours{% elif b.service_area %}Service area{% else %}Visit us{% endif %}</h2>
+        <h2 id="visit-title">{% if b.hours and b.service_area %}Hours and service area{% elif b.hours %}Hours{% elif b.service_area %}Service area{% else %}Visit us{% endif %}</h2>
         {% if b.hours_note %}<p>{{ b.hours_note }}</p>{% endif %}
       </div>
       <div class="visit{% if not (b.hours and (b.service_area or b.address)) %} one{% endif %}">
@@ -279,7 +240,8 @@ footer a{color:#fff}
     </div>
   </section>
   {% endif %}
-
+{% endmacro %}
+{% macro sec_contact() %}
   <section id="contact" class="contact on-dark" aria-labelledby="contact-title">
     <div class="wrap contact-grid">
       <div>
@@ -288,23 +250,119 @@ footer a{color:#fff}
         {% if b.phone %}<a class="big-phone" href="tel:{{ b.phone_digits }}">{{ b.phone }}</a>{% endif %}
         {% if b.email %}<p class="mail"><a href="mailto:{{ b.email }}">{{ b.email }}</a></p>{% endif %}
       </div>
-      <form aria-labelledby="form-title" onsubmit="return false">
-        <h3 id="form-title" class="sr">Service request</h3>
-        <p class="form-note">{{ m.form_note(b) }}</p>
-        {{ m.form_fields(b) }}
-      </form>
+      {% if mode == "preview" or b.form != false %}<div class="form-wrap">{{ m.form(b, mode, "form-note", "Service request") }}</div>{% endif %}
     </div>
   </section>
+{% endmacro %}
+{% macro sec_text(s) %}
+  <section class="prose-sec" aria-labelledby="t-{{ s.id }}">
+    <div class="wrap"><div class="prose{% if s.image %} with-img{% endif %}">
+      <div>
+        {% if s.label %}<p class="small-label">{{ s.label }}</p>{% endif %}
+        <h2 id="t-{{ s.id }}">{{ s.heading }}</h2>
+        {% for para in s.paragraphs or [] %}<p>{{ para }}</p>{% endfor %}
+        {% if s.get("items") %}<ul class="svc one-col">{% for it in s.get("items") %}<li><h3>{{ it.name }}</h3>{% if it.text %}<p>{{ it.text }}</p>{% endif %}</li>{% endfor %}</ul>{% endif %}
+      </div>
+      {% if s.image %}<div class="about-photo">{{ m.img(s.image, s.image_alt or ("Photo from " ~ b.business_name), "(max-width:980px) 90vw, 45vw", root=root) }}</div>{% endif %}
+    </div></div>
+  </section>
+{% endmacro %}
+{% macro sec_gallery(s) %}
+  <section class="gallery-sec" aria-labelledby="g-{{ s.id }}">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="g-{{ s.id }}">{{ s.heading or "Our work" }}</h2>{% if s.intro %}<p>{{ s.intro }}</p>{% endif %}</div>
+      <ul class="gallery">{% for g in s.images %}<li>{{ m.img(g, g.alt or ("Photo from " ~ b.business_name), "(max-width:760px) 90vw, 33vw", root=root) }}</li>{% endfor %}</ul>
+    </div>
+  </section>
+{% endmacro %}
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="{{ home_href or '#main' }}">
+      {% if b.logo_url %}
+      <img class="logo" src="{{ root }}{{ b.logo_url.src }}" width="{{ b.logo_url.width }}" height="{{ b.logo_url.height }}" alt="{{ b.business_name }}{% if page %}, home{% endif %}">
+      {% else %}
+      <span class="mono" aria-hidden="true">{{ b.initials }}</span>
+      <span><b>{{ b.wm_main }}</b>{% if b.wm_sub %}<small>{{ b.wm_sub }}</small>{% endif %}</span>
+      {% endif %}
+    </a>
+    <nav class="main" aria-label="Main"><ul>{% for n in nav %}<li><a href="{{ n.href }}"{% if n.current %} aria-current="page"{% endif %}>{{ n.label }}</a></li>{% endfor %}</ul></nav>
+    {% if b.phone %}<a class="phone-btn" href="tel:{{ b.phone_digits }}">{{ icon_phone | safe }}{{ b.phone }}</a>{% else %}<a class="phone-btn" href="{{ contact_href }}">Contact us</a>{% endif %}
+  </div>
+</header>
+<main id="main">
+  {% if page %}
+  <div class="hero page-hero on-dark">
+    <div class="wrap">
+      {% if page.label %}<p class="kicker">{{ page.label }}</p>{% endif %}
+      <h1>{{ page.heading or page.title }}</h1>
+      {% if page.intro %}<p class="lede">{{ page.intro }}</p>{% endif %}
+    </div>
+  </div>
+  {% for s in page.sections %}
+  {% if s.type == "services" %}{{ sec_services() }}{% elif s.type == "about" %}{{ sec_about() }}{% elif s.type == "reviews" %}{{ sec_reviews() }}{% elif s.type == "visit" %}{{ sec_visit() }}{% elif s.type == "contact" %}{{ sec_contact() }}{% elif s.type == "gallery" %}{{ sec_gallery(s) }}{% else %}{{ sec_text(s) }}{% endif %}
+  {% endfor %}
+  {% else %}
+  {% if b.hero_image_url %}
+  <div class="hero photo-hero on-dark">
+    <div class="copy">
+      {% if b.kicker or b.city %}<p class="kicker">{{ b.kicker or b.city }}</p>{% endif %}
+      <h1 class="{{ b.title_size }}">{{ b.hero_title }}</h1>
+      <p class="lede">{{ b.hero_sub }}</p>
+      <div class="actions">
+        {% if b.phone %}<a class="btn light" href="tel:{{ b.phone_digits }}">Call {{ b.phone }}</a>{% endif %}
+        <a class="btn {{ 'ghost' if b.phone else 'light' }}" href="{{ contact_href }}">{{ b.cta_label or "Request service" }}</a>
+      </div>
+    </div>
+    <div class="photo">{{ m.img(b.hero_image_url, b.hero_image_alt or ("Photo from " ~ b.business_name), "(max-width:980px) 100vw, 50vw", eager=True, root=root) }}</div>
+  </div>
+  {% else %}
+  <div class="hero type-hero on-dark">
+    <svg class="roofs" viewBox="0 0 860 220" aria-hidden="true" focusable="false"><path d="M0 220V170l70-52 70 52v50M120 220v-82l95-70 95 70v82M290 220v-60l60-44 60 44v60M390 220V120l120-88 120 88v100M610 220v-70l80-58 80 58v70M750 220v-48l55-40 55 40" fill="none" stroke="{{ p.accent }}" stroke-opacity=".16" stroke-width="2"/><path d="M470 220v-46h80v46M182 220v-36h46v36" fill="none" stroke="{{ p.accent }}" stroke-opacity=".16" stroke-width="2"/></svg>
+    <div class="wrap">
+      <div>
+        {% if b.kicker or b.city %}<p class="kicker">{{ b.kicker or b.city }}</p>{% endif %}
+        <h1 class="{{ b.title_size }}">{{ b.hero_title }}</h1>
+        <p class="lede">{{ b.hero_sub }}</p>
+        <div class="actions">
+          {% if b.phone %}<a class="btn light" href="tel:{{ b.phone_digits }}">Call {{ b.phone }}</a>{% endif %}
+          <a class="btn {{ 'ghost' if b.phone else 'light' }}" href="{{ contact_href }}">{{ b.cta_label or "Request service" }}</a>
+        </div>
+      </div>
+      <div class="panel">
+        {% if b.phone %}<p class="label">Call us</p><a class="tel" href="tel:{{ b.phone_digits }}">{{ b.phone }}</a>
+        {% else %}<p class="label">Email us</p><a class="tel" style="font-size:1.5rem" href="mailto:{{ b.email }}">{{ b.email }}</a>{% endif %}
+        {% if b.hours %}
+        <dl>{% for h in b.hours[:4] %}<div><dt>{{ h.days }}</dt><dd>{{ h.time }}</dd></div>{% endfor %}</dl>
+        {% elif b.service_area %}
+        <dl>{% for t in b.service_area[:5] %}<div><dt>Serving</dt><dd>{{ t }}</dd></div>{% endfor %}</dl>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% if b.facts %}
+  <div class="promise">
+    <div class="wrap">
+      <ul>{% for f in b.facts %}<li><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="{{ p.accent }}" stroke-width="2" d="M4 12l5 5L20 6"/></svg>{{ f }}</li>{% endfor %}</ul>
+    </div>
+  </div>
+  {% endif %}
+  {{ sec_services() }}
+  {{ sec_reviews() }}
+  {{ sec_about() }}
+  {{ sec_visit() }}
+  {{ sec_contact() }}
+  {% endif %}
 </main>
 <footer>
   <div class="wrap foot">
     <p>{{ b.business_name }}{% if b.address %}<br>{{ b.address }}{% elif b.service_area %}<br>Serving {{ b.service_area | join(", ") }}{% endif %}</p>
     <p>{% if b.phone %}<a href="tel:{{ b.phone_digits }}">{{ b.phone }}</a><br>{% endif %}{% if b.email %}<a href="mailto:{{ b.email }}">{{ b.email }}</a>{% endif %}</p>
-    <p>A concept by <a href="https://tangerinesstudio.com/">Tangerines Studio</a>.<br>{% if b.domain %}Content from {{ b.domain }}.{% else %}Not the official website.{% endif %}</p>
+    <p>{{ m.footer_credit(b, mode) }}</p>
   </div>
 </footer>
 <div class="callbar">
   {% if b.phone %}<a class="btn call" href="tel:{{ b.phone_digits }}">Call {{ b.phone }}</a>{% endif %}
-  <a class="btn {{ 'req' if b.phone else 'call' }}" href="#contact">Request</a>
+  <a class="btn {{ 'req' if b.phone else 'call' }}" href="{{ contact_href }}">{{ "Request" if b.phone else "Contact" }}</a>
 </div>
 {% endblock %}

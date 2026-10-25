@@ -1,14 +1,33 @@
 {# ---------- shared pieces ---------- #}
-{% macro form_fields(b, service_label="What do you need help with?", message_label="Anything else we should know?") %}
-<fieldset disabled>
-  <label>Name<input name="name" autocomplete="name"></label>
-  <label>Phone<input name="phone" type="tel" autocomplete="tel"></label>
-  <label class="full">{{ service_label }}
-    <select name="service">{% for s in b.services %}<option>{{ s.name }}</option>{% endfor %}<option>Something else</option></select>
-  </label>
-  <label class="full">{{ message_label }}<textarea name="message"></textarea></label>
-</fieldset>
-<button type="submit" disabled>Send request</button>
+{#
+  The request form. In a preview it is shown but turned off (a note says so).
+  On a client site (mode "client") it posts to /api/contact with the site slug;
+  the recipient address lives in Vercel's CLIENT_FORM_TO, never in this repo.
+  kind: "service" (a service select), "vehicle" (year, make and model).
+#}
+{% macro form(b, mode, note_class, title, kind="service", service_label="What do you need help with?", message_label="Anything else we should know?") %}
+{% set live = (mode == "client" and b.form != false) %}
+<form aria-labelledby="form-title"{% if live %} action="/api/contact" method="post" data-live{% else %} onsubmit="return false"{% endif %}>
+  <h3 id="form-title" class="sr">{{ title }}</h3>
+  {% if not live %}<p class="{{ note_class }}">{% if mode == "preview" %}This preview's form is turned off. On the finished site, requests go straight to {{ b.business_name }}'s email.{% else %}Please call or email us. The form is not available right now.{% endif %}</p>{% endif %}
+  {% if live %}<input type="hidden" name="site" value="{{ b.slug }}"><input type="hidden" name="page" value="/"><div class="hp" aria-hidden="true"><label>Leave this empty<input name="company" tabindex="-1" autocomplete="off"></label></div>{% endif %}
+  <fieldset{% if not live %} disabled{% endif %}>
+    <label>Name<input name="name" autocomplete="name" required maxlength="100"></label>
+    <label>Phone<input name="phone" type="tel" autocomplete="tel" maxlength="40"></label>
+    <label class="full">Email<input name="email" type="email" autocomplete="email" maxlength="200"></label>
+    {% if kind == "vehicle" %}
+    <label class="full">Year, make and model<input name="vehicle" maxlength="120"></label>
+    {% else %}
+    <label class="full">{{ service_label }}
+      <select name="service">{% for s in b.services %}<option>{{ s.name }}</option>{% endfor %}<option>Something else</option></select>
+    </label>
+    {% endif %}
+    <label class="full">{{ message_label }}<textarea name="message" maxlength="3000"></textarea></label>
+  </fieldset>
+  <button type="submit"{% if not live %} disabled{% endif %}>Send request</button>
+  {% if live %}<p class="form-status" role="status" aria-live="polite"></p>{% endif %}
+</form>
+{% if live %}<div class="form-done" hidden tabindex="-1"><p><strong>Thanks. Your message is on its way.</strong></p><p>We will get back to you{% if b.phone %}, or call us at {{ b.phone }}{% endif %}.</p></div>{% endif %}
 {% endmacro %}
-{% macro form_note(b) %}This preview's form is turned off. On the finished site, requests go straight to {{ b.business_name }}'s email.{% endmacro %}
-{% macro img(i, alt, sizes, eager=False, cls="") %}<img{% if cls %} class="{{ cls }}"{% endif %} src="{{ i.src }}"{% if i.srcset %} srcset="{{ i.srcset }}" sizes="{{ sizes }}"{% endif %} width="{{ i.width }}" height="{{ i.height }}" alt="{{ alt }}"{% if eager %} fetchpriority="high"{% else %} loading="lazy" decoding="async"{% endif %}>{% endmacro %}
+{% macro img(i, alt, sizes, eager=False, cls="", root="") %}<img{% if cls %} class="{{ cls }}"{% endif %} src="{{ root }}{{ i.src }}"{% if i.srcset %} srcset="{{ root ~ i.srcset.replace(', img/', ', ' ~ root ~ 'img/') }}" sizes="{{ sizes }}"{% endif %} width="{{ i.width }}" height="{{ i.height }}" alt="{{ alt }}"{% if eager %} fetchpriority="high"{% else %} loading="lazy" decoding="async"{% endif %}>{% endmacro %}
+{% macro footer_credit(b, mode) %}{% if mode == "preview" %}A concept by <a href="https://tangerinesstudio.com/">Tangerines Studio</a>.<br>{% if b.domain %}Content from {{ b.domain }}.{% else %}Not the official website.{% endif %}{% else %}&copy; {{ b.year or 2026 }} {{ b.business_name }}{% if b.credit != false %}<br>Website by <a href="https://tangerinesstudio.com/">Tangerines Studio</a>{% endif %}{% endif %}{% endmacro %}
