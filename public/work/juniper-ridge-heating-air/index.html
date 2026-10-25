@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Juniper Ridge Heating &amp; Air | Cedar Hollow heating and cooling (sample site)</title>
+<meta name="description" content="Sample website for a fictional heating and air company in Cedar Hollow, made by Tangerines Studio.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#18352B">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2318352B'/%3E%3Cpath d='M4 23l8-10 5 6 4-4 7 8z' fill='%23DCEBF0'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Archivo";src:url(fonts/archivo.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-display:swap}
+:root{--pine:#18352B;--pine2:#24493B;--frost:#DCEBF0;--ice:#8CC3D6;--snow:#F7F8F5;--ink:#14201B;--ink2:#46524C;--line:#D3DBD6}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;font-family:"Archivo",system-ui,sans-serif;font-size:1.0625rem;line-height:1.6;color:var(--ink);background:var(--snow)}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:3px solid #0B6E99;outline-offset:3px;border-radius:2px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(20px,4.5vw,56px)}
+.ribbon{background:#0E1512;color:#E6ECE8;font-size:.8125rem;text-align:center;padding:8px 16px}
+.ribbon a{color:#fff;text-underline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-9999px}.skip:focus{left:16px;top:44px;background:#fff;padding:8px 12px;z-index:10}
+header.top{border-bottom:1px solid var(--line);background:var(--snow)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:80px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand svg{flex:none}
+.brand b{display:block;font-stretch:88%;font-weight:800;font-size:1.25rem;letter-spacing:-.01em;line-height:1}
+.brand small{display:block;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);margin-top:4px}
+nav.main ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
+nav.main a{text-decoration:none;font-weight:500;font-size:.95rem}
+nav.main a:hover{text-decoration:underline;text-underline-offset:4px}
+.phone-btn{display:inline-flex;align-items:center;gap:10px;background:var(--pine);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:6px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.phone-btn:hover{background:var(--pine2)}
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);background:var(--pine);color:#fff}
+.hero .copy{padding:clamp(48px,7vw,112px) clamp(20px,4.5vw,56px) clamp(48px,6vw,96px) max(clamp(20px,4.5vw,56px),calc((100vw - 1240px)/2 + 56px))}
+.kicker{font-weight:600;font-size:.875rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ice);margin:0 0 20px}
+h1{font-stretch:82%;font-weight:800;font-size:clamp(2.5rem,5.4vw,4.6rem);line-height:.98;letter-spacing:-.02em;margin:0 0 24px;max-width:13ch}
+.hero p.lede{font-size:1.1875rem;max-width:34ch;color:#DCE7E1;margin:0 0 36px}
+.actions{display:flex;flex-wrap:wrap;gap:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:700;text-decoration:none;padding:16px 24px;border-radius:6px;font-size:1.0625rem}
+.btn.light{background:var(--frost);color:var(--pine)}
+.btn.light:hover{background:#fff}
+.btn.ghost{border:1.5px solid rgba(255,255,255,.55);color:#fff}
+.btn.ghost:hover{border-color:#fff}
+.hero .photo{position:relative;min-height:420px}
+.hero .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 50%}
+.promise{background:var(--pine2);color:#fff}
+.promise ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr)}
+.promise li{padding:26px 28px 26px 0;display:flex;gap:14px;align-items:flex-start;font-weight:600;line-height:1.35}
+.promise li+li{padding-left:28px;border-left:1px solid rgba(255,255,255,.18)}
+.promise svg{flex:none;margin-top:2px}
+section{padding:clamp(72px,9vw,128px) 0}
+.sec-head{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:40px;align-items:end;margin-bottom:56px}
+h2{font-stretch:84%;font-weight:800;font-size:clamp(2rem,3.8vw,3.25rem);line-height:1.02;letter-spacing:-.015em;margin:0}
+.sec-head p{margin:0;color:var(--ink2);max-width:52ch}
+.svc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:2px solid var(--ink)}
+.svc-col{padding:28px 32px 8px 0}
+.svc-col+.svc-col{padding-left:32px;border-left:1px solid var(--line)}
+.svc-col h3{display:flex;align-items:center;gap:10px;font-size:.875rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:0 0 20px;color:var(--pine)}
+.svc-col dl{margin:0}
+.svc-col dt{font-stretch:90%;font-weight:700;font-size:1.375rem;line-height:1.2;margin:0 0 6px}
+.svc-col dd{margin:0 0 28px;color:var(--ink2)}
+.about{background:var(--frost)}
+.about-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(32px,6vw,88px);align-items:center}
+.about-photos{display:grid;grid-template-columns:3fr 2fr;gap:16px;align-items:end}
+.about-photos img{border-radius:4px;width:100%;object-fit:cover}
+.about-photos img:first-child{aspect-ratio:4/5}
+.about-photos img:last-child{aspect-ratio:3/4;margin-bottom:48px}
+.about h2{margin-bottom:24px}
+.about p{margin:0 0 18px;max-width:50ch}
+.checks{list-style:none;padding:0;margin:28px 0 0;border-top:1px solid #B9CDD3}
+.checks li{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid #B9CDD3;font-weight:600}
+.visit{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,96px)}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:16px 0;border-bottom:1px solid var(--line);font-size:1.125rem}
+th{font-weight:600}
+td{text-align:right;color:var(--ink2)}
+.towns{list-style:none;margin:0;padding:0}
+.towns li{font-stretch:80%;font-weight:800;font-size:clamp(2rem,4.4vw,3.5rem);line-height:1.1;letter-spacing:-.015em;color:var(--pine);border-bottom:1px solid var(--line);padding:8px 0}
+.small-label{font-size:.875rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);margin:0 0 12px}
+.contact{background:var(--pine);color:#fff}
+.contact-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(32px,6vw,96px)}
+.contact h2{margin-bottom:20px}
+.contact p{color:#DCE7E1;max-width:40ch}
+.big-phone{display:inline-block;font-stretch:80%;font-weight:800;font-size:clamp(2.2rem,4.6vw,3.6rem);letter-spacing:-.01em;color:#fff;text-decoration:none;margin:16px 0 8px;font-variant-numeric:tabular-nums}
+.big-phone:hover{color:var(--frost);text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px}
+.contact form p{color:var(--ink);max-width:none}
+form{background:var(--snow);color:var(--ink);padding:clamp(24px,3.5vw,40px);border-radius:6px}
+.form-note{background:var(--frost);color:var(--ink);font-size:.9375rem;padding:12px 14px;border-radius:4px;margin:0 0 22px}
+fieldset{border:0;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:block;font-weight:600;font-size:.9375rem}
+label.full{grid-column:1/-1}
+input,select,textarea{display:block;width:100%;margin-top:6px;font:inherit;font-size:1rem;padding:12px 14px;border:1.5px solid #9DADA5;border-radius:4px;background:#fff;color:var(--ink)}
+textarea{min-height:110px;resize:vertical}
+fieldset:disabled input,fieldset:disabled select,fieldset:disabled textarea{background:#EEF1EF}
+button[disabled]{margin-top:20px;font:inherit;font-weight:700;background:#55625C;color:#fff;border:0;border-radius:6px;padding:14px 22px;cursor:not-allowed}
+footer{background:#0E1512;color:#C9D3CE;padding:48px 0 120px;font-size:.9375rem}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px}
+footer a{color:#fff}
+.callbar{display:none}
+@media (max-width:980px){
+  nav.main{display:none}
+  .hero{grid-template-columns:1fr}
+  .hero .copy{padding:48px 20px 44px}
+  .hero .photo{min-height:0;aspect-ratio:3/2}
+  .promise ul{grid-template-columns:1fr}
+  .promise li,.promise li+li{padding:16px 0;border-left:0;border-top:1px solid rgba(255,255,255,.18)}
+  .promise li:first-child{border-top:0}
+  .sec-head,.about-grid,.visit,.contact-grid{grid-template-columns:1fr}
+  .sec-head{gap:16px}
+  .svc{grid-template-columns:1fr}
+  .svc-col,.svc-col+.svc-col{padding:24px 0 0;border-left:0}
+  .svc-col+.svc-col{border-top:1px solid var(--line)}
+}
+@media (max-width:760px){
+  .bar{min-height:68px}
+  .bar .phone-btn{display:none}
+  fieldset{grid-template-columns:1fr}
+  .callbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:20;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:var(--snow);border-top:1px solid var(--line)}
+  .callbar a{flex:1.6;justify-content:center;white-space:nowrap;padding:14px 12px;font-size:1rem}
+  .callbar .call{background:var(--pine);color:#fff}
+  .callbar .req{border:1.5px solid var(--pine);color:var(--pine);flex:1}
+  footer{padding-bottom:110px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="ribbon">Sample website by <a href="https://tangerinesstudio.com/">Tangerines Studio</a> for a fictional business.</div>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="#main" aria-label="Juniper Ridge Heating and Air, home">
+      <svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true"><rect width="44" height="44" rx="8" fill="#18352B"/><path d="M5 31l11-14 7 9 5-6 11 11z" fill="#DCEBF0"/><path d="M5 31l11-14 4 5" fill="none" stroke="#8CC3D6" stroke-width="2"/></svg>
+      <span><b>Juniper Ridge</b><small>Heating &amp; Air</small></span>
+    </a>
+    <nav class="main" aria-label="Main"><ul><li><a href="#services">Services</a></li><li><a href="#about">About us</a></li><li><a href="#hours">Hours and area</a></li><li><a href="#contact">Contact</a></li></ul></nav>
+    <a class="phone-btn" href="tel:+15550142290"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>(555) 014-2290</a>
+  </div>
+</header>
+<main id="main">
+  <div class="hero">
+    <div class="copy">
+      <p class="kicker">Cedar Hollow and nearby towns</p>
+      <h1>Heating and air, from the same local crew since 1994.</h1>
+      <p class="lede">Furnace and AC repair, heat pumps, tune-ups and new systems. Family-owned, licensed and insured, and the price is agreed before any work starts.</p>
+      <div class="actions">
+        <a class="btn light" href="tel:+15550142290">Call (555) 014-2290</a>
+        <a class="btn ghost" href="#contact">Request service</a>
+      </div>
+    </div>
+    <div class="photo">
+      <img src="img/heat-pump-1000.webp" srcset="img/heat-pump-640.webp 640w, img/heat-pump-1000.webp 1000w, img/heat-pump-1600.webp 1600w" sizes="(max-width:980px) 100vw, 50vw" width="1600" height="1067" alt="A heat pump unit installed beside a modern house" fetchpriority="high">
+    </div>
+  </div>
+  <div class="promise">
+    <div class="wrap">
+      <ul>
+        <li><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="#8CC3D6" stroke-width="2" d="M3 11l9-7 9 7v9H3z"/></svg>Family-owned since 1994</li>
+        <li><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="#8CC3D6" stroke-width="2" d="M4 12l5 5L20 6"/></svg>The price is agreed before work starts</li>
+        <li><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="#8CC3D6" stroke-width="2" d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg>Licensed and insured</li>
+      </ul>
+    </div>
+  </div>
+
+  <section id="services" aria-labelledby="svc-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="svc-title">What we fix, install and look after</h2>
+        <p>Tell us what is going on when you call. We will explain what we find in plain words and agree on the price with you before we start.</p>
+      </div>
+      <div class="svc">
+        <div class="svc-col">
+          <h3><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#18352B" d="M12 2c1 4 6 6 6 12a6 6 0 0 1-12 0c0-3 2-5 3-6 0 2 1 3 2 3 0-4-1-6 1-9z"/></svg>Heating</h3>
+          <dl>
+            <dt>Furnace repair</dt><dd>No heat, strange noises or a furnace that keeps cycling on and off.</dd>
+            <dt>Heat pumps</dt><dd>Installs and repairs, for heating in winter and cooling in summer.</dd>
+          </dl>
+        </div>
+        <div class="svc-col">
+          <h3><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="#18352B" stroke-width="2.2" d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/></svg>Cooling</h3>
+          <dl>
+            <dt>AC repair</dt><dd>Warm air, weak airflow, leaks or an AC that will not turn on.</dd>
+            <dt>Seasonal tune-ups</dt><dd>A check and clean before the heating and cooling seasons start.</dd>
+          </dl>
+        </div>
+        <div class="svc-col">
+          <h3><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="#18352B" stroke-width="2.2" d="M3 8h11a3 3 0 1 0-3-3M3 13h16a3 3 0 1 1-3 3M3 18h7"/></svg>Systems and air</h3>
+          <dl>
+            <dt>New system installs</dt><dd>Furnaces, AC and heat pumps sized for your home, with options explained.</dd>
+            <dt>Indoor air quality</dt><dd>Filters and air cleaning for homes with dust, allergies or stale air.</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about" aria-labelledby="about-title">
+    <div class="wrap about-grid">
+      <div class="about-photos">
+        <img src="img/living-room-640.webp" srcset="img/living-room-640.webp 640w, img/living-room-1000.webp 1000w" sizes="(max-width:980px) 60vw, 30vw" width="1000" height="732" alt="A bright, comfortable living room" loading="lazy">
+        <img src="img/condenser-640.webp" width="640" height="502" alt="An outdoor air conditioning unit in the rain" loading="lazy">
+      </div>
+      <div>
+        <p class="small-label">About us</p>
+        <h2 id="about-title">A family business that still answers its own phone.</h2>
+        <p>Juniper Ridge Heating &amp; Air has looked after homes in Cedar Hollow since 1994. The crew you meet today is the same local crew that has done the work for 30 years.</p>
+        <p>We agree on the price with you before any work starts, so there are no surprises on the bill.</p>
+        <ul class="checks">
+          <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="#18352B" stroke-width="2.4" d="M4 12l5 5L20 6"/></svg>Family-owned since 1994</li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="#18352B" stroke-width="2.4" d="M4 12l5 5L20 6"/></svg>Licensed and insured</li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="#18352B" stroke-width="2.4" d="M4 12l5 5L20 6"/></svg>Price agreed before work starts</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="hours" aria-labelledby="hours-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="hours-title">Hours and service area</h2>
+        <p>Sunday is for emergencies only. If your heat or AC is out, call and we will tell you when we can be there.</p>
+      </div>
+      <div class="visit">
+        <div>
+          <p class="small-label">Office hours</p>
+          <table>
+            <caption class="sr">Office hours</caption>
+            <tbody>
+              <tr><th scope="row">Monday to Friday</th><td>7am to 6pm</td></tr>
+              <tr><th scope="row">Saturday</th><td>8am to 2pm</td></tr>
+              <tr><th scope="row">Sunday</th><td>Emergencies only</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <p class="small-label">Towns we serve</p>
+          <ul class="towns"><li>Cedar Hollow</li><li>Maple Falls</li><li>Brookside</li><li>Pine Bluff</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact" aria-labelledby="contact-title">
+    <div class="wrap contact-grid">
+      <div>
+        <h2 id="contact-title">Need heating or air work?</h2>
+        <p>The quickest way is to call. You can also send a request and we will get back to you during office hours.</p>
+        <a class="big-phone" href="tel:+15550142290">(555) 014-2290</a>
+        <p><a href="mailto:office@example.com">office@example.com</a></p>
+      </div>
+      <form aria-labelledby="form-title" onsubmit="return false">
+        <h3 id="form-title" class="sr">Service request</h3>
+        <p class="form-note">This is a sample site, so the form is turned off. On a real site, requests go straight to the owner's email.</p>
+        <fieldset disabled>
+          <label>Name<input name="name" autocomplete="name"></label>
+          <label>Phone<input name="phone" type="tel" autocomplete="tel"></label>
+          <label class="full">What do you need help with?
+            <select name="service"><option>Furnace repair</option><option>AC repair</option><option>Heat pump</option><option>Seasonal tune-up</option><option>New system</option><option>Indoor air quality</option></select>
+          </label>
+          <label class="full">Anything else we should know?<textarea name="message"></textarea></label>
+        </fieldset>
+        <button type="submit" disabled>Send request</button>
+      </form>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap foot">
+    <p>Juniper Ridge Heating &amp; Air<br>Serving Cedar Hollow, Maple Falls, Brookside and Pine Bluff</p>
+    <p><a href="tel:+15550142290">(555) 014-2290</a><br><a href="mailto:office@example.com">office@example.com</a></p>
+    <p>A sample website for a fictional business.<br>Designed by <a href="https://tangerinesstudio.com/">Tangerines Studio</a></p>
+  </div>
+</footer>
+<div class="callbar">
+  <a class="btn call" href="tel:+15550142290">Call (555) 014-2290</a>
+  <a class="btn req" href="#contact">Request</a>
+</div>
+</body>
+</html>

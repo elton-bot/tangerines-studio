@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harbor Street Auto | Independent auto repair in Port Lewis (sample site)</title>
+<meta name="description" content="Sample website for a fictional auto repair shop in Port Lewis, made by Tangerines Studio.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#121417">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F3C316'/%3E%3Cpath d='M7 8v16M7 16h8M15 8v16M25 10c-1-2-7-2-7 2s7 2 7 6-6 4-7 2' stroke='%23121417' stroke-width='3' fill='none'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Barlow Condensed";src:url(fonts/barlow-condensed-700.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Barlow Condensed";src:url(fonts/barlow-condensed-600.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Barlow";src:url(fonts/barlow-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Barlow";src:url(fonts/barlow-600.woff2) format("woff2");font-weight:600;font-display:swap}
+:root{--asphalt:#121417;--steel:#1E2227;--steel2:#2A2F36;--concrete:#E9E9E6;--paper:#F6F6F4;--yellow:#F3C316;--ink:#121417;--muted:#4B5058;--dmuted:#B4B9C0;--line:#C9CAC6}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;font-family:"Barlow",system-ui,sans-serif;font-size:1.0625rem;line-height:1.6;color:var(--ink);background:var(--paper)}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+.paper :focus-visible,.light :focus-visible{outline-color:#0A58CA}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-9999px}.skip:focus{left:16px;top:44px;background:#fff;color:#000;padding:8px 12px;z-index:10}
+.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(20px,4.5vw,56px)}
+.ribbon{background:#000;color:#D9DCE0;font-size:.8125rem;text-align:center;padding:8px 16px}
+.ribbon a{color:#fff;text-underline-offset:3px}
+h1,h2,h3,.cond{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.005em}
+header.top{background:var(--asphalt);color:#fff;border-bottom:1px solid #2C3138}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:76px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand .tag{display:grid;place-items:center;width:46px;height:46px;background:var(--yellow);color:var(--ink);font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:1.5rem;letter-spacing:-.02em}
+.brand .wm{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:1.375rem;line-height:1;text-transform:uppercase;letter-spacing:.03em}
+.brand .wm small{display:block;font-weight:600;font-size:.8125rem;letter-spacing:.2em;color:var(--dmuted);margin-top:4px}
+nav.main ul{display:flex;gap:30px;list-style:none;margin:0;padding:0}
+nav.main a{text-decoration:none;font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:1.0625rem;text-transform:uppercase;letter-spacing:.06em;color:#E6E8EB}
+nav.main a:hover{color:var(--yellow)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:1.25rem;text-transform:uppercase;letter-spacing:.04em;padding:14px 24px;line-height:1.1;white-space:nowrap}
+.btn.y{background:var(--yellow);color:var(--ink)}
+.btn.y:hover{background:#FFD836}
+.btn.o{border:2px solid #fff;color:#fff}
+.btn.o:hover{background:#fff;color:var(--ink)}
+.hero{position:relative;background:var(--asphalt);color:#fff;overflow:hidden}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 40%}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,20,23,.96) 0%,rgba(18,20,23,.88) 38%,rgba(18,20,23,.35) 70%,rgba(18,20,23,.15) 100%)}
+.hero .wrap{position:relative;z-index:1;padding-top:clamp(64px,9vw,136px);padding-bottom:clamp(64px,9vw,136px)}
+.loc{display:inline-block;font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:1rem;letter-spacing:.16em;text-transform:uppercase;color:var(--yellow);margin:0 0 18px}
+h1{font-size:clamp(3rem,7.6vw,6.5rem);line-height:.9;margin:0 0 26px;max-width:11ch}
+.hero p.lede{font-size:1.25rem;max-width:36ch;color:#DADDE1;margin:0 0 34px}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.strip{background:var(--yellow);color:var(--ink)}
+.strip ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.strip li{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:1.375rem;text-transform:uppercase;line-height:1.1;padding:22px 20px 22px 0;display:flex;gap:12px;align-items:center}
+.strip li+li{padding-left:20px;border-left:2px solid rgba(18,20,23,.2)}
+section{padding:clamp(72px,9vw,120px) 0}
+h2{font-size:clamp(2.4rem,5vw,4.25rem);line-height:.95;margin:0}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:48px;flex-wrap:wrap}
+.head p{margin:0;max-width:44ch;color:var(--muted)}
+.dark{background:var(--steel);color:#fff}
+.dark .head p{color:var(--dmuted)}
+.board{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid #3A4048;border-left:1px solid #3A4048}
+.board li{border-right:1px solid #3A4048;border-bottom:1px solid #3A4048;padding:30px 30px 34px;min-height:220px;display:flex;flex-direction:column}
+.board .no{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:1rem;color:var(--yellow);letter-spacing:.1em}
+.board h3{font-size:1.875rem;line-height:1;margin:auto 0 10px;padding-top:36px}
+.board p{margin:0;color:var(--dmuted)}
+.how-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,88px);align-items:start}
+.how-grid figure{margin:0}
+.how-grid img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.how-grid figcaption{font-size:.9375rem;color:var(--muted);margin-top:10px}
+.steps{list-style:none;margin:36px 0 0;padding:0;counter-reset:s}
+.steps li{display:grid;grid-template-columns:64px 1fr;gap:4px 16px;padding:20px 0;border-top:2px solid var(--ink)}
+.steps li:before{counter-increment:s;content:counter(s,decimal-leading-zero);grid-row:span 2;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:2.5rem;line-height:1}
+.steps h3{font-size:1.5rem;line-height:1.1;margin:0}
+.steps p{margin:0;color:var(--muted)}
+.visit{background:var(--concrete)}
+.visit-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,48px)}
+.sign{background:var(--asphalt);color:#fff;padding:clamp(28px,4vw,48px)}
+.sign .open{display:inline-block;background:var(--yellow);color:var(--ink);font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:1.125rem;letter-spacing:.18em;text-transform:uppercase;padding:6px 12px;margin-bottom:24px}
+.sign table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.sign th,.sign td{font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;font-size:1.625rem;padding:14px 0;border-bottom:1px dashed #4A515A;text-align:left}
+.sign th{font-weight:600;color:var(--dmuted)}
+.sign td{font-weight:700;text-align:right}
+.map{background:#fff;border:1px solid var(--line);display:grid;grid-template-rows:1fr auto}
+.map svg{display:block;width:100%;height:auto}
+.map .addr{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding:22px 26px;border-top:1px solid var(--line)}
+.map address{font-style:normal;font-size:1.125rem}
+.map address b{font-family:"Barlow Condensed",sans-serif;font-size:1.5rem;text-transform:uppercase;display:block;line-height:1.1}
+.contact{background:var(--asphalt);color:#fff}
+.contact-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,6vw,88px)}
+.contact p.intro{color:var(--dmuted);max-width:38ch;margin:20px 0 0}
+.bigtel{display:inline-block;margin-top:24px;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:clamp(2.5rem,5vw,4rem);color:var(--yellow);text-decoration:none;line-height:1;font-variant-numeric:tabular-nums}
+.bigtel:hover{text-decoration:underline;text-underline-offset:6px}
+.tire{margin-top:36px;max-width:420px;aspect-ratio:3/2;object-fit:cover;width:100%}
+form{background:var(--paper);color:var(--ink);padding:clamp(24px,3.5vw,40px)}
+.note{background:#FFF3C4;border-left:4px solid var(--yellow);padding:12px 14px;font-size:.9375rem;margin:0 0 22px}
+fieldset{border:0;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:block;font-weight:600;font-size:.9375rem}
+.full{grid-column:1/-1}
+input,textarea{display:block;width:100%;margin-top:6px;font:inherit;font-size:1rem;padding:12px 14px;border:1.5px solid #8E939A;border-radius:0;background:#ECEDEB;color:var(--ink)}
+textarea{min-height:110px}
+button[disabled]{margin-top:20px;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:1.25rem;text-transform:uppercase;letter-spacing:.04em;background:#5C6168;color:#fff;border:0;padding:14px 24px;cursor:not-allowed}
+footer{background:#000;color:#B4B9C0;padding:44px 0 56px;font-size:.9375rem}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px}
+footer a{color:#fff}
+.callbar{display:none}
+@media (max-width:1000px){
+  nav.main{display:none}
+  .strip ul{grid-template-columns:1fr 1fr}
+  .strip li:nth-child(3){padding-left:0;border-left:0}
+  .strip li:nth-child(n+3){border-top:2px solid rgba(18,20,23,.2)}
+  .board{grid-template-columns:1fr 1fr}
+  .how-grid,.visit-grid,.contact-grid{grid-template-columns:1fr}
+  .tire{display:none}
+}
+@media (max-width:760px){
+  .bar{min-height:64px}
+  .bar .btn{display:none}
+  .hero:after{background:linear-gradient(180deg,rgba(18,20,23,.75) 0%,rgba(18,20,23,.92) 60%,rgba(18,20,23,.97) 100%)}
+  .strip ul{grid-template-columns:1fr}
+  .strip li,.strip li+li{padding:14px 0;border-left:0;font-size:1.25rem}
+  .strip li+li{border-top:2px solid rgba(18,20,23,.2)}
+  .board{grid-template-columns:1fr}
+  .board li{min-height:0;padding:24px}
+  .board h3{padding-top:14px}
+  fieldset{grid-template-columns:1fr}
+  .sign th,.sign td{font-size:1.25rem}
+  .callbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:20;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:var(--asphalt);border-top:1px solid #2C3138}
+  .callbar .btn{flex:1;padding:14px 10px;font-size:1.125rem}
+  .callbar .btn.o{flex:.8}
+  footer{padding-bottom:110px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="ribbon">Sample website by <a href="https://tangerinesstudio.com/">Tangerines Studio</a> for a fictional business.</div>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="#main" aria-label="Harbor Street Auto, home"><span class="tag" aria-hidden="true">HS</span><span class="wm">Harbor Street Auto<small>Port Lewis</small></span></a>
+    <nav class="main" aria-label="Main"><ul><li><a href="#services">Services</a></li><li><a href="#how">How it works</a></li><li><a href="#visit">Hours and location</a></li><li><a href="#estimate">Free estimate</a></li></ul></nav>
+    <a class="btn y" href="tel:+15550138810">(555) 013-8810</a>
+  </div>
+</header>
+<main id="main">
+  <div class="hero">
+    <img src="img/engine-1000.webp" srcset="img/engine-640.webp 640w, img/engine-1000.webp 1000w, img/engine-1600.webp 1600w" sizes="100vw" width="1600" height="1067" alt="A mechanic topping up engine oil under an open hood" fetchpriority="high">
+    <div class="wrap">
+      <p class="loc">Independent shop, Port Lewis, since 2006</p>
+      <h1>Straight answers. Solid repairs.</h1>
+      <p class="lede">Diagnostics, brakes, maintenance and more for all makes and models. We call you with a price before we touch your car.</p>
+      <div class="actions">
+        <a class="btn y" href="tel:+15550138810">Call (555) 013-8810</a>
+        <a class="btn o" href="#estimate">Get a free estimate</a>
+      </div>
+    </div>
+  </div>
+  <div class="strip">
+    <div class="wrap">
+      <ul>
+        <li>Free estimates</li>
+        <li>A price before any work</li>
+        <li>Most repairs done the same day</li>
+        <li>All makes and models</li>
+      </ul>
+    </div>
+  </div>
+
+  <section id="services" class="dark" aria-labelledby="svc-title">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="svc-title">What we work on</h2>
+        <p>From a warning light to a full service. If it is not on this list, call and ask.</p>
+      </div>
+      <ul class="board">
+        <li><span class="no">01</span><h3>Diagnostics and check engine lights</h3><p>We find out why the light is on and tell you what it means.</p></li>
+        <li><span class="no">02</span><h3>Brakes</h3><p>Squeals, grinding, a soft pedal or a car that pulls when you stop.</p></li>
+        <li><span class="no">03</span><h3>Oil changes and maintenance</h3><p>Oil, filters, fluids and the service your car is due for.</p></li>
+        <li><span class="no">04</span><h3>Tires and alignment</h3><p>New tires, rotations and alignment when the wheel pulls to one side.</p></li>
+        <li><span class="no">05</span><h3>Heating and AC</h3><p>No heat, no cold air or a fan that will not blow.</p></li>
+        <li><span class="no">06</span><h3>Batteries and electrical</h3><p>Hard starts, dead batteries, lights and wiring problems.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="how" class="light" aria-labelledby="how-title">
+    <div class="wrap how-grid">
+      <div>
+        <h2 id="how-title">No surprises on the bill</h2>
+        <ol class="steps">
+          <li><h3>Call or drop by</h3><p>Tell us what the car is doing. Estimates are free.</p></li>
+          <li><h3>We find the problem</h3><p>We check it over and work out what needs doing.</p></li>
+          <li><h3>We call you with a price</h3><p>No work starts until you have heard the price and said yes.</p></li>
+          <li><h3>Back on the road</h3><p>Most repairs are done the same day.</p></li>
+        </ol>
+      </div>
+      <figure>
+        <img src="img/mechanic-640.webp" srcset="img/mechanic-640.webp 640w, img/mechanic-1000.webp 1000w" sizes="(max-width:1000px) 90vw, 45vw" width="1000" height="666" alt="A smiling mechanic working under the hood of a yellow car" loading="lazy">
+      </figure>
+    </div>
+  </section>
+
+  <section id="visit" class="visit light" aria-labelledby="visit-title">
+    <div class="wrap">
+      <div class="head"><h2 id="visit-title">Hours and location</h2><p>On Harbor Street in Port Lewis. Drop by during opening hours or call ahead.</p></div>
+      <div class="visit-grid">
+        <div class="sign">
+          <span class="open">Open</span>
+          <table>
+            <caption class="sr">Opening hours</caption>
+            <tbody>
+              <tr><th scope="row">Mon to Fri</th><td>7:30am to 6pm</td></tr>
+              <tr><th scope="row">Saturday</th><td>8am to 1pm</td></tr>
+              <tr><th scope="row">Sunday</th><td>Closed</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="map">
+          <svg viewBox="0 0 720 300" role="img" aria-label="Simple drawing of Harbor Street with the shop marked">
+            <rect width="720" height="300" fill="#EFEFEC"/>
+            <path d="M0 210 L720 170" stroke="#fff" stroke-width="34"/>
+            <path d="M0 210 L720 170" stroke="#C9CAC6" stroke-width="2" stroke-dasharray="14 12"/>
+            <path d="M190 0 L230 300" stroke="#fff" stroke-width="22"/>
+            <path d="M520 0 L540 300" stroke="#fff" stroke-width="22"/>
+            <rect x="0" y="236" width="720" height="64" fill="#D6E3E8"/>
+            <text x="24" y="270" font-family="Barlow, sans-serif" font-size="15" fill="#4B5058" letter-spacing="2">HARBOR</text>
+            <text x="300" y="183" font-family="Barlow Condensed, sans-serif" font-weight="700" font-size="20" fill="#121417" letter-spacing="3" transform="rotate(-3.2 300 183)">HARBOR STREET</text>
+            <rect x="372" y="104" width="64" height="40" fill="#121417"/>
+            <rect x="372" y="104" width="64" height="10" fill="#F3C316"/>
+            <circle cx="404" cy="78" r="16" fill="#F3C316" stroke="#121417" stroke-width="3"/>
+            <path d="M404 94 L404 104" stroke="#121417" stroke-width="3"/>
+          </svg>
+          <div class="addr">
+            <address><b>Harbor Street Auto</b>412 Harbor Street, Port Lewis</address>
+            <a class="btn y" href="tel:+15550138810">Call ahead</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="estimate" class="contact" aria-labelledby="est-title">
+    <div class="wrap contact-grid">
+      <div>
+        <h2 id="est-title">Get a free estimate</h2>
+        <p class="intro">Call the shop, or send the details and we will call you back with a price.</p>
+        <a class="bigtel" href="tel:+15550138810">(555) 013-8810</a>
+        <p><a href="mailto:service@example.com">service@example.com</a></p>
+        <img class="tire" src="img/tire-640.webp" width="640" height="427" alt="A mechanic in gloves fitting a tire" loading="lazy">
+      </div>
+      <form aria-labelledby="form-title" onsubmit="return false">
+        <h3 id="form-title" class="sr">Estimate request</h3>
+        <p class="note">This is a sample site, so the form is turned off. On a real site, requests go straight to the shop's email.</p>
+        <fieldset disabled>
+          <label>Name<input name="name" autocomplete="name"></label>
+          <label>Phone<input name="phone" type="tel" autocomplete="tel"></label>
+          <label class="full">Year, make and model<input name="vehicle"></label>
+          <label class="full">What is the car doing?<textarea name="message"></textarea></label>
+        </fieldset>
+        <button type="submit" disabled>Send request</button>
+      </form>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap foot">
+    <p>Harbor Street Auto<br>412 Harbor Street, Port Lewis</p>
+    <p><a href="tel:+15550138810">(555) 013-8810</a><br><a href="mailto:service@example.com">service@example.com</a></p>
+    <p>A sample website for a fictional business.<br>Designed by <a href="https://tangerinesstudio.com/">Tangerines Studio</a></p>
+  </div>
+</footer>
+<div class="callbar">
+  <a class="btn y" href="tel:+15550138810">Call the shop</a>
+  <a class="btn o" href="#estimate">Estimate</a>
+</div>
+</body>
+</html>

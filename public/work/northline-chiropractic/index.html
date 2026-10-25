@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Northline Chiropractic | Dr. Maya Ellison, DC, Alder Bay (sample site)</title>
+<meta name="description" content="Sample website for a fictional chiropractic practice in Alder Bay, made by Tangerines Studio.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F4F1EC">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%231D2B30'/%3E%3Cpath d='M16 6v20' stroke='%23E4E9E6' stroke-width='2'/%3E%3Ccircle cx='16' cy='9' r='3' fill='%23E4E9E6'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/figtree.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Newsreader";src:url(fonts/newsreader.woff2) format("woff2");font-weight:200 800;font-display:swap}
+@font-face{font-family:"Figtree";src:url(fonts/figtree.woff2) format("woff2");font-weight:300 900;font-display:swap}
+:root{--linen:#F4F1EC;--mist:#E4E9E6;--ink:#1D2B30;--ink2:#4D5A5E;--sage:#466760;--line:#CDD3CF;--white:#FBFAF7}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;font-family:"Figtree",system-ui,sans-serif;font-size:1.0625rem;line-height:1.65;color:var(--ink);background:var(--linen)}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-9999px}.skip:focus{left:16px;top:44px;background:#fff;padding:8px 12px;z-index:10}
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,64px)}
+.ribbon{background:var(--ink);color:#E4E9E6;font-size:.8125rem;text-align:center;padding:8px 16px}
+.ribbon a{color:#fff;text-underline-offset:3px}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:88px}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+.brand .name{font-family:"Newsreader",serif;font-size:1.625rem;font-weight:500;letter-spacing:-.01em;line-height:1}
+.brand .name i{font-style:normal;font-family:"Figtree",sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;display:block;margin-top:6px;color:var(--ink2)}
+nav.main ul{display:flex;gap:32px;list-style:none;margin:0;padding:0}
+nav.main a{text-decoration:none;font-size:.9375rem;font-weight:500}
+nav.main a:hover{text-decoration:underline;text-underline-offset:5px}
+.top-cta{display:flex;align-items:center;gap:20px}
+.top-cta .tel{font-weight:600;text-decoration:none;font-variant-numeric:tabular-nums}
+.btn{display:inline-flex;align-items:center;justify-content:center;font-weight:600;text-decoration:none;padding:14px 26px;border-radius:999px;font-size:1rem;line-height:1.2}
+.btn.dark{background:var(--ink);color:var(--white)}
+.btn.dark:hover{background:#2E4148}
+.btn.line{border:1.5px solid var(--ink);color:var(--ink)}
+.btn.line:hover{background:var(--ink);color:var(--white)}
+.hero{padding:clamp(40px,6vw,88px) 0 clamp(64px,8vw,120px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,6vw,96px);align-items:end}
+.eyebrow{display:flex;align-items:center;gap:12px;font-size:.875rem;font-weight:600;color:var(--sage);margin:0 0 28px}
+.eyebrow:before{content:"";width:40px;height:1px;background:var(--sage)}
+h1,h2,h3.serif{font-family:"Newsreader",serif;font-weight:400;letter-spacing:-.02em}
+h1{font-size:clamp(2.7rem,6vw,5.25rem);line-height:1.02;margin:0 0 32px}
+h1 em,h2 em{font-style:italic;font-weight:300;color:var(--sage)}
+.lede{font-size:1.1875rem;max-width:42ch;color:var(--ink2);margin:0 0 36px}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.hero-photo{position:relative}
+.hero-photo img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:35% 50%;border-radius:220px 220px 6px 6px}
+.hero-photo figcaption{font-size:.875rem;color:var(--ink2);margin-top:14px}
+.northline{height:1px;background:var(--line)}
+section{padding:clamp(72px,9vw,128px) 0}
+h2{font-size:clamp(2.1rem,4vw,3.4rem);line-height:1.06;margin:0 0 20px}
+.intro{max-width:46ch;color:var(--ink2);margin:0}
+.first{background:var(--mist)}
+.first-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:end;margin-bottom:64px}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,4vw,56px)}
+.steps li{border-top:1px solid #AEB9B4;padding-top:24px}
+.steps .n{font-family:"Newsreader",serif;font-size:1rem;color:var(--sage);font-style:italic}
+.steps h3{font-family:"Newsreader",serif;font-weight:500;font-size:1.625rem;line-height:1.2;margin:8px 0 10px}
+.steps p{margin:0;color:var(--ink2)}
+.svc-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,7vw,112px)}
+.svc-side img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:6px;margin-top:40px}
+.svc-list{list-style:none;margin:0;padding:0}
+.svc-list li{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px;padding:26px 0;border-bottom:1px solid var(--line)}
+.svc-list li:first-child{border-top:1px solid var(--line)}
+.svc-list h3{font-family:"Newsreader",serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0}
+.svc-list p{margin:0;color:var(--ink2)}
+.doc{background:var(--white)}
+.doc-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(32px,7vw,112px);align-items:center}
+.doc img{width:100%;aspect-ratio:16/11;object-fit:cover;border-radius:6px}
+.doc p{max-width:48ch}
+.sig{font-family:"Newsreader",serif;font-style:italic;font-size:1.25rem;margin-top:28px}
+.sig span{display:block;font-family:"Figtree",sans-serif;font-style:normal;font-size:.9375rem;color:var(--ink2)}
+.visit-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,7vw,112px)}
+.week{list-style:none;margin:32px 0 0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.week li{background:var(--white);border:1px solid var(--line);border-radius:6px;padding:16px 12px;text-align:center;font-variant-numeric:tabular-nums}
+.week b{display:block;font-weight:600;font-size:.875rem;letter-spacing:.06em;text-transform:uppercase;color:var(--sage);margin-bottom:10px}
+.week span{display:block;font-size:.9375rem;line-height:1.35}
+.week .late{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.week .late b{color:#B9D0C9}
+.legend{font-size:.9375rem;color:var(--ink2);margin-top:16px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--ink);vertical-align:-1px;margin-right:8px}
+address{font-style:normal;font-family:"Newsreader",serif;font-size:1.75rem;line-height:1.3;margin:0 0 24px}
+dl.contact-list{margin:0;border-top:1px solid var(--line)}
+dl.contact-list div{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+dl.contact-list dt{color:var(--ink2)}
+dl.contact-list dd{margin:0;font-weight:600;text-align:right}
+.req{background:var(--ink);color:var(--white)}
+.req-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,7vw,112px)}
+.req h2 em{color:#B9D0C9}
+.req .intro{color:#C9D3D1}
+.req .bigtel{display:inline-block;margin-top:28px;font-family:"Newsreader",serif;font-size:clamp(2rem,3.6vw,2.75rem);text-decoration:none;font-variant-numeric:lining-nums tabular-nums}
+.req .bigtel:hover{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
+form{background:var(--linen);color:var(--ink);border-radius:10px;padding:clamp(24px,3.5vw,44px)}
+.note{background:var(--mist);border-radius:6px;padding:12px 16px;font-size:.9375rem;margin:0 0 24px}
+fieldset{border:0;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+label,legend{display:block;font-weight:600;font-size:.9375rem}
+.full{grid-column:1/-1}
+input,textarea{display:block;width:100%;margin-top:6px;font:inherit;font-size:1rem;padding:12px 14px;border:1px solid #98A5A1;border-radius:6px;background:#EEF0EE;color:var(--ink)}
+textarea{min-height:110px}
+.times{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:8px;font-weight:400}
+.times label{display:flex;align-items:center;gap:8px;font-weight:400}
+.times input{width:auto;margin:0}
+button[disabled]{margin-top:22px;font:inherit;font-weight:600;background:#6B7679;color:#fff;border:0;border-radius:999px;padding:14px 26px;cursor:not-allowed}
+footer{padding:48px 0 56px;font-size:.9375rem;color:var(--ink2)}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;border-top:1px solid var(--line);padding-top:32px}
+.callbar{display:none}
+@media (max-width:1000px){
+  nav.main{display:none}
+  .hero-grid,.first-head,.svc-grid,.doc-grid,.visit-grid,.req-grid{grid-template-columns:1fr}
+  .first-head{gap:16px;margin-bottom:40px}
+  .steps{grid-template-columns:1fr}
+  .hero-photo{max-width:520px}
+  .svc-side img{display:none}
+  .week{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:760px){
+  .bar{min-height:72px}
+  .top-cta{display:none}
+  .brand .name{font-size:1.375rem}
+  .hero-photo img{aspect-ratio:1/1;border-radius:160px 160px 6px 6px}
+  .svc-list li{grid-template-columns:1fr;gap:6px}
+  fieldset{grid-template-columns:1fr}
+  .callbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:20;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:var(--linen);border-top:1px solid var(--line)}
+  .callbar .btn{flex:1;padding:14px 12px;white-space:nowrap}
+  footer{padding-bottom:110px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="ribbon">Sample website by <a href="https://tangerinesstudio.com/">Tangerines Studio</a> for a fictional business.</div>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#main" aria-label="Northline Chiropractic, home">
+      <svg width="30" height="48" viewBox="0 0 30 48" aria-hidden="true"><path d="M15 2v44" stroke="#1D2B30" stroke-width="1.5"/><circle cx="15" cy="9" r="5" fill="none" stroke="#1D2B30" stroke-width="1.5"/><path d="M9 22h12M10 30h10M11 38h8" stroke="#466760" stroke-width="1.5"/></svg>
+      <span class="name">Northline<i>Chiropractic</i></span>
+    </a>
+    <nav class="main" aria-label="Main"><ul><li><a href="#first-visit">First visit</a></li><li><a href="#care">Care</a></li><li><a href="#dr-ellison">Dr. Ellison</a></li><li><a href="#visit">Hours</a></li></ul></nav>
+    <div class="top-cta"><a class="tel" href="tel:+15550184471">(555) 018-4471</a><a class="btn dark" href="#request">Request a visit</a></div>
+  </div>
+</header>
+<main id="main">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Chiropractic care in Alder Bay since 2011</p>
+        <h1 id="hero-title">Unhurried care for <em>back, neck</em> and desk-work pain.</h1>
+        <p class="lede">Dr. Maya Ellison, DC, takes time to listen on your first visit and gives you a clear plan before any treatment starts. Early and evening hours through the week.</p>
+        <div class="actions">
+          <a class="btn dark" href="tel:+15550184471">Call (555) 018-4471</a>
+          <a class="btn line" href="#request">Send a request</a>
+        </div>
+      </div>
+      <figure class="hero-photo" style="margin:0">
+        <img src="img/adjustment-1000.webp" srcset="img/adjustment-640.webp 640w, img/adjustment-1000.webp 1000w, img/adjustment-1600.webp 1600w" sizes="(max-width:1000px) 90vw, 40vw" width="1600" height="1067" alt="A chiropractor gently adjusting a patient lying on a treatment table" fetchpriority="high">
+      </figure>
+    </div>
+  </section>
+
+  <section id="first-visit" class="first" aria-labelledby="first-title">
+    <div class="wrap">
+      <div class="first-head">
+        <h2 id="first-title">Your first visit, <em>step by step</em></h2>
+        <p class="intro">No rush and no surprises. You will know what we found and what we suggest before any treatment begins.</p>
+      </div>
+      <ol class="steps">
+        <li><span class="n">One</span><h3>An unhurried first visit</h3><p>A new patient exam. We talk about what hurts, when it started and what you would like to get back to.</p></li>
+        <li><span class="n">Two</span><h3>A clear plan first</h3><p>Dr. Ellison explains what she found in plain words and agrees on a plan with you before treatment starts.</p></li>
+        <li><span class="n">Three</span><h3>Care that fits your week</h3><p>Early mornings, evenings until 7pm on Tuesdays and Thursdays, and Saturday mornings.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="care" aria-labelledby="care-title">
+    <div class="wrap svc-grid">
+      <div class="svc-side">
+        <h2 id="care-title">How we can <em>help</em></h2>
+        <p class="intro">Not sure which of these fits? Call or send a request and tell us what is going on.</p>
+        <img src="img/stretch-640.webp" srcset="img/stretch-640.webp 640w, img/stretch-1000.webp 1000w" sizes="30vw" width="1000" height="667" alt="A practitioner stretching a patient's leg on a treatment table" loading="lazy">
+      </div>
+      <ul class="svc-list">
+        <li><h3>Chiropractic adjustments</h3><p>Hands-on adjustments for back and neck pain and stiffness.</p></li>
+        <li><h3>Sports injuries</h3><p>Care for strains and aches from running, lifting and weekend sports.</p></li>
+        <li><h3>Prenatal chiropractic</h3><p>Gentle care for back and hip discomfort during pregnancy.</p></li>
+        <li><h3>Posture and desk-work pain</h3><p>For neck, shoulder and lower back pain from long days at a desk.</p></li>
+        <li><h3>Soft tissue therapy</h3><p>Hands-on work for tight muscles, alongside your adjustments.</p></li>
+        <li><h3>New patient exam</h3><p>A full first visit: your history, an exam and a clear plan.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="dr-ellison" class="doc" aria-labelledby="doc-title">
+    <div class="wrap doc-grid">
+      <img src="img/consultation-640.webp" srcset="img/consultation-640.webp 640w, img/consultation-1000.webp 1000w" sizes="(max-width:1000px) 90vw, 50vw" width="1000" height="563" alt="A chiropractor talking with a patient across her desk" loading="lazy">
+      <div>
+        <p class="eyebrow">Meet your chiropractor</p>
+        <h2 id="doc-title">Dr. Maya Ellison, DC</h2>
+        <p>Dr. Ellison has cared for patients in Alder Bay since 2011. She keeps first visits unhurried, because a good plan starts with understanding how you live, work and move.</p>
+        <p>Every patient gets a clear plan before treatment starts, and the practice opens early and stays open late on some days so care fits around work and family.</p>
+        <p class="sig">Maya Ellison<span>Doctor of Chiropractic, Northline Chiropractic</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="visit" aria-labelledby="visit-title">
+    <div class="wrap visit-grid">
+      <div>
+        <h2 id="visit-title">Hours</h2>
+        <p class="intro">Open six days a week, with early and evening times.</p>
+        <ul class="week">
+          <li><b>Mon</b><span>8am<br>to 6pm</span></li>
+          <li class="late"><b>Tue</b><span>10am<br>to 7pm</span></li>
+          <li><b>Wed</b><span>8am<br>to 6pm</span></li>
+          <li class="late"><b>Thu</b><span>10am<br>to 7pm</span></li>
+          <li><b>Fri</b><span>8am<br>to 6pm</span></li>
+          <li><b>Sat</b><span>9am<br>to noon</span></li>
+        </ul>
+        <p class="legend"><i></i>Evening hours</p>
+      </div>
+      <div>
+        <h2>Find us</h2>
+        <address>Northline Chiropractic<br>41 Linden Street<br>Alder Bay</address>
+        <dl class="contact-list">
+          <div><dt>Phone</dt><dd><a href="tel:+15550184471">(555) 018-4471</a></dd></div>
+          <div><dt>Email</dt><dd><a href="mailto:hello@example.com">hello@example.com</a></dd></div>
+          <div><dt>Appointments</dt><dd>By phone or request</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section id="request" class="req" aria-labelledby="req-title">
+    <div class="wrap req-grid">
+      <div>
+        <h2 id="req-title">Ready to <em>feel better?</em></h2>
+        <p class="intro">Call us, or send a request with a few good times and we will call you back to set up your first visit.</p>
+        <a class="bigtel" href="tel:+15550184471">(555) 018-4471</a>
+      </div>
+      <form aria-labelledby="form-title" onsubmit="return false">
+        <h3 id="form-title" class="sr">Appointment request</h3>
+        <p class="note">This is a sample site, so the form is turned off. On a real site, requests go straight to the practice's email.</p>
+        <fieldset disabled>
+          <label>Name<input name="name" autocomplete="name"></label>
+          <label>Phone<input name="phone" type="tel" autocomplete="tel"></label>
+          <div class="full"><span style="font-weight:600;font-size:.9375rem">Best times to call you back</span>
+            <div class="times"><label><input type="checkbox"> Mornings</label><label><input type="checkbox"> Afternoons</label><label><input type="checkbox"> Evenings</label></div>
+          </div>
+          <label class="full">What brings you in?<textarea name="message"></textarea></label>
+        </fieldset>
+        <button type="submit" disabled>Send request</button>
+      </form>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap foot">
+    <p>Northline Chiropractic<br>41 Linden Street, Alder Bay</p>
+    <p><a href="tel:+15550184471">(555) 018-4471</a><br><a href="mailto:hello@example.com">hello@example.com</a></p>
+    <p>A sample website for a fictional business.<br>Designed by <a href="https://tangerinesstudio.com/">Tangerines Studio</a></p>
+  </div>
+</footer>
+<div class="callbar">
+  <a class="btn dark" href="tel:+15550184471">Call (555) 018-4471</a>
+  <a class="btn line" href="#request">Request</a>
+</div>
+</body>
+</html>

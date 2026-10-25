@@ -9,7 +9,7 @@ Read this file in full before any work. It is binding.
 | Path | What it is |
 | --- | --- |
 | public/ | Everything Vercel serves |
-| public/index.html, public/img/ | The studio site |
+| public/index.html, public/img/, public/fonts/ | The studio site (screenshots of the samples in public/img/work/) |
 | public/work/{slug}/ | Sample sites for fictional businesses (photos in img/) |
 | public/preview/{slug}/ | Free homepage previews for real businesses |
 | public/review/{name}/ | Review copies of studio-site changes waiting for Elton's approval |
@@ -17,6 +17,7 @@ Read this file in full before any work. It is binding.
 | engine/ | Preview builder: render_concept.py, templates/, samples/ |
 | tools/render_emails.py | Used by the operations run for outreach email. Don't change it. |
 | vercel.json | Output directory, headers, rewrites |
+| DESIGN.md | Design decisions for the studio site and each sample. Read it before visual work |
 
 ## Hosting and deploys
 

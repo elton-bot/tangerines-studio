@@ -1,2 +1,4 @@
 Photos in this folder: Unsplash, free Unsplash License (not Unsplash+), downloaded 25 Oct 2026 for Tangerines Studio's sample sites.
 The individual photo page URLs were not recorded at download time. Keep or replace these photos; if you add or replace any, list each file with its Unsplash page URL below.
+
+25 Oct 2026, B-0001: the *-640/-1000/-1600.webp files are resized WebP copies of the JPGs above, made by Tangerines Studio for faster pages.
