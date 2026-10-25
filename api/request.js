@@ -1,4 +1,4 @@
-// POST /api/request: the free homepage request form on tangerinesstudio.com.
+// POST /api/request/ (with the trailing slash, since trailingSlash is on): the free homepage request form on tangerinesstudio.com.
 // Emails each request to elton@tangerinesstudio.com through DreamHost SMTP.
 // GET /api/request answers {"enabled": true|false} so the page only shows the
 // form once SMTP_USER and SMTP_PASS are set in Vercel. Until then, and whenever

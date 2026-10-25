@@ -613,7 +613,7 @@ h1,h2,h3{margin:0}
       </div>
       <!-- Request form (B-0003). Hidden until GET /api/request says the form is switched on; the email block is the fallback. -->
       <div class="request-slot" data-slot="request">
-        <form class="rf" id="rf" action="/api/request" method="post" novalidate hidden aria-labelledby="rf-title" data-always>
+        <form class="rf" id="rf" action="/api/request/" method="post" novalidate hidden aria-labelledby="rf-title" data-always>
           <h3 id="rf-title" class="sr">Request your free homepage</h3>
           <div class="fields">
             <label for="rf-name">Your name<input id="rf-name" name="name" autocomplete="name" required maxlength="100" aria-describedby="rf-name-e"><span class="err" id="rf-name-e"></span></label>
@@ -669,7 +669,7 @@ Website:</p>
   var MAILTO='mailto:elton@tangerinesstudio.com?subject=Free%20homepage';
   function show(){if(!f.hidden)return;f.hidden=false;mail.hidden=true;var c=document.querySelector('.req-cta');if(c)c.innerHTML='<p>Prefer email? Write to <a href="'+MAILTO+'">elton@tangerinesstudio.com</a> with your business name and website address.</p>';}
   if(f.hasAttribute('data-always'))show();
-  fetch('/api/request',{headers:{Accept:'application/json'}}).then(function(r){return r.json()}).then(function(d){if(d&&d.enabled)show()}).catch(function(){});
+  fetch('/api/request/',{headers:{Accept:'application/json'}}).then(function(r){return r.json()}).then(function(d){if(d&&d.enabled)show()}).catch(function(){});
   var q=location.search;
   if(/form=sent/.test(q)){f.hidden=true;mail.hidden=true;done.hidden=false;}
   function setErr(name,msg){var i=f.elements[name],e=document.getElementById('rf-'+name+'-e');if(!i||!e)return;e.textContent=msg||'';if(msg)i.setAttribute('aria-invalid','true');else i.removeAttribute('aria-invalid');}

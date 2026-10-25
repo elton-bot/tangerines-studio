@@ -7,7 +7,7 @@
 #}
 {% macro form(b, mode, note_class, title, kind="service", service_label="What do you need help with?", message_label="Anything else we should know?") %}
 {% set live = (mode == "client" and b.form != false) %}
-<form aria-labelledby="form-title"{% if live %} action="/api/contact" method="post" data-live{% else %} onsubmit="return false"{% endif %}>
+<form aria-labelledby="form-title"{% if live %} action="/api/contact/" method="post" data-live{% else %} onsubmit="return false"{% endif %}>
   <h3 id="form-title" class="sr">{{ title }}</h3>
   {% if not live %}<p class="{{ note_class }}">{% if mode == "preview" %}This preview's form is turned off. On the finished site, requests go straight to {{ b.business_name }}'s email.{% else %}Please call or email us. The form is not available right now.{% endif %}</p>{% endif %}
   {% if live %}<input type="hidden" name="site" value="{{ b.slug }}"><input type="hidden" name="page" value="/"><div class="hp" aria-hidden="true"><label>Leave this empty<input name="company" tabindex="-1" autocomplete="off"></label></div>{% endif %}
