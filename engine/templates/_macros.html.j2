@@ -1,0 +1,14 @@
+{# ---------- shared pieces ---------- #}
+{% macro form_fields(b, service_label="What do you need help with?", message_label="Anything else we should know?") %}
+<fieldset disabled>
+  <label>Name<input name="name" autocomplete="name"></label>
+  <label>Phone<input name="phone" type="tel" autocomplete="tel"></label>
+  <label class="full">{{ service_label }}
+    <select name="service">{% for s in b.services %}<option>{{ s.name }}</option>{% endfor %}<option>Something else</option></select>
+  </label>
+  <label class="full">{{ message_label }}<textarea name="message"></textarea></label>
+</fieldset>
+<button type="submit" disabled>Send request</button>
+{% endmacro %}
+{% macro form_note(b) %}This preview's form is turned off. On the finished site, requests go straight to {{ b.business_name }}'s email.{% endmacro %}
+{% macro img(i, alt, sizes, eager=False, cls="") %}<img{% if cls %} class="{{ cls }}"{% endif %} src="{{ i.src }}"{% if i.srcset %} srcset="{{ i.srcset }}" sizes="{{ sizes }}"{% endif %} width="{{ i.width }}" height="{{ i.height }}" alt="{{ alt }}"{% if eager %} fetchpriority="high"{% else %} loading="lazy" decoding="async"{% endif %}>{% endmacro %}

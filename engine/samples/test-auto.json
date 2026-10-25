@@ -1,0 +1,29 @@
+{
+  "slug": "test-auto-mesa-brake",
+  "fictional": true,
+  "business_name": "Mesa Brake & Transmission",
+  "city": "Dry Creek",
+  "niche_palette": "auto",
+  "phone": "(555) 012-7745",
+  "email": "shop@example.com",
+  "address": "1450 Canyon Road, Dry Creek",
+  "kicker": "Family shop in Dry Creek",
+  "hero_title": "Brakes and transmissions, done right.",
+  "hero_sub": "Brake jobs, transmission service and rebuilds, and general repair for cars and light trucks. We show you the problem before we fix it.",
+  "facts": ["Free brake checks", "We show you the problem first", "Cars and light trucks"],
+  "services_title": "What we work on",
+  "services_intro": "Not on the list? Call and ask.",
+  "services": [
+    {"name": "Brake repair", "text": "Pads, rotors, calipers and brake lines."},
+    {"name": "Transmission service", "text": "Fluid service and repairs for automatics and manuals."},
+    {"name": "Transmission rebuilds", "text": "Rebuilt in our shop when a repair will not do."},
+    {"name": "Clutch replacement", "text": "Slipping, grabbing or a pedal that feels wrong."},
+    {"name": "Check engine lights", "text": "We read the codes and explain what they mean."},
+    {"name": "General repair", "text": "Suspension, cooling systems, belts and hoses."}
+  ],
+  "about_title": "Two bays, one family",
+  "about": ["Mesa is a two-bay shop run by a father and son. They do the work themselves.", "Before any repair, they show you the worn part or the problem, and tell you the price."],
+  "hours": [{"days": "Mon to Fri", "time": "8am to 5:30pm"}, {"days": "Saturday", "time": "8am to noon"}, {"days": "Sunday", "time": "Closed"}],
+  "service_area": ["Dry Creek", "Sandy Flats", "Pinon"],
+  "sources": ["Fictional test business for the Tangerines Studio preview engine"]
+}

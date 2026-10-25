@@ -89,3 +89,17 @@ Each sample has its own identity. No orange in any sample. Shared rules: ribbon 
 - Palette: asphalt #121417, steel #23272D, concrete #E9E9E6, signal yellow #F3C316 (on dark only, or as a background with dark text).
 - Type: Barlow Condensed 600/700 uppercase for headings, Barlow 400/600 body.
 - Ideas: big "We call with a price before any work" promise, services as a numbered board, hours like a shop sign, address block with a drawn street map in SVG (no third-party map).
+
+## Preview themes (engine/templates/, B-0002)
+
+The free homepage previews start from one of three themes, each built from the matching sample so a preview is at the sample's standard. Same rules as the samples: no orange, the concept note at the very top ("Concept for {business} by Tangerines Studio. Not the official website."), a disabled form with a note, a call bar on phones under 760px, noindex. Palette tokens are per theme and can be overridden per business with palette in the spec; set them from the business's own logo when it has a clear brand color.
+
+| Theme | From sample | Default tokens | Type | With no photo | With no logo |
+| --- | --- | --- | --- | --- | --- |
+| home | Juniper Ridge | main #18352B, tint #DCEBF0, accent #8CC3D6, bg #F7F8F5 | Archivo, condensed 800 headings | Full-width main-color hero, headline over 7 columns, a "Call us" panel with the phone and hours on the right, a faint roofline drawing along the bottom | Rounded initials tile with an accent base line, name in two lines (trade words on the small second line) |
+| wellness | Northline | main #1D2B30, tint #E4E9E6, accent_text #466760, bg #F4F1EC | Newsreader headings, Figtree body | An arch-shaped tint panel in place of the arched photo, with "Call to book", the phone and hours | The thin vertical north line mark and the name in serif with the trade in small caps |
+| auto | Harbor Street | main #121417, main2 #1E2227, accent #F3C316, bg #F6F6F4 | Barlow Condensed uppercase headings, Barlow body | Dark hero with the initials as a huge outlined letterform, a shop ticket with the phone and hours, and a yellow hazard stripe along the bottom | Yellow initials tag and the name in condensed caps; a logo sits on a small white plate on the dark header |
+
+Section order: hero, facts strip (only from the business's own claims), services, reviews (only when quoted from their site, with "Quoted word for word from ..."), about, hours and area or location, contact with the disabled form, footer saying where the content came from. Services lay out in 3 columns (2 when there are exactly 4). Long headlines step down in size automatically (over 52 and over 80 characters).
+
+Per-business identity comes from the hand pass: palette from their logo, their own kicker and section titles, image crops, and a refine.css beside the page for a signature detail. Never ship a theme's defaults unchanged when the business has a brand color of its own.

@@ -14,7 +14,7 @@ Read this file in full before any work. It is binding.
 | public/preview/{slug}/ | Free homepage previews for real businesses |
 | public/review/{name}/ | Review copies of studio-site changes waiting for Elton's approval |
 | public/clients/{slug}/ | Paying clients' sites, until the client-site system below says otherwise |
-| engine/ | Preview builder: render_concept.py, templates/, samples/ |
+| engine/ | Preview builder: render_concept.py, check_preview.py, templates/ (themes), fonts/, samples/ (specs and test images) |
 | tools/render_emails.py | Used by the operations run for outreach email. Don't change it. |
 | vercel.json | Output directory, headers, rewrites |
 | DESIGN.md | Design decisions for the studio site and each sample. Read it before visual work |
@@ -50,11 +50,30 @@ Read this file in full before any work. It is binding.
 
 ## Preview command (contract with the operations run)
 
-`python3 engine/render_concept.py <spec.json> [out_dir]` writes `<out_dir>/<slug>/index.html` plus `img/`. out_dir defaults to public/preview. It prints the page path, and exits non-zero with "Spec not valid: ..." on a bad spec. Needs Python 3 and `pip install --break-system-packages jinja2 pillow requests`.
+`python3 engine/render_concept.py <spec.json> [out_dir]` writes `<out_dir>/<slug>/index.html` plus `img/` and `fonts/`. out_dir defaults to public/preview. It prints the page path, and exits non-zero with "Spec not valid: ..." on a bad spec. Needs Python 3 and `pip install --break-system-packages jinja2 pillow requests`.
 
 The spec format is engine/samples/juniper-ridge.json. Required: business_name, niche_palette (home, wellness or auto) or palette, hero_title, hero_sub, services (3 or more, each {name, text}), about (paragraphs), sources (pages used). Optional: slug, city, phone, email, address, facts, services_title, services_intro, about_title, hours (each {days, time}), service_area, logo_url, hero_image_url, hero_image_alt, reviews (each {quote, name}) with reviews_source.
 
+Optional fields added in B-0002 (all safe to leave out): theme (home, wellness or auto; defaults to niche_palette), palette (theme tokens main, main2, tint, accent, accent_text, bg, ink, ink2, line, deep; the old primary, accent and surface keys still work), kicker (the small line above the headline; defaults to city), wordmark ([main, sub] to override how the name is split), initials, about_image_url and about_image_alt, hero_image_position (CSS object-position), cta_label, contact_title, contact_text, hours_note, reviews_title, website, image_credits (lines written to img/CREDITS.txt), fictional (true adds "A fictional business" to the top note; only for samples and tests).
+
+Image URLs can be web addresses (downloaded at render time; a 401, 403 or 429 is a refusal and the image is dropped, never retried another way) or paths relative to the spec file (for files a client sent). Photos are saved as hero-/about- 640, 1000 and 1600 WebP; logos as PNG (trimmed, 200px tall) or a script-free SVG. The renderer warns on stderr when a custom palette fails contrast (white on main or ink on bg under 4.5:1).
+
 Keep this command and these fields working, with any new fields optional, so a preview can always be produced from a spec, even when a job also refines the page by hand. If you change it, update this section in the same commit.
+
+### Themes
+
+engine/templates/home.html.j2, wellness.html.j2 and auto.html.j2 (shared parts in _base.html.j2 and _macros.html.j2), each drawn from the matching sample in public/work/. Fonts are copied from engine/fonts/ into each preview's fonts/ folder (OFL, from Fontsource). Every theme has a photo layout and a type-led layout for when there is no usable hero photo, and sets the name as a wordmark (a small theme mark plus the name in two lines) when there is no usable logo. Design details are in DESIGN.md under "Preview themes".
+
+### Check command
+
+`python3 engine/check_preview.py <page_dir> [--out DIR] [--concept]` serves the page locally, takes full-page and first-screen screenshots at 390x844 and 1440x900 (default /tmp/preview-check/<folder>/), and exits 1 with a list of problems: horizontal overflow, images that fail to load or lack alt text or width and height, failed requests, leftover placeholders, em or en dashes, exclamation marks, no noindex meta, not exactly one h1, skipped heading levels, and for previews (any path under preview/, or --concept) a missing concept note at the top or any enabled form field. Run it on every preview before pushing and look at the screenshots.
+
+### How a preview job combines the engine with hand refinement
+
+1. Research their own site and write specs/{slug}.json (gitignored) with only what their pages say. Pick the theme by trade. When their logo has a clear brand color, set palette.main (and accent) from it, keeping the contrast the renderer checks.
+2. Render with the engine. It does the layout, images, fonts, noindex, the concept note and the disabled form.
+3. Refine for this business so it does not look like the template recolored: wording, section titles, kicker, service order and image crops in the spec; anything visual (a signature element from their trade or logo, spacing, a different hero crop) in public/preview/{slug}/refine.css, which the renderer never overwrites and inlines on every render. Edit index.html by hand only for structural changes the theme cannot do, and then do not re-render that page.
+4. Run the check command, look at both screenshots, fix, push only public/preview/{slug}/.
 
 ## Business facts (the only source for studio copy)
 

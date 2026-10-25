@@ -1,0 +1,33 @@
+{
+  "slug": "test-wellness-riverbend",
+  "fictional": true,
+  "business_name": "Riverbend Physical Therapy",
+  "city": "Linden Falls",
+  "niche_palette": "wellness",
+  "hero_image_url": "img/stretch.jpg",
+  "hero_image_alt": "A physical therapist guiding a patient's arm through a standing stretch",
+  "hero_image_position": "64% 30%",
+  "about_image_url": "img/dr-ellison.jpg",
+  "about_image_alt": "A therapist working on a patient's shoulder on a treatment table",
+  "phone": "(555) 016-3308",
+  "email": "frontdesk@example.com",
+  "address": "210 River Street, Suite 2, Linden Falls",
+  "kicker": "Physical therapy in Linden Falls",
+  "hero_title": "Get back to moving the way you want to.",
+  "hero_sub": "One-on-one physical therapy for back and neck pain, sports injuries and recovery after surgery. Every visit is with a licensed physical therapist.",
+  "facts": ["One-on-one visits", "No referral needed to start", "Evening appointments"],
+  "services_title": "What we treat",
+  "services_intro": "If you are not sure whether we can help, call and ask. We will tell you honestly.",
+  "services": [
+    {"name": "Back and neck pain", "text": "Hands-on care and exercise for pain that keeps coming back."},
+    {"name": "Sports injuries", "text": "Sprains, strains and overuse injuries, with a plan to return to play."},
+    {"name": "After surgery", "text": "Rehab after knee, hip and shoulder surgery."},
+    {"name": "Balance and falls", "text": "Strength and balance work to help you feel steady again."},
+    {"name": "Work injuries", "text": "Care and paperwork for injuries that happened on the job."}
+  ],
+  "about_title": "Small on purpose",
+  "about": ["Riverbend is a small clinic with two physical therapists. You see the same therapist at every visit.", "Visits are one-on-one, so the whole hour is about you."],
+  "hours": [{"days": "Monday and Wednesday", "time": "7am to 7pm"}, {"days": "Tuesday and Thursday", "time": "7am to 4pm"}, {"days": "Friday", "time": "7am to 1pm"}],
+  "image_credits": ["Photos: Unsplash, free Unsplash License. stretch: https://unsplash.com/photos/CexT3n-04iw  treatment: https://unsplash.com/photos/uLWW09LLG04"],
+  "sources": ["Fictional test business for the Tangerines Studio preview engine"]
+}
