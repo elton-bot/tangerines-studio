@@ -209,6 +209,7 @@ h1,h2,h3{margin:0}
 .request h2{font-weight:500;font-size:clamp(2.6rem,5.8vw,5.25rem);letter-spacing:-.045em;line-height:.98}
 .request .intro{margin-top:28px;font-size:1.1875rem;max-width:40ch}
 .req-cta{margin-top:40px}
+.req-cta p a{color:var(--dpaper)}
 .req-cta p{color:var(--dmuted);margin-top:18px;font-size:.9375rem;max-width:44ch}
 .request-slot{grid-column:8/span 5}
 .mail{background:#1F1E18;border:1px solid var(--drule);border-radius:10px;padding:clamp(20px,3vw,32px);font-size:1rem}
@@ -309,6 +310,33 @@ h1,h2,h3{margin:0}
   .price{grid-column:1;grid-row:auto;text-align:left}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+/* request form (B-0003) */
+.rf{background:#1F1E18;border:1px solid var(--drule);border-radius:10px;padding:clamp(22px,3vw,34px)}
+.rf .fields{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.rf .fields .wide{grid-column:1/-1}
+.rf label{display:block;font-size:.9375rem;font-weight:600;color:var(--dpaper)}
+.rf .opt{font-weight:400;color:var(--dmuted)}
+.rf input,.rf textarea{display:block;width:100%;margin-top:6px;font:inherit;font-size:1rem;color:var(--dpaper);background:#16150F;border:1px solid #75705F;border-radius:8px;padding:12px 14px}
+.rf textarea{min-height:96px;resize:vertical}
+.rf ::placeholder{color:#8F8A7D;opacity:1}
+.rf input:focus-visible,.rf textarea:focus-visible{outline:2px solid var(--dpaper);outline-offset:1px;border-color:var(--dpaper)}
+.rf [aria-invalid=true]{border-color:#F08A5D}
+.rf .err{display:block;font-size:.875rem;font-weight:500;color:#F6A27E;margin-top:6px}
+.rf .err:empty{display:none}
+.rf .hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+.rf .send{margin-top:24px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px}
+.rf .send p{font-size:.875rem;color:var(--dmuted);max-width:32ch}
+.rf .btn{border:0;cursor:pointer}
+.rf .btn[disabled]{opacity:.7;cursor:progress}
+.rf-status{margin-top:18px;font-size:.9375rem;color:var(--dpaper)}
+.rf-status:empty{display:none}
+.rf-status a{color:var(--dpaper)}
+.rf-done{background:#1F1E18;border:1px solid var(--drule);border-radius:10px;padding:clamp(24px,3vw,36px)}
+.rf-done h3{font-weight:500;font-size:clamp(1.5rem,2.4vw,2rem);letter-spacing:-.03em;line-height:1.1}
+.rf-done p{color:var(--dmuted);margin-top:12px;max-width:40ch}
+.mail-alt{margin-top:18px;font-size:.9375rem;color:var(--dmuted)}
+.mail-alt a{color:var(--dpaper)}
+@media (max-width:560px){.rf .fields{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -576,15 +604,36 @@ h1,h2,h3{margin:0}
       <div class="req-copy">
         <p class="label">Your free homepage</p>
         <h2 id="req-title" style="margin-top:18px">Ask for your free homepage.</h2>
-        <p class="intro">Email your business name and website address. Your new homepage will be ready within a day, and you pay nothing unless you want to keep it.</p>
+        <p class="intro">Send your business name and website address. Your new homepage will be ready within a day, and you pay nothing unless you want to keep it.</p>
         <div class="req-cta">
           <a class="btn btn-primary" href="mailto:elton@tangerinesstudio.com?subject=Free%20homepage&amp;body=Business%20name%3A%20%0D%0AWebsite%3A%20%0D%0A">Write the email</a>
           <p>Opens your email app with the subject and lines filled in. Or write to elton@tangerinesstudio.com from any email.</p>
         </div>
       </div>
-      <!-- Request form slot: job B-0003 puts the form here and keeps the email link above as the fallback. -->
+      <!-- Request form (B-0003). Hidden until GET /api/request says the form is switched on; the email block is the fallback. -->
       <div class="request-slot" data-slot="request">
-        <div class="mail" role="group" aria-label="The email to send">
+        <form class="rf" id="rf" action="/api/request/" method="post" novalidate hidden aria-labelledby="rf-title">
+          <h3 id="rf-title" class="sr">Request your free homepage</h3>
+          <div class="fields">
+            <label for="rf-name">Your name<input id="rf-name" name="name" autocomplete="name" required maxlength="100" aria-describedby="rf-name-e"><span class="err" id="rf-name-e"></span></label>
+            <label for="rf-business">Business name<input id="rf-business" name="business" autocomplete="organization" required maxlength="140" aria-describedby="rf-business-e"><span class="err" id="rf-business-e"></span></label>
+            <label class="wide" for="rf-website">Your current website<input id="rf-website" name="website" inputmode="url" autocomplete="url" placeholder="yourbusiness.com" required maxlength="200" aria-describedby="rf-website-e"><span class="err" id="rf-website-e"></span></label>
+            <label for="rf-email">Email<input id="rf-email" name="email" type="email" autocomplete="email" required maxlength="200" aria-describedby="rf-email-e"><span class="err" id="rf-email-e"></span></label>
+            <label for="rf-phone">Phone <span class="opt">(optional)</span><input id="rf-phone" name="phone" type="tel" autocomplete="tel" maxlength="40" aria-describedby="rf-phone-e"><span class="err" id="rf-phone-e"></span></label>
+            <label class="wide" for="rf-message">Anything we should know? <span class="opt">(optional)</span><textarea id="rf-message" name="message" maxlength="2000"></textarea></label>
+          </div>
+          <div class="hp" aria-hidden="true"><label for="rf-company">Leave this empty<input id="rf-company" name="company" tabindex="-1" autocomplete="off"></label></div>
+          <div class="send">
+            <button class="btn btn-primary" type="submit">Send request</button>
+            <p>It goes straight to Elton. The reply comes by email.</p>
+          </div>
+          <p class="rf-status" id="rf-status" role="status" aria-live="polite"></p>
+        </form>
+        <div class="rf-done" id="rf-done" hidden tabindex="-1">
+          <h3>Thanks. Your request is in.</h3>
+          <p>Your new homepage will be ready within a day. It comes by email from elton@tangerinesstudio.com, so keep an eye on your inbox.</p>
+        </div>
+        <div class="mail" id="rf-mail" role="group" aria-label="The email to send">
           <dl>
             <div><dt>To</dt><dd>elton@tangerinesstudio.com</dd></div>
             <div><dt>Subject</dt><dd>Free homepage</dd></div>
@@ -613,6 +662,39 @@ Website:</p>
 </footer>
 <script>
 (function(){var h=document.querySelector('.site-head');function f(){h.classList.toggle('scrolled',window.scrollY>8)}f();window.addEventListener('scroll',f,{passive:true})})();
+(function(){
+  var f=document.getElementById('rf');if(!f||!window.fetch)return;
+  var mail=document.getElementById('rf-mail'),done=document.getElementById('rf-done'),st=document.getElementById('rf-status');
+  var MAILTO='mailto:elton@tangerinesstudio.com?subject=Free%20homepage';
+  function show(){if(!f.hidden)return;f.hidden=false;mail.hidden=true;var c=document.querySelector('.req-cta');if(c)c.innerHTML='<p>Prefer email? Write to <a href="'+MAILTO+'">elton@tangerinesstudio.com</a> with your business name and website address.</p>';}
+  if(f.hasAttribute('data-always'))show();
+  fetch('/api/request/',{headers:{Accept:'application/json'}}).then(function(r){return r.json()}).then(function(d){if(d&&d.enabled)show()}).catch(function(){});
+  var q=location.search;
+  if(/form=sent/.test(q)){f.hidden=true;mail.hidden=true;done.hidden=false;}
+  function setErr(name,msg){var i=f.elements[name],e=document.getElementById('rf-'+name+'-e');if(!i||!e)return;e.textContent=msg||'';if(msg)i.setAttribute('aria-invalid','true');else i.removeAttribute('aria-invalid');}
+  function fallback(msg){st.innerHTML='';st.appendChild(document.createTextNode(msg+' '));var a=document.createElement('a');a.href=MAILTO;a.textContent='Write the email instead';st.appendChild(a);}
+  f.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    ['name','business','website','email','phone'].forEach(function(n){setErr(n,'')});
+    var data={};for(var i=0;i<f.elements.length;i++){var el=f.elements[i];if(el.name)data[el.name]=el.value;}
+    var bad=false;
+    if(!data.name.trim()){setErr('name','Please add your name.');bad=true}
+    if(!data.business.trim()){setErr('business','Please add your business name.');bad=true}
+    if(!data.website.trim()){setErr('website','Please add your website address, for example yourbusiness.com.');bad=true}
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email.trim())){setErr('email','Please add an email address we can reply to.');bad=true}
+    if(bad){st.textContent='Please check the highlighted fields.';var first=f.querySelector('[aria-invalid=true]');if(first)first.focus();return;}
+    var btn=f.querySelector('button[type=submit]');btn.disabled=true;st.textContent='Sending...';
+    fetch(f.action,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(data)})
+      .then(function(r){return r.json().catch(function(){return {ok:false,fallback:true,error:'Sorry, that did not go through.'}})})
+      .then(function(d){
+        btn.disabled=false;
+        if(d.ok){f.hidden=true;done.hidden=false;done.focus();return;}
+        if(d.errors){Object.keys(d.errors).forEach(function(n){setErr(n,d.errors[n])});st.textContent=d.error||'Please check the highlighted fields.';return;}
+        fallback(d.error||'Sorry, that did not go through.');
+      })
+      .catch(function(){btn.disabled=false;fallback('Sorry, that did not go through.');});
+  });
+})();
 </script>
 </body>
 </html>
