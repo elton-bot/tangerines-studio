@@ -1,0 +1,3 @@
+logo.png: Ray & Roy's Repair, Inc. logo, from https://rayandroysrepair.com/images/SITE_assets/randr-logo.png
+hero-*.webp: shop photo from https://rayandroysrepair.com/ (home page slider)
+about-*.webp: engine photo from https://rayandroysrepair.com/ (home page slider)
