@@ -7,6 +7,8 @@
 {% if not live %}<meta name="robots" content="noindex, nofollow, noarchive">{% endif %}
 {% if mode == "preview" %}
 <title>{{ b.business_name }}{% if b.city %} | {{ b.city }}{% endif %} (concept by Tangerines Studio)</title>
+{% elif mode == "sample" %}
+<title>{{ b.business_name }} (sample website by Tangerines Studio)</title>
 {% elif page %}
 <title>{{ page.title }} | {{ b.business_name }}</title>
 {% else %}
@@ -32,6 +34,7 @@
 </head>
 <body>
 {% if mode == "client" and b.demo %}<p class="concept-note" style="margin:0">Demo of a client site by <a href="https://tangerinesstudio.com/">Tangerines Studio</a>, for a fictional business.</p>{% endif %}
+{% if mode == "sample" %}<p class="concept-note" style="margin:0">Sample website by <a href="https://tangerinesstudio.com/">Tangerines Studio</a> for a fictional {{ b.sample_kind or "business" }}.</p>{% endif %}
 {% if mode == "preview" %}<p class="concept-note" style="margin:0">Concept for {{ b.business_name }} by <a href="https://tangerinesstudio.com/">Tangerines Studio</a>. Not the official website.{% if b.fictional %} A fictional business, used to test our designs.{% endif %}</p>{% endif %}
 <a class="skip" href="#main">Skip to content</a>
 {% block body %}{% endblock %}

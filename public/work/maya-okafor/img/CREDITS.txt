@@ -1,0 +1,2 @@
+Photo: Unsplash, free Unsplash License (not Unsplash+). Sample site for a fictional person.
+hero-*.webp: https://unsplash.com/photos/lFntEHwQvi4

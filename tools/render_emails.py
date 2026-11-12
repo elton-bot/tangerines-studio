@@ -29,7 +29,14 @@ NICHE_PLURAL = {
     "transmission": "transmission shops",
     "brakes": "brake and auto repair shops",
     "body shop": "body shops",
+    "nonprofit": "nonprofits",
+    "coach": "coaches",
+    "speaker": "speakers",
 }
+
+# Step 1 wording that changes by niche: who we build for, and what their homepage shows.
+AUDIENCE = {"nonprofit": "nonprofits", "coach": "coaches and speakers", "speaker": "coaches and speakers"}
+OFFER_WORD = {"nonprofit": "programs", "speaker": "talks"}
 
 SUFFIX = re.compile(r"(,?\s+(LLC|L\.L\.C\.|Inc\.?|PC|P\.C\.|PLLC|Co\.|Corp\.?|Company LLC))+$", re.I)
 
@@ -39,7 +46,7 @@ I was looking at {niche_plural} in {city} and came across {business_short}. {com
 
 Your website doesn't show that off yet. {Issue_1}, and {issue_2}.
 
-I run Tangerines Studio, and we rebuild websites for local businesses. I'd like to mock up a new homepage for {business_short} using your own logo, photos and services, so you can see the difference before spending anything. If it's not for you, just delete it.
+I run Tangerines Studio, and we rebuild websites for {audience}. I'd like to mock up a new homepage for {business_short} using your own logo, photos and {offer_word}, so you can see the difference before spending anything. If it's not for you, just delete it.
 
 Want me to put it together?"""
 
@@ -115,6 +122,8 @@ def render(row, cfg, step):
             compliment_sentence=compliment,
             Issue_1=issue_1[:1].upper() + issue_1[1:],
             issue_2=issue_2,
+            audience=AUDIENCE.get(niche.lower(), "local businesses"),
+            offer_word=OFFER_WORD.get(niche.lower(), "services"),
         )
     elif step == 2:
         body, subject = STEP2.format(first=first), "Re: " + subject

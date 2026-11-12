@@ -1,0 +1,24 @@
+{
+  "slug": "test-nonprofit-riverside",
+  "fictional": true,
+  "business_name": "Riverside Literacy Project",
+  "city": "Linden Falls",
+  "niche_palette": "nonprofit",
+  "email": "info@example.com",
+  "phone": "(555) 019-4410",
+  "kicker": "Free tutoring in Linden Falls",
+  "hero_title": "Every adult in Linden Falls deserves to read with confidence.",
+  "hero_sub": "Free one-on-one reading and English tutoring for adults, matched with a trained volunteer.",
+  "mission": "We help adults read, write and speak English so they can do more for themselves and their families.",
+  "facts": ["Free for every learner", "Trained volunteer tutors", "Evening and weekend sessions"],
+  "services": [
+    {"name": "Adult reading", "text": "Weekly sessions with the same tutor, at the library or online."},
+    {"name": "English conversation", "text": "Small groups for adults learning English."},
+    {"name": "GED help", "text": "Study support for adults working toward a GED."}
+  ],
+  "about": ["Riverside matches adult learners with volunteer tutors from their own community."],
+  "donate_url": "https://example.com/give",
+  "volunteer_url": "https://example.com/tutor",
+  "hours": [{"days": "Monday to Thursday", "time": "4pm to 8pm"}, {"days": "Saturday", "time": "10am to 2pm"}],
+  "sources": ["Fictional test organization for the Tangerines Studio preview engine"]
+}

@@ -4,7 +4,7 @@ Binding for later jobs, next to CLAUDE.md. Update this file whenever a design de
 
 ## Studio site (tangerinesstudio.com), v4
 
-Live at / since 25 Oct 2026, with /terms/, /privacy/ and /404.html. v4 keeps the v3 palette, type and components and changes the page structure: the offer is the headline, the work is on the first screen, and sections vary in layout instead of repeating one pattern.
+Live at / since 25 Oct 2026, with /terms/, /privacy/ and /404.html. A review copy at /review/orgs/ (12 Nov 2026, waiting for Elton) widens the positioning to nonprofits, coaches and speakers: hero label, title, meta, structured data, a fourth and fifth sample shown as a side-by-side pair under "Also for nonprofits, coaches and speakers" at the end of the work band, the scope FAQ and "What we don't build". v4 keeps the v3 palette, type and components and changes the page structure: the offer is the headline, the work is on the first screen, and sections vary in layout instead of repeating one pattern.
 
 ### What a generic AI-made landing page looks like, and what we do instead
 
@@ -58,7 +58,7 @@ Dark band (the work): background --ink, text #F5F3EE, secondary #B9B5AA.
 
 ### Assets
 
-- Sample screenshots for the studio site: public/img/work/{juniper,northline,harbor}-desktop-{640,960,1440}.webp and -phone-{240,360,600}.webp, made with Playwright at 1440x900 and 390x844 (2x). Re-shoot them when a sample changes.
+- Sample screenshots for the studio site: public/img/work/{juniper,northline,harbor,pantry,okafor}-desktop-{640,960,1440}.webp and -phone-{240,360,600}.webp, made with Playwright at 1440x900 and 390x844 (2x). Re-shoot them when a sample changes.
 - Share image: public/img/og.jpg (1200x630): wordmark, the hero headline, the Juniper Ridge desktop and Harbor Street phone screenshots. Re-render it when the headline or the screenshots change. Favicons: public/favicon.svg, favicon-32.png, favicon.ico, apple-touch-icon.png.
 - Asset URLs on studio pages are absolute (/img/, /fonts/) so the same files work from /review/ and from /. Page links are relative.
 
@@ -84,6 +84,21 @@ Each sample has its own identity. No orange in any sample. Shared rules: ribbon 
 - Ideas: lots of air, a thin vertical "north line" motif, first-visit steps, weekly hours as a simple week grid.
 - The fictional doctor is Dr. Daniel Ellison, DC. Photos of the practitioner must stay consistent with that (one man, or hands only). The hero is a hands-only adjustment photo.
 
+### Harvest Table Community Pantry (nonprofit, rendered by the engine)
+- Feel: warm, civic, hopeful. Neighbors helping neighbors, not a charity appeal.
+- Palette: civic blue #213B63 (main), deep #152742 (contact band), cream #FCF9F3 (bg), wheat #F1E8D8 (tint), mint #A7D8C9 (accent, on blue only, and as rules), green text #2B5D52 (7.2:1 on cream), ink #1C2233.
+- Type: Fraunces (soft serif, 500 to 600) for headings and the italic mission quote, Public Sans for body. Both OFL, Fontsource, in engine/fonts/.
+- Ideas: the mission as a pull quote before the programs; programs as a numbered two-column list; a "How you can help" band with three cards (Give on blue, Volunteer, Need help) whose donate and volunteer buttons link out with an arrow and "Opens {their domain}"; pantry hours on a stamp over the hero photo.
+- Spec: engine/samples/harvest-table-pantry.json. Photos in engine/samples/img/ (credits there and in the sample's img/CREDITS.txt).
+
+### Maya Okafor (coach and speaker, rendered by the engine)
+- Feel: editorial and confident, personal without being cute. The person is the brand.
+- Palette: near-black #19171C (main), warm white #FAF8F5 (bg), lilac mist #ECE6F4 (talks band), lavender #C9B8EC (accent: the offset block behind the portrait, the monogram, buttons on dark), violet text #5B3E96 (labels, 7.7:1 on bg).
+- Type: Bricolage Grotesque 700 for headings (tight tracking), Hanken Grotesk for body. Both OFL, Fontsource.
+- Ideas: name as the wordmark with the role underneath and a lavender monogram dot; a portrait with an offset lavender block; credentials in one dark line; offers as wide rows; talks as white cards on lilac; the book with a drawn cover (title, author, a lavender disc) when there is no cover image; booking buttons link out.
+- One photo of the person only. A second photo must be the same person, or leave the About section text-only (as here).
+- Spec: engine/samples/maya-okafor.json.
+
 ### Harbor Street Auto (auto repair)
 - Feel: direct, shop-floor, high contrast.
 - Palette: asphalt #121417, steel #23272D, concrete #E9E9E6, signal yellow #F3C316 (on dark only, or as a background with dark text).
@@ -92,14 +107,22 @@ Each sample has its own identity. No orange in any sample. Shared rules: ribbon 
 
 ## Preview themes (engine/templates/, B-0002)
 
-The free homepage previews start from one of three themes, each built from the matching sample so a preview is at the sample's standard. Same rules as the samples: no orange, the concept note at the very top ("Concept for {business} by Tangerines Studio. Not the official website."), a disabled form with a note, a call bar on phones under 760px, noindex. Palette tokens are per theme and can be overridden per business with palette in the spec; set them from the business's own logo when it has a clear brand color.
+The free homepage previews start from one of five themes (three trades, nonprofit and personal since 12 Nov 2026), each built from the matching sample so a preview is at the sample's standard. Same rules as the samples: no orange, the concept note at the very top ("Concept for {business} by Tangerines Studio. Not the official website."), a disabled form with a note, a call bar on phones under 760px, noindex. Palette tokens are per theme and can be overridden per business with palette in the spec; set them from the business's own logo when it has a clear brand color.
 
 | Theme | From sample | Default tokens | Type | With no photo | With no logo |
 | --- | --- | --- | --- | --- | --- |
 | home | Juniper Ridge | main #18352B, tint #DCEBF0, accent #8CC3D6, bg #F7F8F5 | Archivo, condensed 800 headings | Full-width main-color hero, headline over 7 columns, a "Call us" panel with the phone and hours on the right, a faint roofline drawing along the bottom | Rounded initials tile with an accent base line, name in two lines (trade words on the small second line) |
 | wellness | Northline | main #1D2B30, tint #E4E9E6, accent_text #466760, bg #F4F1EC | Newsreader headings, Figtree body | An arch-shaped tint panel in place of the arched photo, with "Call to book", the phone and hours | The thin vertical north line mark and the name in serif with the trade in small caps |
 | auto | Harbor Street | main #121417, main2 #1E2227, accent #F3C316, bg #F6F6F4 | Barlow Condensed uppercase headings, Barlow body | Dark hero with the initials as a huge outlined letterform, a shop ticket with the phone and hours, and a yellow hazard stripe along the bottom | Yellow initials tag and the name in condensed caps; a logo sits on a small white plate on the dark header |
+| nonprofit | Harvest Table | main #213B63, tint #F1E8D8, accent #A7D8C9, accent_text #2B5D52, bg #FCF9F3 | Fraunces headings, Public Sans body | Wheat hero with the mission-style headline across the page, then three columns under a blue rule: Give (donate link), Volunteer (volunteer link), hours or contact | A blue seal (two rings, initials in Fraunces) and the name in two lines |
+| personal | Maya Okafor | main #19171C, tint #ECE6F4, accent #C9B8EC, accent_text #5B3E96, bg #FAF8F5 | Bricolage Grotesque headings, Hanken Grotesk body | Dark hero with the headline in white, the initials as a huge outlined letterform, and a credentials list on the right | A lavender monogram dot and the person's full name, with their role on the second line |
 
-Section order: hero, facts strip (only from the business's own claims), services, reviews (only when quoted from their site, with "Quoted word for word from ..."), about, hours and area or location, contact with the disabled form, footer saying where the content came from. Services lay out in 3 columns (2 when there are exactly 4). Long headlines step down in size automatically (over 52 and over 80 characters).
+Section order for nonprofit: hero (donate and volunteer buttons, both linking out), facts strip on blue (only what the organization states), mission and about, programs, How you can help, quotes (only from their site), hours and location, contact with the disabled form, footer (with their registration line if they state one).
+
+Section order for personal: hero (booking button linking out, then See talks), credentials line on dark, ways to work together, talks, book, about, quotes, contact (booking button plus the disabled form), footer.
+
+Both new themes keep the shared rules: concept note, disabled form, call bar on phones (Donate and Volunteer, or Book and Email), noindex, no orange. Link-out buttons carry a small arrow, and the help cards say which site they open.
+
+Section order for the three trade themes: hero, facts strip (only from the business's own claims), services, reviews (only when quoted from their site, with "Quoted word for word from ..."), about, hours and area or location, contact with the disabled form, footer saying where the content came from. Services lay out in 3 columns (2 when there are exactly 4). Long headlines step down in size automatically (over 52 and over 80 characters).
 
 Per-business identity comes from the hand pass: palette from their logo, their own kicker and section titles, image crops, and a refine.css beside the page for a signature detail. Never ship a theme's defaults unchanged when the business has a brand color of its own.

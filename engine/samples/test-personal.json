@@ -1,0 +1,19 @@
+{
+  "slug": "test-personal-jordan-lee",
+  "fictional": true,
+  "business_name": "Jordan Lee",
+  "role": "Career coach",
+  "niche_palette": "personal",
+  "email": "hello@example.com",
+  "hero_title": "Find work that fits the life you want.",
+  "hero_sub": "Career coaching for mid-career professionals planning their next move.",
+  "credentials": ["Certified career coach", "Former recruiter"],
+  "services": [
+    {"name": "Career clarity", "text": "Four sessions to decide what you want next."},
+    {"name": "Job search coaching", "text": "Resume, interviews and offers, one step at a time."},
+    {"name": "Group workshops", "text": "Workshops for teams and alumni groups."}
+  ],
+  "about": ["Jordan worked in recruiting before coaching, so the advice comes from the hiring side of the table."],
+  "booking_url": "https://example.com/book",
+  "sources": ["Fictional test person for the Tangerines Studio preview engine"]
+}

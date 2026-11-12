@@ -10,14 +10,14 @@ Read this file in full before any work. It is binding.
 | --- | --- |
 | public/ | Everything Vercel serves |
 | public/index.html, public/img/, public/fonts/ | The studio site (screenshots of the samples in public/img/work/) |
-| public/work/{slug}/ | Sample sites for fictional businesses (photos in img/) |
+| public/work/{slug}/ | Sample sites for fictional businesses, organizations and people (photos in img/) |
 | public/preview/{slug}/ | Free homepage previews for real businesses |
 | public/review/{name}/ | Review copies of studio-site changes waiting for Elton's approval |
 | public/clients/{slug}/ | Paying clients' sites, built from clients/{slug}/ (see Client sites). Never edit by hand |
 | clients/{slug}/ | Each client's content: site.json, img/, refine.css |
 | api/ | Vercel Functions: request.js (studio request form), contact.js (client contact forms), _lib/mail.js |
 | engine/ | Preview builder: render_concept.py, check_preview.py, templates/ (themes), fonts/, samples/ (specs and test images) |
-| tools/render_emails.py | Used by the operations run for outreach email. Don't change it. |
+| tools/render_emails.py | Used by the operations run for outreach email. Don't change it unless a job says so (12 Nov 2026: niche-aware step 1 wording for nonprofits, coaches and speakers). |
 | vercel.json | Output directory, headers, rewrites |
 | DESIGN.md | Design decisions for the studio site and each sample. Read it before visual work |
 
@@ -43,7 +43,7 @@ Read this file in full before any work. It is binding.
 
 ## Truth rules (previews and client sites)
 
-1. Every fact on the page comes from the business's own website or from what the client sent: services, years, areas, hours, phone, email, address, team names, credentials.
+1. Every fact on the page comes from the business's (or nonprofit's, or person's) own website or from what the client sent: services or programs, years, areas, hours, phone, email, address, team names, credentials, talks, books, and the donate, volunteer or booking pages they link to.
 2. Reviews and testimonials appear only when quoted word for word from the business's own site, with the name as shown there and a note saying where they were quoted from. Never write, shorten or improve a review.
 3. Images come only from the business's own site or from files the client sent. They're downloaded at build time and served from the page's img/ folder. If their site refuses a request, leave that image out and never work around the refusal. Stock photos only when a client asks for them in writing, and only free-license ones (Unsplash free license, not Unsplash+).
 4. Previews carry a visible note at the very top: "Concept for {business} by Tangerines Studio. Not the official website." They have no live forms (a disabled form with a note is fine), a noindex meta tag, and the noindex header for /preview/.
@@ -54,9 +54,11 @@ Read this file in full before any work. It is binding.
 
 `python3 engine/render_concept.py <spec.json> [out_dir]` writes `<out_dir>/<slug>/index.html` plus `img/` and `fonts/`. out_dir defaults to public/preview. It prints the page path, and exits non-zero with "Spec not valid: ..." on a bad spec. Needs Python 3 and `pip install --break-system-packages jinja2 pillow requests`.
 
-The spec format is engine/samples/juniper-ridge.json. Required: business_name, niche_palette (home, wellness or auto) or palette, hero_title, hero_sub, services (3 or more, each {name, text}), about (paragraphs), sources (pages used). Optional: slug, city, phone, email, address, facts, services_title, services_intro, about_title, hours (each {days, time}), service_area, logo_url, hero_image_url, hero_image_alt, reviews (each {quote, name}) with reviews_source.
+The spec format is engine/samples/juniper-ridge.json. Required: business_name, niche_palette (home, wellness, auto, nonprofit or personal) or palette, hero_title, hero_sub, services (3 or more, each {name, text}), about (paragraphs), sources (pages used). Optional: slug, city, phone, email, address, facts, services_title, services_intro, about_title, hours (each {days, time}), service_area, logo_url, hero_image_url, hero_image_alt, reviews (each {quote, name}) with reviews_source.
 
-Optional fields added in B-0002 (all safe to leave out): theme (home, wellness or auto; defaults to niche_palette), palette (theme tokens main, main2, tint, accent, accent_text, bg, ink, ink2, line, deep; the old primary, accent and surface keys still work), kicker (the small line above the headline; defaults to city), wordmark ([main, sub] to override how the name is split), initials, about_image_url and about_image_alt, hero_image_position (CSS object-position), cta_label, contact_title, contact_text, hours_note, reviews_title, website, image_credits (lines written to img/CREDITS.txt), fictional (true adds "A fictional business" to the top note; only for samples and tests).
+Optional fields added in B-0002 (all safe to leave out): theme (home, wellness, auto, nonprofit or personal; defaults to niche_palette), palette (theme tokens main, main2, tint, accent, accent_text, bg, ink, ink2, line, deep; the old primary, accent and surface keys still work), kicker (the small line above the headline; defaults to city), wordmark ([main, sub] to override how the name is split), initials, about_image_url and about_image_alt, hero_image_position (CSS object-position), cta_label, contact_title, contact_text, hours_note, reviews_title, website, image_credits (lines written to img/CREDITS.txt), fictional (true adds "A fictional business" to the top note; only for tests).
+
+Optional fields added 12 Nov 2026 for the nonprofit and personal themes (all safe to leave out; links must start with http and always point to the page the organization or person already uses, so nothing is collected on our pages): services_nav and services_label (the nav label and small label for the services list, default "Programs" on nonprofit and "Work with me" on personal), mission, donate_url, donate_label, donate_title, donate_text, donate_note, volunteer_url, volunteer_label, volunteer_title, volunteer_text, help_title, help_intro, ask_title, ask_text, hours_title, registration (a line for the footer, such as their 501(c)(3) statement, only when they state it), role (a person's role, the second line of their wordmark), credentials (list), talks (each {name, text, kind}), talks_title, talks_intro, talks_label, talks_cta, book ({title, subtitle, text, url, url_label, author, label}), book_image_url (a cover, 300px wide or more), booking_url, booking_label. A personal spec may give booking_url instead of a phone or email. sample (true renders the sample ribbon instead of the concept note, for public/work/ only) with sample_kind ("business", "organization" or "person").
 
 Image URLs can be web addresses (downloaded at render time; a 401, 403 or 429 is a refusal and the image is dropped, never retried another way) or paths relative to the spec file (for files a client sent). Photos are saved as hero-/about- 640, 1000 and 1600 WebP; logos as PNG (trimmed, 200px tall) or a script-free SVG. The renderer warns on stderr when a custom palette fails contrast (white on main or ink on bg under 4.5:1).
 
@@ -64,7 +66,7 @@ Keep this command and these fields working, with any new fields optional, so a p
 
 ### Themes
 
-engine/templates/home.html.j2, wellness.html.j2 and auto.html.j2 (shared parts in _base.html.j2 and _macros.html.j2), each drawn from the matching sample in public/work/. Fonts are copied from engine/fonts/ into each preview's fonts/ folder (OFL, from Fontsource). Every theme has a photo layout and a type-led layout for when there is no usable hero photo, and sets the name as a wordmark (a small theme mark plus the name in two lines) when there is no usable logo. Design details are in DESIGN.md under "Preview themes".
+engine/templates/home.html.j2, wellness.html.j2, auto.html.j2, nonprofit.html.j2 and personal.html.j2 (shared parts in _base.html.j2 and _macros.html.j2), each drawn from the matching sample in public/work/. The nonprofit and personal samples are rendered by the engine itself from engine/samples/harvest-table-pantry.json and maya-okafor.json with "sample": true; re-render them after a theme change. The two themes also work for client sites (build_client.py): extra section types "help" (nonprofit) and "talks" and "book" (personal). Fonts are copied from engine/fonts/ into each preview's fonts/ folder (OFL, from Fontsource). Every theme has a photo layout and a type-led layout for when there is no usable hero photo, and sets the name as a wordmark (a small theme mark plus the name in two lines) when there is no usable logo. Design details are in DESIGN.md under "Preview themes".
 
 ### Check command
 
@@ -105,20 +107,22 @@ How a client site is made:
 ## Business facts (the only source for studio copy)
 
 - Tangerines Studio designs and builds websites for US local service businesses: home services (HVAC, plumbing, roofing, landscaping and lawn care, house cleaning), wellness practices (chiropractic, physical therapy, massage) and auto repair (general repair, transmission, brakes, body shops). Owner-run, single-location businesses.
+- Since 12 Nov 2026 (Pep's decision), also for small US nonprofits, and for coaches and speakers. Same offer, prices and policies. Nonprofit sites show the mission, programs and the facts the organization states itself, with donate and volunteer buttons. Coach and speaker sites show what the person offers, credentials, talks or topics, a book if they have one, and a booking or contact button.
 - Run by Elton Aclao. New projects: elton@tangerinesstudio.com. Client support: support@tangerinesstudio.com. Mailing address: 30 N Gould St, STE R, Sheridan, WY 82801, USA.
 - The new homepage comes first and is free, ready within a day, built from the business's own logo, photos and services. No calls: everything is by email, so every answer and price is in writing.
 - One-page site $297. Full site, up to 5 pages, $497 (launch price for the first 10 clients). The full site is ready for review within 3 business days of getting the client's content.
 - Care plan after launch: $49 a month or $490 a year for hosting, security and small edits by email, done within 2 business days. Cancel anytime and keep the site files.
 - Refunds: the homepage preview is free. Once the finished site has been handed over, payments are non-refundable. Care plan payments aren't refunded, but the plan can be cancelled anytime with no further charges.
 - Payment by card through Stripe. The client's domain and email stay theirs; only the website records change at launch.
-- Out of scope: online stores, booking systems, member logins, more than 5 pages.
+- Up to 5 pages still. Donate, booking and course buttons link out to the service the client already uses (their donation page, scheduling tool or course platform); we never build or host those.
+- Out of scope: online stores, booking systems, course platforms, member logins, more than 5 pages.
 
 ## Content rules (every page in this repo)
 
 - Plain English, short sentences. No em dashes or en dashes in any copy. No exclamation marks.
 - Don't pitch AI on any site. Elton: "These days, nobody likes AI does everything."
 - The studio is new. Never invent testimonials, reviews, ratings, client logos, client counts, stats, awards, years in business, team size or results for the studio. Trust comes from the work, the process, the prices and the guarantees.
-- Sample sites are for fictional businesses and say so in a ribbon at the top. Use 555 phone numbers and example.com addresses.
+- Sample sites are for fictional businesses, organizations or people and say so in a ribbon at the top. Use 555 phone numbers and example.com addresses (and example.com for donate, volunteer and booking links).
 - Prices, timings and policies exactly as above. Changing them is Elton's call.
 - Never mention any other company or brand of Elton's on any site.
 - Record where every stock photo came from in img/CREDITS.txt next to it.

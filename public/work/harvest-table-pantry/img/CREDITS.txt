@@ -1,0 +1,3 @@
+Photos: Unsplash, free Unsplash License (not Unsplash+). Sample site for a fictional organization.
+hero-*.webp: https://unsplash.com/photos/Aht3ID0ich8
+about-*.webp: https://unsplash.com/photos/liOAS02GnfY

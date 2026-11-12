@@ -1,0 +1,59 @@
+{
+  "slug": "harvest-table-pantry",
+  "sample": true,
+  "sample_kind": "organization",
+  "business_name": "Harvest Table Community Pantry",
+  "wordmark": ["Harvest Table", "Community Pantry"],
+  "initials": "HT",
+  "city": "Millbrook",
+  "niche_palette": "nonprofit",
+  "hero_image_url": "img/pantry-volunteers.jpg",
+  "hero_image_alt": "Three volunteers in the pantry kitchen, one carrying green crates of food",
+  "hero_image_position": "50% 35%",
+  "about_image_url": "img/pantry-shelves.jpg",
+  "about_image_alt": "Pantry shelves stocked with canned goods, pasta and rice, each shelf labeled",
+  "phone": "(555) 017-2240",
+  "email": "hello@example.com",
+  "address": "48 Mill Street, Millbrook",
+  "kicker": "A neighborhood food pantry in Millbrook",
+  "hero_title": "Good food for every table in Millbrook.",
+  "hero_sub": "Free groceries three days a week, with no paperwork and no questions about why. Run by neighbors, for neighbors.",
+  "facts": ["Volunteer-run since 2009", "Open three days a week", "No paperwork to shop", "Fresh produce every week"],
+  "mission": "No one in Millbrook should have to choose between groceries and the electric bill.",
+  "about_title": "Neighbors feeding neighbors",
+  "about": [
+    "Harvest Table started in a church basement in 2009 with two shelves of canned goods. Today it is a small grocery-style pantry where families choose their own food.",
+    "Volunteers and local donors stock every shelf. Most of the food comes from area farms, grocery stores and community food drives."
+  ],
+  "services_label": "What we do",
+  "services_title": "Our programs",
+  "services_intro": "Every program is free. If you are not sure which one fits, ask at the front desk.",
+  "services": [
+    {"name": "Weekly pantry", "text": "Choose your own groceries on Tuesdays, Thursdays and Saturdays, like a small grocery store."},
+    {"name": "Weekend backpacks", "text": "Kid-friendly food sent home from two Millbrook elementary schools every Friday."},
+    {"name": "Senior delivery", "text": "Groceries brought to the door for neighbors over 65 who cannot get out."},
+    {"name": "Garden share", "text": "Fresh vegetables from our community garden, June through October."}
+  ],
+  "donate_url": "https://example.com/donate",
+  "donate_text": "Your gift buys food from our regional food bank and keeps the lights on at the pantry.",
+  "volunteer_url": "https://example.com/volunteer",
+  "volunteer_text": "Sort donations, stock shelves or drive a senior delivery route. Shifts are two hours.",
+  "ask_title": "Need groceries?",
+  "ask_text": "Just come in during open hours. If you cannot get here, call and ask about senior delivery.",
+  "cta_label": "Call or write to us",
+  "hours_title": "Pantry hours",
+  "hours": [
+    {"days": "Tuesday", "time": "3pm to 7pm"},
+    {"days": "Thursday", "time": "3pm to 7pm"},
+    {"days": "Saturday", "time": "9am to noon"}
+  ],
+  "contact_title": "Contact the pantry",
+  "contact_text": "Questions about programs, donations or volunteering. We answer within two days.",
+  "registration": "A 501(c)(3) nonprofit",
+  "image_credits": [
+    "Photos: Unsplash, free Unsplash License (not Unsplash+). Sample site for a fictional organization.",
+    "hero-*.webp: https://unsplash.com/photos/Aht3ID0ich8",
+    "about-*.webp: https://unsplash.com/photos/liOAS02GnfY"
+  ],
+  "sources": ["Fictional organization: a Tangerines Studio sample site"]
+}

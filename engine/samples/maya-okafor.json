@@ -1,0 +1,53 @@
+{
+  "slug": "maya-okafor",
+  "sample": true,
+  "sample_kind": "person",
+  "business_name": "Maya Okafor",
+  "role": "Leadership coach and speaker",
+  "niche_palette": "personal",
+  "hero_image_url": "img/coach-portrait.jpg",
+  "hero_image_alt": "Maya Okafor smiling with her arms crossed in front of a whiteboard",
+  "hero_image_position": "68% 30%",
+  "email": "hello@example.com",
+  "kicker": "Leadership coach and speaker",
+  "hero_title": "Lead calmer teams without working longer hours.",
+  "hero_sub": "I coach new managers and small-business owners through the first hard years of leading people. One-on-one coaching, team workshops and keynote talks.",
+  "credentials": ["Certified professional coach", "12 years leading hospital teams", "Author of The Quiet Manager"],
+  "services_label": "Work with me",
+  "services_title": "Three ways to work together",
+  "services_intro": "Every engagement starts with a free 20-minute call, so we can both see if it is a fit.",
+  "services": [
+    {"name": "One-on-one coaching", "text": "Twelve sessions over six months, by video, with short notes after each one."},
+    {"name": "Team workshops", "text": "Half-day sessions on feedback, delegation and running meetings people want to attend."},
+    {"name": "Keynote talks", "text": "Talks for conferences and company events, from 30 to 60 minutes."}
+  ],
+  "talks_title": "Talks and topics",
+  "talks_intro": "Each talk can be a keynote or a hands-on workshop.",
+  "talks": [
+    {"kind": "Keynote", "name": "The quiet manager", "text": "Why the calmest person in the room usually leads it, and how to become that person."},
+    {"kind": "Workshop", "name": "Feedback that lands", "text": "A simple way to say the hard thing early, kindly and once."},
+    {"kind": "Keynote", "name": "Small teams, big weeks", "text": "How owner-led teams get through their busiest season without burning out."},
+    {"kind": "Workshop", "name": "Meetings worth having", "text": "Cut meeting time in half without losing the decisions."}
+  ],
+  "book": {
+    "title": "The Quiet Manager",
+    "subtitle": "Leading people without the noise",
+    "text": ["A short, practical book for first-time managers, built from the questions clients bring to coaching.", "Each chapter ends with one thing to try on Monday."],
+    "url": "https://example.com/the-quiet-manager",
+    "url_label": "Get the book"
+  },
+  "about_title": "Hi, I'm Maya",
+  "about": [
+    "I spent twelve years managing nursing teams before I started coaching. The hardest part of that job was never the medicine. It was the people work no one trained me for.",
+    "Now I help new leaders learn it faster than I did. I work with managers at small companies, clinics and nonprofits across the US, all by video."
+  ],
+  "booking_url": "https://example.com/book-a-call",
+  "booking_label": "Book a free intro call",
+  "contact_title": "Let's talk",
+  "contact_text": "Book a free intro call, or send a note about coaching, a workshop or a talk.",
+  "image_credits": [
+    "Photo: Unsplash, free Unsplash License (not Unsplash+). Sample site for a fictional person.",
+    "hero-*.webp: https://unsplash.com/photos/lFntEHwQvi4"
+  ],
+  "sources": ["Fictional person: a Tangerines Studio sample site"]
+}

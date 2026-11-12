@@ -11,6 +11,8 @@ Themes (engine/templates/<theme>.html.j2), picked by "theme" or "niche_palette":
   home      home services. Evergreen and frost, Archivo. Matches /work/juniper-ridge-heating-air/
   wellness  wellness practices. Linen and slate, Newsreader with Figtree. Matches /work/northline-chiropractic/
   auto      auto repair. Asphalt and signal yellow, Barlow. Matches /work/harbor-street-auto/
+  nonprofit small nonprofits. Civic blue on cream, Fraunces with Public Sans. Matches /work/harvest-table-pantry/
+  personal  coaches and speakers. Ink and lavender, Bricolage Grotesque with Hanken Grotesk. Matches /work/maya-okafor/
 Each theme has a photo layout and a type-led layout for when there is no usable photo,
 and sets the business name as a wordmark when there is no usable logo.
 
@@ -54,6 +56,16 @@ THEMES = {
         "accent_text": "#121417", "bg": "#F6F6F4", "ink": "#121417", "ink2": "#4B5058",
         "line": "#C9CAC6", "deep": "#000000", "on_main_muted": "#B4B9C0",
     },
+    "nonprofit": {
+        "main": "#213B63", "main2": "#2C4C7C", "tint": "#F1E8D8", "accent": "#A7D8C9",
+        "accent_text": "#2B5D52", "bg": "#FCF9F3", "ink": "#1C2233", "ink2": "#4C5366",
+        "line": "#DDD3C2", "deep": "#152742", "paper": "#FFFFFF",
+    },
+    "personal": {
+        "main": "#19171C", "main2": "#2A2730", "tint": "#ECE6F4", "accent": "#C9B8EC",
+        "accent_text": "#5B3E96", "bg": "#FAF8F5", "ink": "#19171C", "ink2": "#4E4A55",
+        "line": "#DCD6E2", "deep": "#0F0E11", "on_main_muted": "#B9B3C2",
+    },
 }
 # Older specs gave a palette as primary/accent/surface. Map those onto theme tokens.
 LEGACY_KEYS = {"primary": "main", "accent": "accent", "surface": "tint"}
@@ -61,12 +73,23 @@ FONTS = {
     "home": ["archivo.woff2"],
     "wellness": ["newsreader.woff2", "figtree.woff2"],
     "auto": ["barlow-condensed-700.woff2", "barlow-condensed-600.woff2", "barlow-400.woff2", "barlow-600.woff2"],
+    "nonprofit": ["fraunces.woff2", "public-sans.woff2"],
+    "personal": ["bricolage-grotesque.woff2", "hanken-grotesk.woff2"],
 }
+# The nav label for the services list, per theme. A spec can override it with services_nav.
+THEME_WORDS = {
+    "home": {"services_nav": "Services"},
+    "wellness": {"services_nav": "Services"},
+    "auto": {"services_nav": "Services"},
+    "nonprofit": {"services_nav": "Programs"},
+    "personal": {"services_nav": "Work with me"},
+}
+LINK_KEYS = ("donate_url", "volunteer_url", "booking_url", "website")
 
 ICON_PHONE = '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>'
 
 REQUIRED = ["business_name", "hero_title", "hero_sub", "services", "about", "sources"]
-IMAGE_KEYS = ("logo_url", "hero_image_url", "about_image_url")
+IMAGE_KEYS = ("logo_url", "hero_image_url", "about_image_url", "book_image_url")
 MAX_IMAGE_BYTES = 8_000_000
 WIDTHS = (640, 1000, 1600)
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36"
@@ -147,7 +170,8 @@ def save_image(key: str, data: bytes, img_dir: Path) -> dict:
             im = im.resize((max(1, round(im.width * 200 / im.height)), 200), Image.LANCZOS)
         im.save(img_dir / "logo.png", "PNG", optimize=True)
         return {"src": "img/logo.png", "srcset": "", "width": im.width, "height": im.height}
-    if im.width < 600:
+    min_width = 300 if key == "book_image_url" else 600  # a book cover can be small
+    if im.width < min_width:
         raise RuntimeError(f"too small for a feature photo ({im.width}px wide)")
     im = im.convert("RGB")
     out = []
@@ -285,9 +309,9 @@ def validate(b: dict) -> list:
     problems = [f"missing {k}" for k in REQUIRED if not b.get(k)]
     theme = b.get("theme") or b.get("niche_palette")
     if theme not in THEMES and not b.get("palette"):
-        problems.append("niche_palette must be home, wellness or auto (or give a palette)")
+        problems.append("niche_palette must be home, wellness, auto, nonprofit or personal (or give a palette)")
     if b.get("theme") and b["theme"] not in THEMES:
-        problems.append("theme must be home, wellness or auto")
+        problems.append("theme must be home, wellness, auto, nonprofit or personal")
     services = b.get("services") or []
     if len(services) < 3:
         problems.append("need at least 3 services")
@@ -295,8 +319,16 @@ def validate(b: dict) -> list:
         problems.append("every service needs a name")
     if isinstance(b.get("about"), str):
         b["about"] = [b["about"]]
-    if not (b.get("phone") or b.get("email")):
-        problems.append("need a phone or an email")
+    if not (b.get("phone") or b.get("email") or b.get("booking_url")):
+        problems.append("need a phone, an email or a booking_url")
+    for k in LINK_KEYS:
+        if b.get(k) and not re.match(r"https?://", str(b[k])):
+            problems.append(f"{k} must be a web address starting with http")
+    for k in ("talks",):
+        if any(not (isinstance(t, dict) and t.get("name")) for t in b.get(k) or []):
+            problems.append(f"every item in {k} needs a name")
+    if b.get("book") and not (isinstance(b["book"], dict) and b["book"].get("title")):
+        problems.append("book needs a title")
     for r in b.get("reviews", []) or []:
         if not (r.get("quote") and r.get("name")):
             problems.append("every review needs a verbatim quote and the name shown on their site")
@@ -320,9 +352,13 @@ def prepare(b: dict) -> tuple:
     for w in palette_warnings(p, theme):
         print("warning: " + w, file=sys.stderr)
     b["phone_digits"] = phone_digits(b.get("phone", ""))
+    words = THEME_WORDS[theme]
+    b["services_nav"] = b.get("services_nav") or words["services_nav"]
     wm = b.get("wordmark")
     if isinstance(wm, list) and wm:
         b["wm_main"], b["wm_sub"] = wm[0], (wm[1] if len(wm) > 1 else "")
+    elif theme == "personal":  # a person's name stays whole; their role goes on the second line
+        b["wm_main"], b["wm_sub"] = b["business_name"], b.get("role", "")
     else:
         b["wm_main"], b["wm_sub"] = split_name(b["business_name"])
     b["initials"] = b.get("initials") or initials(b["business_name"])
@@ -332,6 +368,9 @@ def prepare(b: dict) -> tuple:
     b["service_area"] = [x for x in b.get("service_area") or [] if x]
     b["hours"] = b.get("hours") or []
     b["reviews"] = (b.get("reviews") or [])[:6]
+    b["credentials"] = [x for x in b.get("credentials") or [] if x][:6]
+    b["talks"] = (b.get("talks") or [])[:8]
+    b["book"] = b.get("book") or None
     n = len(b["services"])
     b["svc_cols"] = 2 if n in (4,) else 3
     b["title_size"] = "long" if len(b["hero_title"]) > 80 else ("mid" if len(b["hero_title"]) > 52 else "short")
@@ -344,8 +383,15 @@ def prepare(b: dict) -> tuple:
 
 
 def one_page_nav(b: dict) -> list:
-    nav = [{"label": "Services", "href": "#services"}, {"label": "About", "href": "#about"}]
-    if b["hours"] or b.get("address") or b["service_area"]:
+    nav = [{"label": b.get("services_nav") or "Services", "href": "#services"}]
+    if b.get("talks"):
+        nav.append({"label": b.get("talks_nav") or "Talks", "href": "#talks"})
+    if b.get("book"):
+        nav.append({"label": "Book", "href": "#book"})
+    nav.append({"label": "About", "href": "#about"})
+    if b.get("donate_url") or b.get("volunteer_url"):
+        nav.append({"label": "Get involved", "href": "#help"})
+    if (b["hours"] or b.get("address") or b["service_area"]) and len(nav) < 5:
         nav.append({"label": b["visit_label"], "href": "#visit"})
     nav.append({"label": "Contact", "href": "#contact"})
     return nav
@@ -398,7 +444,8 @@ def render(spec_path: str, out_dir: str) -> Path:
         print(note, file=sys.stderr)
     write_credits(b, page_dir)
     refine = page_dir / "refine.css"
-    html = render_html(environment(), theme, b=b, p=p, mode="preview", nav=one_page_nav(b),
+    mode = "sample" if b.get("sample") else "preview"  # sample: a fictional site for /work/, with the sample ribbon
+    html = render_html(environment(), theme, b=b, p=p, mode=mode, nav=one_page_nav(b),
                        refine_css=refine.read_text() if refine.is_file() else "")
     (page_dir / "index.html").write_text(html)
     return page_dir / "index.html"

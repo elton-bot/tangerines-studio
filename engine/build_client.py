@@ -146,7 +146,7 @@ def build(site_path: str, out_dir: str) -> list:
         home = root or "./"
         nav = []
         if "services" not in by_slug:
-            nav.append({"label": "Services", "href": f"{root}#services" if root else "#services"})
+            nav.append({"label": b.get("services_nav") or "Services", "href": f"{root}#services" if root else "#services"})
         for pg in pages:
             if pg["slug"] == "contact":
                 continue
